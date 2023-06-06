@@ -1,0 +1,13 @@
+*._*
+.DS_Store
+cache*
+debian/*.img
+debian/*.img.xz
+debian/rootfs
+dtb/linux-*
+dtb/*.dt?
+dtb/*.dtsi
+uboot/u-boot
+uboot/idbloader*.img
+uboot/u-boot*.itb
+uboot/u-boot-rockchip*.bin
