@@ -6,9 +6,9 @@ set -e
 #   1: missing utility
 #   5: invalid file hash
 
-main() {
-    local linux='https://git.kernel.org/torvalds/t/linux-6.4-rc5.tar.gz'
-    local lxsha='8ed3d400b8285217da95d3f6b535901a247a8cac8a910f50a9763d78ebe7b5c6'
+main() {\
+    local linux='https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.3.7.tar.xz'
+    local lxsha='fe369743996c522a7b473e99dcf8f88847bd5cc88546fd3b7a41d9fe5a5b97a9'
 
     local lf=$(basename $linux)
     local lv=$(echo $lf | sed -nE 's/linux-(.*)\.tar\..z/\1/p')
@@ -30,16 +30,19 @@ main() {
     fi
 
     local rkpath=linux-$lv/arch/arm64/boot/dts/rockchip
+    local rkfl='rk3588-rock-5b.dts rk3588.dtsi rk3588s.dtsi rk3588-pinctrl.dtsi rockchip-pinconf.dtsi'
     if [ ! -d "linux-$lv" ]; then
         tar xavf $lf linux-$lv/include/dt-bindings linux-$lv/include/uapi $rkpath
+
+        for rkf in $rkfl; do
+            get_for_next $rkpath/$rkf
+        done
     fi
 
     if [ _links = _$1 ]; then
-        ln -sfv $rkpath/rockchip-pinconf.dtsi
-        ln -sfv $rkpath/rk3588-pinctrl.dtsi
-        ln -sfv $rkpath/rk3588s.dtsi
-        ln -sfv $rkpath/rk3588.dtsi
-        ln -sfv $rkpath/rk3588-rock-5b.dts
+        for rkf in $rkfl; do
+            ln -sfv $rkpath/$rkf
+        done
         echo '\nlinks created\n'
         exit 0
     fi
@@ -49,6 +52,13 @@ main() {
     gcc -I linux-$lv/include -E -nostdinc -undef -D__DTS__ -x assembler-with-cpp -o ${dt}-top.dts $rkpath/${dt}.dts
     dtc -@ -I dts -O dtb -o ${dt}.dtb ${dt}-top.dts
     echo "\n${cya}device tree ready: ${dt}.dtb${rst}\n"
+}
+
+get_for_next() {
+    local filepath=$1
+    local file=$(basename $filepath)
+    local url=https://git.kernel.org/pub/scm/linux/kernel/git/mmind/linux-rockchip.git/plain/arch/arm64/boot/dts/rockchip/$file?h=for-next
+    wget -O $filepath $url
 }
 
 check_installed() {
