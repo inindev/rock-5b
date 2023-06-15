@@ -3,7 +3,7 @@
 
 This Debian ARM64 Linux image is built directly from official packages using the Debian [Debootstrap](https://wiki.debian.org/Debootstrap) utility, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L105
 
-Most patches are directly available from the Debian repos using the built-in ```apt``` package manager, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L343
+Most patches are directly available from the Debian repos using the built-in ```apt``` package manager, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L339
 
 <br/>
 
