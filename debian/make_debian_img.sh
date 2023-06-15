@@ -99,7 +99,7 @@ main() {
     print_hdr "installing root filesystem from debian.org"
     mkdir "$mountpt/etc"
     echo 'link_in_boot = 1' > "$mountpt/etc/kernel-img.conf"
-    local pkgs="linux-image-arm64, dbus, dhcpcd5, libpam-systemd, openssh-server, systemd-timesyncd"
+    local pkgs="initramfs-tools, dbus, dhcpcd5, libpam-systemd, openssh-server, systemd-timesyncd"
     pkgs="$pkgs, wireless-regdb, wpasupplicant"
     pkgs="$pkgs, $extra_pkgs"
     debootstrap --arch arm64 --include "$pkgs" --exclude "isc-dhcp-client" "$deb_dist" "$mountpt" 'https://deb.debian.org/debian/'
