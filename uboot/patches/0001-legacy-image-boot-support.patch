@@ -1,7 +1,7 @@
 From ff37cea21d4e944ed8ab8d073e974d0c3d4f61e2 Mon Sep 17 00:00:00 2001
 From: John Clark <inindev@gmail.com>
 Date: Mon, 5 Jun 2023 19:37:24 -0400
-Subject: [PATCH 1/2] board: rockchip: radxa rock-5b support
+Subject: [PATCH 1/2] legacy image boot support
 
 Signed-off-by: John Clark <inindev@gmail.com>
 ---
