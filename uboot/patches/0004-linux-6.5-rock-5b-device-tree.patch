@@ -1,0 +1,1147 @@
+From ce9e1afee5937afd51d456f005aa2720ebd6f874 Mon Sep 17 00:00:00 2001
+From: John Clark <inindev@gmail.com>
+Date: Wed, 14 Jun 2023 14:09:36 -0400
+Subject: [PATCH 4/4] linux 6.5 rock-5b device tree
+
+Signed-off-by: John Clark <inindev@gmail.com>
+---
+ arch/arm/dts/rk3588-rock-5b.dts  | 523 +++++++++++++++++++++++++++++++
+ arch/arm/dts/rk3588.dtsi         |  68 ++++
+ arch/arm/dts/rk3588s-u-boot.dtsi |  12 -
+ arch/arm/dts/rk3588s.dtsi        | 315 ++++++++++++++++++-
+ 4 files changed, 901 insertions(+), 17 deletions(-)
+
+diff --git a/arch/arm/dts/rk3588-rock-5b.dts b/arch/arm/dts/rk3588-rock-5b.dts
+index 95805cb0ad..afda976680 100644
+--- a/arch/arm/dts/rk3588-rock-5b.dts
++++ b/arch/arm/dts/rk3588-rock-5b.dts
+@@ -2,6 +2,7 @@
+ 
+ /dts-v1/;
+ 
++#include <dt-bindings/gpio/gpio.h>
+ #include "rk3588.dtsi"
+ 
+ / {
+@@ -17,6 +18,31 @@
+ 		stdout-path = "serial2:1500000n8";
+ 	};
+ 
++	fan: pwm-fan {
++		compatible = "pwm-fan";
++		cooling-levels = <0 95 145 195 255>;
++		fan-supply = <&vcc5v0_sys>;
++		pwms = <&pwm1 0 50000 0>;
++		#cooling-cells = <2>;
++	};
++
++	sound {
++		compatible = "audio-graph-card";
++		label = "Analog";
++
++		widgets = "Microphone", "Mic Jack",
++			  "Headphone", "Headphones";
++
++		routing = "MIC2", "Mic Jack",
++			  "Headphones", "HPOL",
++			  "Headphones", "HPOR";
++
++		dais = <&i2s0_8ch_p0>;
++		hp-det-gpio = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&hp_detect>;
++	};
++
+ 	vcc5v0_sys: vcc5v0-sys-regulator {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc5v0_sys";
+@@ -25,6 +51,165 @@
+ 		regulator-min-microvolt = <5000000>;
+ 		regulator-max-microvolt = <5000000>;
+ 	};
++
++	vcc_1v1_nldo_s3: vcc-1v1-nldo-s3-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc_1v1_nldo_s3";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <1100000>;
++		regulator-max-microvolt = <1100000>;
++		vin-supply = <&vcc5v0_sys>;
++	};
++};
++
++&cpu_b0 {
++	cpu-supply = <&vdd_cpu_big0_s0>;
++};
++
++&cpu_b1 {
++	cpu-supply = <&vdd_cpu_big0_s0>;
++};
++
++&cpu_b2 {
++	cpu-supply = <&vdd_cpu_big1_s0>;
++};
++
++&cpu_b3 {
++	cpu-supply = <&vdd_cpu_big1_s0>;
++};
++
++&cpu_l0 {
++	cpu-supply = <&vdd_cpu_lit_s0>;
++};
++
++&cpu_l1 {
++	cpu-supply = <&vdd_cpu_lit_s0>;
++};
++
++&cpu_l2 {
++	cpu-supply = <&vdd_cpu_lit_s0>;
++};
++
++&cpu_l3 {
++	cpu-supply = <&vdd_cpu_lit_s0>;
++};
++
++&i2c0 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2c0m2_xfer>;
++	status = "okay";
++
++	vdd_cpu_big0_s0: regulator@42 {
++		compatible = "rockchip,rk8602";
++		reg = <0x42>;
++		fcs,suspend-voltage-selector = <1>;
++		regulator-name = "vdd_cpu_big0_s0";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <550000>;
++		regulator-max-microvolt = <1050000>;
++		regulator-ramp-delay = <2300>;
++		vin-supply = <&vcc5v0_sys>;
++
++		regulator-state-mem {
++			regulator-off-in-suspend;
++		};
++	};
++
++	vdd_cpu_big1_s0: regulator@43 {
++		compatible = "rockchip,rk8603", "rockchip,rk8602";
++		reg = <0x43>;
++		fcs,suspend-voltage-selector = <1>;
++		regulator-name = "vdd_cpu_big1_s0";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <550000>;
++		regulator-max-microvolt = <1050000>;
++		regulator-ramp-delay = <2300>;
++		vin-supply = <&vcc5v0_sys>;
++
++		regulator-state-mem {
++			regulator-off-in-suspend;
++		};
++	};
++};
++
++&i2c6 {
++	status = "okay";
++
++	hym8563: rtc@51 {
++		compatible = "haoyu,hym8563";
++		reg = <0x51>;
++		#clock-cells = <0>;
++		clock-output-names = "hym8563";
++		pinctrl-names = "default";
++		pinctrl-0 = <&hym8563_int>;
++		interrupt-parent = <&gpio0>;
++		interrupts = <RK_PB0 IRQ_TYPE_LEVEL_LOW>;
++		wakeup-source;
++	};
++};
++
++&i2c7 {
++	status = "okay";
++
++	es8316: audio-codec@11 {
++		compatible = "everest,es8316";
++		reg = <0x11>;
++		clocks = <&cru I2S0_8CH_MCLKOUT>;
++		clock-names = "mclk";
++		assigned-clocks = <&cru I2S0_8CH_MCLKOUT>;
++		assigned-clock-rates = <12288000>;
++		#sound-dai-cells = <0>;
++
++		port {
++			es8316_p0_0: endpoint {
++				remote-endpoint = <&i2s0_8ch_p0_0>;
++			};
++		};
++	};
++};
++
++&i2s0_8ch {
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2s0_lrck
++		     &i2s0_mclk
++		     &i2s0_sclk
++		     &i2s0_sdi0
++		     &i2s0_sdo0>;
++	status = "okay";
++
++	i2s0_8ch_p0: port {
++		i2s0_8ch_p0_0: endpoint {
++			dai-format = "i2s";
++			mclk-fs = <256>;
++			remote-endpoint = <&es8316_p0_0>;
++		};
++	};
++};
++
++&pinctrl {
++	hym8563 {
++		hym8563_int: hym8563-int {
++			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
++	sound {
++		hp_detect: hp-detect {
++			rockchip,pins = <1 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++};
++
++&pwm1 {
++	status = "okay";
++};
++
++&saradc {
++	vref-supply = <&avcc_1v8_s0>;
++	status = "okay";
+ };
+ 
+ &sdhci {
+@@ -38,6 +223,344 @@
+ 	status = "okay";
+ };
+ 
++&sdmmc {
++	max-frequency = <200000000>;
++	no-sdio;
++	no-mmc;
++	bus-width = <4>;
++	cap-mmc-highspeed;
++	cap-sd-highspeed;
++	disable-wp;
++	sd-uhs-sdr104;
++	vmmc-supply = <&vcc_3v3_s3>;
++	vqmmc-supply = <&vccio_sd_s0>;
++	status = "okay";
++};
++
++&spi2 {
++	status = "okay";
++	assigned-clocks = <&cru CLK_SPI2>;
++	assigned-clock-rates = <200000000>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&spi2m2_cs0 &spi2m2_pins>;
++	num-cs = <1>;
++
++	pmic@0 {
++		compatible = "rockchip,rk806";
++		spi-max-frequency = <1000000>;
++		reg = <0x0>;
++
++		interrupt-parent = <&gpio0>;
++		interrupts = <7 IRQ_TYPE_LEVEL_LOW>;
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&pmic_pins>, <&rk806_dvs1_null>,
++			    <&rk806_dvs2_null>, <&rk806_dvs3_null>;
++
++		vcc1-supply = <&vcc5v0_sys>;
++		vcc2-supply = <&vcc5v0_sys>;
++		vcc3-supply = <&vcc5v0_sys>;
++		vcc4-supply = <&vcc5v0_sys>;
++		vcc5-supply = <&vcc5v0_sys>;
++		vcc6-supply = <&vcc5v0_sys>;
++		vcc7-supply = <&vcc5v0_sys>;
++		vcc8-supply = <&vcc5v0_sys>;
++		vcc9-supply = <&vcc5v0_sys>;
++		vcc10-supply = <&vcc5v0_sys>;
++		vcc11-supply = <&vcc_2v0_pldo_s3>;
++		vcc12-supply = <&vcc5v0_sys>;
++		vcc13-supply = <&vcc_1v1_nldo_s3>;
++		vcc14-supply = <&vcc_1v1_nldo_s3>;
++		vcca-supply = <&vcc5v0_sys>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		rk806_dvs1_null: dvs1-null-pins {
++			pins = "gpio_pwrctrl2";
++			function = "pin_fun0";
++		};
++
++		rk806_dvs2_null: dvs2-null-pins {
++			pins = "gpio_pwrctrl2";
++			function = "pin_fun0";
++		};
++
++		rk806_dvs3_null: dvs3-null-pins {
++			pins = "gpio_pwrctrl3";
++			function = "pin_fun0";
++		};
++
++		regulators {
++			vdd_gpu_s0: vdd_gpu_mem_s0: dcdc-reg1 {
++				regulator-boot-on;
++				regulator-min-microvolt = <550000>;
++				regulator-max-microvolt = <950000>;
++				regulator-ramp-delay = <12500>;
++				regulator-name = "vdd_gpu_s0";
++				regulator-enable-ramp-delay = <400>;
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vdd_cpu_lit_s0: vdd_cpu_lit_mem_s0: dcdc-reg2 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <550000>;
++				regulator-max-microvolt = <950000>;
++				regulator-ramp-delay = <12500>;
++				regulator-name = "vdd_cpu_lit_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vdd_log_s0: dcdc-reg3 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <675000>;
++				regulator-max-microvolt = <750000>;
++				regulator-ramp-delay = <12500>;
++				regulator-name = "vdd_log_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++					regulator-suspend-microvolt = <750000>;
++				};
++			};
++
++			vdd_vdenc_s0: vdd_vdenc_mem_s0: dcdc-reg4 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <550000>;
++				regulator-max-microvolt = <950000>;
++				regulator-init-microvolt = <750000>;
++				regulator-ramp-delay = <12500>;
++				regulator-name = "vdd_vdenc_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vdd_ddr_s0: dcdc-reg5 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <675000>;
++				regulator-max-microvolt = <900000>;
++				regulator-ramp-delay = <12500>;
++				regulator-name = "vdd_ddr_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++					regulator-suspend-microvolt = <850000>;
++				};
++			};
++
++			vdd2_ddr_s3: dcdc-reg6 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-name = "vdd2_ddr_s3";
++
++				regulator-state-mem {
++					regulator-on-in-suspend;
++				};
++			};
++
++			vcc_2v0_pldo_s3: dcdc-reg7 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <2000000>;
++				regulator-max-microvolt = <2000000>;
++				regulator-ramp-delay = <12500>;
++				regulator-name = "vdd_2v0_pldo_s3";
++
++				regulator-state-mem {
++					regulator-on-in-suspend;
++					regulator-suspend-microvolt = <2000000>;
++				};
++			};
++
++			vcc_3v3_s3: dcdc-reg8 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <3300000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-name = "vcc_3v3_s3";
++
++				regulator-state-mem {
++					regulator-on-in-suspend;
++					regulator-suspend-microvolt = <3300000>;
++				};
++			};
++
++			vddq_ddr_s0: dcdc-reg9 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-name = "vddq_ddr_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vcc_1v8_s3: dcdc-reg10 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-name = "vcc_1v8_s3";
++
++				regulator-state-mem {
++					regulator-on-in-suspend;
++					regulator-suspend-microvolt = <1800000>;
++				};
++			};
++
++			avcc_1v8_s0: pldo-reg1 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-name = "avcc_1v8_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vcc_1v8_s0: pldo-reg2 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-name = "vcc_1v8_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++					regulator-suspend-microvolt = <1800000>;
++				};
++			};
++
++			avdd_1v2_s0: pldo-reg3 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <1200000>;
++				regulator-max-microvolt = <1200000>;
++				regulator-name = "avdd_1v2_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vcc_3v3_s0: pldo-reg4 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <3300000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-ramp-delay = <12500>;
++				regulator-name = "vcc_3v3_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vccio_sd_s0: pldo-reg5 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-ramp-delay = <12500>;
++				regulator-name = "vccio_sd_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			pldo6_s3: pldo-reg6 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-name = "pldo6_s3";
++
++				regulator-state-mem {
++					regulator-on-in-suspend;
++					regulator-suspend-microvolt = <1800000>;
++				};
++			};
++
++			vdd_0v75_s3: nldo-reg1 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <750000>;
++				regulator-max-microvolt = <750000>;
++				regulator-name = "vdd_0v75_s3";
++
++				regulator-state-mem {
++					regulator-on-in-suspend;
++					regulator-suspend-microvolt = <750000>;
++				};
++			};
++
++			vdd_ddr_pll_s0: nldo-reg2 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <850000>;
++				regulator-max-microvolt = <850000>;
++				regulator-name = "vdd_ddr_pll_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++					regulator-suspend-microvolt = <850000>;
++				};
++			};
++
++			avdd_0v75_s0: nldo-reg3 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <750000>;
++				regulator-max-microvolt = <750000>;
++				regulator-name = "avdd_0v75_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vdd_0v85_s0: nldo-reg4 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <850000>;
++				regulator-max-microvolt = <850000>;
++				regulator-name = "vdd_0v85_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vdd_0v75_s0: nldo-reg5 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <750000>;
++				regulator-max-microvolt = <750000>;
++				regulator-name = "vdd_0v75_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++		};
++	};
++};
++
+ &uart2 {
+ 	pinctrl-0 = <&uart2m0_xfer>;
+ 	status = "okay";
+diff --git a/arch/arm/dts/rk3588.dtsi b/arch/arm/dts/rk3588.dtsi
+index d085e57fbc..8be75556af 100644
+--- a/arch/arm/dts/rk3588.dtsi
++++ b/arch/arm/dts/rk3588.dtsi
+@@ -7,6 +7,74 @@
+ #include "rk3588-pinctrl.dtsi"
+ 
+ / {
++	i2s8_8ch: i2s@fddc8000 {
++		compatible = "rockchip,rk3588-i2s-tdm";
++		reg = <0x0 0xfddc8000 0x0 0x1000>;
++		interrupts = <GIC_SPI 188 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru MCLK_I2S8_8CH_TX>, <&cru MCLK_I2S8_8CH_TX>, <&cru HCLK_I2S8_8CH>;
++		clock-names = "mclk_tx", "mclk_rx", "hclk";
++		assigned-clocks = <&cru CLK_I2S8_8CH_TX_SRC>;
++		assigned-clock-parents = <&cru PLL_AUPLL>;
++		dmas = <&dmac2 22>;
++		dma-names = "tx";
++		power-domains = <&power RK3588_PD_VO0>;
++		resets = <&cru SRST_M_I2S8_8CH_TX>;
++		reset-names = "tx-m";
++		#sound-dai-cells = <0>;
++		status = "disabled";
++	};
++
++	i2s6_8ch: i2s@fddf4000 {
++		compatible = "rockchip,rk3588-i2s-tdm";
++		reg = <0x0 0xfddf4000 0x0 0x1000>;
++		interrupts = <GIC_SPI 186 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru MCLK_I2S6_8CH_TX>, <&cru MCLK_I2S6_8CH_TX>, <&cru HCLK_I2S6_8CH>;
++		clock-names = "mclk_tx", "mclk_rx", "hclk";
++		assigned-clocks = <&cru CLK_I2S6_8CH_TX_SRC>;
++		assigned-clock-parents = <&cru PLL_AUPLL>;
++		dmas = <&dmac2 4>;
++		dma-names = "tx";
++		power-domains = <&power RK3588_PD_VO1>;
++		resets = <&cru SRST_M_I2S6_8CH_TX>;
++		reset-names = "tx-m";
++		#sound-dai-cells = <0>;
++		status = "disabled";
++	};
++
++	i2s7_8ch: i2s@fddf8000 {
++		compatible = "rockchip,rk3588-i2s-tdm";
++		reg = <0x0 0xfddf8000 0x0 0x1000>;
++		interrupts = <GIC_SPI 187 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru MCLK_I2S7_8CH_RX>, <&cru MCLK_I2S7_8CH_RX>, <&cru HCLK_I2S7_8CH>;
++		clock-names = "mclk_tx", "mclk_rx", "hclk";
++		assigned-clocks = <&cru CLK_I2S7_8CH_RX_SRC>;
++		assigned-clock-parents = <&cru PLL_AUPLL>;
++		dmas = <&dmac2 21>;
++		dma-names = "rx";
++		power-domains = <&power RK3588_PD_VO1>;
++		resets = <&cru SRST_M_I2S7_8CH_RX>;
++		reset-names = "rx-m";
++		#sound-dai-cells = <0>;
++		status = "disabled";
++	};
++
++	i2s10_8ch: i2s@fde00000 {
++		compatible = "rockchip,rk3588-i2s-tdm";
++		reg = <0x0 0xfde00000 0x0 0x1000>;
++		interrupts = <GIC_SPI 190 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru MCLK_I2S10_8CH_RX>, <&cru MCLK_I2S10_8CH_RX>, <&cru HCLK_I2S10_8CH>;
++		clock-names = "mclk_tx", "mclk_rx", "hclk";
++		assigned-clocks = <&cru CLK_I2S10_8CH_RX_SRC>;
++		assigned-clock-parents = <&cru PLL_AUPLL>;
++		dmas = <&dmac2 24>;
++		dma-names = "rx";
++		power-domains = <&power RK3588_PD_VO1>;
++		resets = <&cru SRST_M_I2S10_8CH_RX>;
++		reset-names = "rx-m";
++		#sound-dai-cells = <0>;
++		status = "disabled";
++	};
++
+ 	gmac0: ethernet@fe1b0000 {
+ 		compatible = "rockchip,rk3588-gmac", "snps,dwmac-4.20a";
+ 		reg = <0x0 0xfe1b0000 0x0 0x10000>;
+diff --git a/arch/arm/dts/rk3588s-u-boot.dtsi b/arch/arm/dts/rk3588s-u-boot.dtsi
+index c703e41802..1bb3c6a9d9 100644
+--- a/arch/arm/dts/rk3588s-u-boot.dtsi
++++ b/arch/arm/dts/rk3588s-u-boot.dtsi
+@@ -174,18 +174,6 @@
+ 		status = "disabled";
+ 	};
+ 
+-	otp: nvmem@fecc0000 {
+-		compatible = "rockchip,rk3588-otp";
+-		reg = <0x0 0xfecc0000 0x0 0x400>;
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-		status = "okay";
+-
+-		cpu_id: id@7 {
+-			reg = <0x07 0x10>;
+-		};
+-	};
+-
+ 	rng: rng@fe378000 {
+ 		compatible = "rockchip,trngv1";
+ 		reg = <0x0 0xfe378000 0x0 0x200>;
+diff --git a/arch/arm/dts/rk3588s.dtsi b/arch/arm/dts/rk3588s.dtsi
+index fca8503aed..1576f9bfd6 100644
+--- a/arch/arm/dts/rk3588s.dtsi
++++ b/arch/arm/dts/rk3588s.dtsi
+@@ -60,6 +60,8 @@
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <530>;
+ 			clocks = <&scmi_clk SCMI_CLK_CPUL>;
++			assigned-clocks = <&scmi_clk SCMI_CLK_CPUL>;
++			assigned-clock-rates = <816000000>;
+ 			cpu-idle-states = <&CPU_SLEEP>;
+ 			i-cache-size = <32768>;
+ 			i-cache-line-size = <64>;
+@@ -136,6 +138,8 @@
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <1024>;
+ 			clocks = <&scmi_clk SCMI_CLK_CPUB01>;
++			assigned-clocks = <&scmi_clk SCMI_CLK_CPUB01>;
++			assigned-clock-rates = <816000000>;
+ 			cpu-idle-states = <&CPU_SLEEP>;
+ 			i-cache-size = <65536>;
+ 			i-cache-line-size = <64>;
+@@ -174,6 +178,8 @@
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <1024>;
+ 			clocks = <&scmi_clk SCMI_CLK_CPUB23>;
++			assigned-clocks = <&scmi_clk SCMI_CLK_CPUB23>;
++			assigned-clock-rates = <816000000>;
+ 			cpu-idle-states = <&CPU_SLEEP>;
+ 			i-cache-size = <65536>;
+ 			i-cache-line-size = <64>;
+@@ -222,6 +228,8 @@
+ 			cache-size = <131072>;
+ 			cache-line-size = <64>;
+ 			cache-sets = <512>;
++			cache-level = <2>;
++			cache-unified;
+ 			next-level-cache = <&l3_cache>;
+ 		};
+ 
+@@ -230,6 +238,8 @@
+ 			cache-size = <131072>;
+ 			cache-line-size = <64>;
+ 			cache-sets = <512>;
++			cache-level = <2>;
++			cache-unified;
+ 			next-level-cache = <&l3_cache>;
+ 		};
+ 
+@@ -238,6 +248,8 @@
+ 			cache-size = <131072>;
+ 			cache-line-size = <64>;
+ 			cache-sets = <512>;
++			cache-level = <2>;
++			cache-unified;
+ 			next-level-cache = <&l3_cache>;
+ 		};
+ 
+@@ -246,6 +258,8 @@
+ 			cache-size = <131072>;
+ 			cache-line-size = <64>;
+ 			cache-sets = <512>;
++			cache-level = <2>;
++			cache-unified;
+ 			next-level-cache = <&l3_cache>;
+ 		};
+ 
+@@ -254,6 +268,8 @@
+ 			cache-size = <524288>;
+ 			cache-line-size = <64>;
+ 			cache-sets = <1024>;
++			cache-level = <2>;
++			cache-unified;
+ 			next-level-cache = <&l3_cache>;
+ 		};
+ 
+@@ -262,6 +278,8 @@
+ 			cache-size = <524288>;
+ 			cache-line-size = <64>;
+ 			cache-sets = <1024>;
++			cache-level = <2>;
++			cache-unified;
+ 			next-level-cache = <&l3_cache>;
+ 		};
+ 
+@@ -270,6 +288,8 @@
+ 			cache-size = <524288>;
+ 			cache-line-size = <64>;
+ 			cache-sets = <1024>;
++			cache-level = <2>;
++			cache-unified;
+ 			next-level-cache = <&l3_cache>;
+ 		};
+ 
+@@ -278,6 +298,8 @@
+ 			cache-size = <524288>;
+ 			cache-line-size = <64>;
+ 			cache-sets = <1024>;
++			cache-level = <2>;
++			cache-unified;
+ 			next-level-cache = <&l3_cache>;
+ 		};
+ 
+@@ -286,6 +308,8 @@
+ 			cache-size = <3145728>;
+ 			cache-line-size = <64>;
+ 			cache-sets = <4096>;
++			cache-level = <3>;
++			cache-unified;
+ 		};
+ 	};
+ 
+@@ -304,10 +328,6 @@
+ 
+ 			scmi_clk: protocol@14 {
+ 				reg = <0x14>;
+-				assigned-clocks = <&scmi_clk SCMI_CLK_CPUB01>,
+-						  <&scmi_clk SCMI_CLK_CPUB23>;
+-				assigned-clock-rates = <1200000000>,
+-						       <1200000000>;
+ 				#clock-cells = <1>;
+ 			};
+ 
+@@ -414,7 +434,7 @@
+ 			<&cru ACLK_BUS_ROOT>, <&cru CLK_150M_SRC>,
+ 			<&cru CLK_GPU>;
+ 		assigned-clock-rates =
+-			<100000000>, <786432000>,
++			<1100000000>, <786432000>,
+ 			<850000000>, <1188000000>,
+ 			<702000000>,
+ 			<400000000>, <500000000>,
+@@ -810,6 +830,57 @@
+ 		};
+ 	};
+ 
++	i2s4_8ch: i2s@fddc0000 {
++		compatible = "rockchip,rk3588-i2s-tdm";
++		reg = <0x0 0xfddc0000 0x0 0x1000>;
++		interrupts = <GIC_SPI 184 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru MCLK_I2S4_8CH_TX>, <&cru MCLK_I2S4_8CH_TX>, <&cru HCLK_I2S4_8CH>;
++		clock-names = "mclk_tx", "mclk_rx", "hclk";
++		assigned-clocks = <&cru CLK_I2S4_8CH_TX_SRC>;
++		assigned-clock-parents = <&cru PLL_AUPLL>;
++		dmas = <&dmac2 0>;
++		dma-names = "tx";
++		power-domains = <&power RK3588_PD_VO0>;
++		resets = <&cru SRST_M_I2S4_8CH_TX>;
++		reset-names = "tx-m";
++		#sound-dai-cells = <0>;
++		status = "disabled";
++	};
++
++	i2s5_8ch: i2s@fddf0000 {
++		compatible = "rockchip,rk3588-i2s-tdm";
++		reg = <0x0 0xfddf0000 0x0 0x1000>;
++		interrupts = <GIC_SPI 185 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru MCLK_I2S5_8CH_TX>, <&cru MCLK_I2S5_8CH_TX>, <&cru HCLK_I2S5_8CH>;
++		clock-names = "mclk_tx", "mclk_rx", "hclk";
++		assigned-clocks = <&cru CLK_I2S5_8CH_TX_SRC>;
++		assigned-clock-parents = <&cru PLL_AUPLL>;
++		dmas = <&dmac2 2>;
++		dma-names = "tx";
++		power-domains = <&power RK3588_PD_VO1>;
++		resets = <&cru SRST_M_I2S5_8CH_TX>;
++		reset-names = "tx-m";
++		#sound-dai-cells = <0>;
++		status = "disabled";
++	};
++
++	i2s9_8ch: i2s@fddfc000 {
++		compatible = "rockchip,rk3588-i2s-tdm";
++		reg = <0x0 0xfddfc000 0x0 0x1000>;
++		interrupts = <GIC_SPI 189 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru MCLK_I2S9_8CH_RX>, <&cru MCLK_I2S9_8CH_RX>, <&cru HCLK_I2S9_8CH>;
++		clock-names = "mclk_tx", "mclk_rx", "hclk";
++		assigned-clocks = <&cru CLK_I2S9_8CH_RX_SRC>;
++		assigned-clock-parents = <&cru PLL_AUPLL>;
++		dmas = <&dmac2 23>;
++		dma-names = "rx";
++		power-domains = <&power RK3588_PD_VO1>;
++		resets = <&cru SRST_M_I2S9_8CH_RX>;
++		reset-names = "rx-m";
++		#sound-dai-cells = <0>;
++		status = "disabled";
++	};
++
+ 	qos_gpu_m0: qos@fdf35000 {
+ 		compatible = "rockchip,rk3588-qos", "syscon";
+ 		reg = <0x0 0xfdf35000 0x0 0x20>;
+@@ -1114,6 +1185,21 @@
+ 		status = "disabled";
+ 	};
+ 
++	sdio: mmc@fe2d0000 {
++		compatible = "rockchip,rk3588-dw-mshc", "rockchip,rk3288-dw-mshc";
++		reg = <0x00 0xfe2d0000 0x00 0x4000>;
++		interrupts = <GIC_SPI 204 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru HCLK_SDIO>, <&cru CCLK_SRC_SDIO>,
++			 <&cru SCLK_SDIO_DRV>, <&cru SCLK_SDIO_SAMPLE>;
++		clock-names = "biu", "ciu", "ciu-drive", "ciu-sample";
++		fifo-depth = <0x100>;
++		max-frequency = <200000000>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&sdiom1_pins>;
++		power-domains = <&power RK3588_PD_SDIO>;
++		status = "disabled";
++	};
++
+ 	sdhci: mmc@fe2e0000 {
+ 		compatible = "rockchip,rk3588-dwcmshc";
+ 		reg = <0x0 0xfe2e0000 0x0 0x10000>;
+@@ -1125,6 +1211,9 @@
+ 			 <&cru TMCLK_EMMC>;
+ 		clock-names = "core", "bus", "axi", "block", "timer";
+ 		max-frequency = <200000000>;
++		pinctrl-0 = <&emmc_rstnout>, <&emmc_bus8>, <&emmc_clk>,
++			    <&emmc_cmd>, <&emmc_data_strobe>;
++		pinctrl-names = "default";
+ 		resets = <&cru SRST_C_EMMC>, <&cru SRST_H_EMMC>,
+ 			 <&cru SRST_A_EMMC>, <&cru SRST_B_EMMC>,
+ 			 <&cru SRST_T_EMMC>;
+@@ -1132,6 +1221,103 @@
+ 		status = "disabled";
+ 	};
+ 
++	i2s0_8ch: i2s@fe470000 {
++		compatible = "rockchip,rk3588-i2s-tdm";
++		reg = <0x0 0xfe470000 0x0 0x1000>;
++		interrupts = <GIC_SPI 180 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru MCLK_I2S0_8CH_TX>, <&cru MCLK_I2S0_8CH_RX>, <&cru HCLK_I2S0_8CH>;
++		clock-names = "mclk_tx", "mclk_rx", "hclk";
++		assigned-clocks = <&cru CLK_I2S0_8CH_TX_SRC>, <&cru CLK_I2S0_8CH_RX_SRC>;
++		assigned-clock-parents = <&cru PLL_AUPLL>, <&cru PLL_AUPLL>;
++		dmas = <&dmac0 0>, <&dmac0 1>;
++		dma-names = "tx", "rx";
++		power-domains = <&power RK3588_PD_AUDIO>;
++		resets = <&cru SRST_M_I2S0_8CH_TX>, <&cru SRST_M_I2S0_8CH_RX>;
++		reset-names = "tx-m", "rx-m";
++		rockchip,trcm-sync-tx-only;
++		pinctrl-names = "default";
++		pinctrl-0 = <&i2s0_lrck
++			     &i2s0_sclk
++			     &i2s0_sdi0
++			     &i2s0_sdi1
++			     &i2s0_sdi2
++			     &i2s0_sdi3
++			     &i2s0_sdo0
++			     &i2s0_sdo1
++			     &i2s0_sdo2
++			     &i2s0_sdo3>;
++		#sound-dai-cells = <0>;
++		status = "disabled";
++	};
++
++	i2s1_8ch: i2s@fe480000 {
++		compatible = "rockchip,rk3588-i2s-tdm";
++		reg = <0x0 0xfe480000 0x0 0x1000>;
++		interrupts = <GIC_SPI 181 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru MCLK_I2S1_8CH_TX>, <&cru MCLK_I2S1_8CH_RX>, <&cru HCLK_I2S1_8CH>;
++		clock-names = "mclk_tx", "mclk_rx", "hclk";
++		dmas = <&dmac0 2>, <&dmac0 3>;
++		dma-names = "tx", "rx";
++		resets = <&cru SRST_M_I2S1_8CH_TX>, <&cru SRST_M_I2S1_8CH_RX>;
++		reset-names = "tx-m", "rx-m";
++		rockchip,trcm-sync-tx-only;
++		pinctrl-names = "default";
++		pinctrl-0 = <&i2s1m0_lrck
++			     &i2s1m0_sclk
++			     &i2s1m0_sdi0
++			     &i2s1m0_sdi1
++			     &i2s1m0_sdi2
++			     &i2s1m0_sdi3
++			     &i2s1m0_sdo0
++			     &i2s1m0_sdo1
++			     &i2s1m0_sdo2
++			     &i2s1m0_sdo3>;
++		#sound-dai-cells = <0>;
++		status = "disabled";
++	};
++
++	i2s2_2ch: i2s@fe490000 {
++		compatible = "rockchip,rk3588-i2s", "rockchip,rk3066-i2s";
++		reg = <0x0 0xfe490000 0x0 0x1000>;
++		interrupts = <GIC_SPI 182 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru MCLK_I2S2_2CH>, <&cru HCLK_I2S2_2CH>;
++		clock-names = "i2s_clk", "i2s_hclk";
++		assigned-clocks = <&cru CLK_I2S2_2CH_SRC>;
++		assigned-clock-parents = <&cru PLL_AUPLL>;
++		dmas = <&dmac1 0>, <&dmac1 1>;
++		dma-names = "tx", "rx";
++		power-domains = <&power RK3588_PD_AUDIO>;
++		rockchip,trcm-sync-tx-only;
++		pinctrl-names = "default";
++		pinctrl-0 = <&i2s2m1_lrck
++			     &i2s2m1_sclk
++			     &i2s2m1_sdi
++			     &i2s2m1_sdo>;
++		#sound-dai-cells = <0>;
++		status = "disabled";
++	};
++
++	i2s3_2ch: i2s@fe4a0000 {
++		compatible = "rockchip,rk3588-i2s", "rockchip,rk3066-i2s";
++		reg = <0x0 0xfe4a0000 0x0 0x1000>;
++		interrupts = <GIC_SPI 183 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru MCLK_I2S3_2CH>, <&cru HCLK_I2S3_2CH>;
++		clock-names = "i2s_clk", "i2s_hclk";
++		assigned-clocks = <&cru CLK_I2S3_2CH_SRC>;
++		assigned-clock-parents = <&cru PLL_AUPLL>;
++		dmas = <&dmac1 2>, <&dmac1 3>;
++		dma-names = "tx", "rx";
++		power-domains = <&power RK3588_PD_AUDIO>;
++		rockchip,trcm-sync-tx-only;
++		pinctrl-names = "default";
++		pinctrl-0 = <&i2s3_lrck
++			     &i2s3_sclk
++			     &i2s3_sdi
++			     &i2s3_sdo>;
++		#sound-dai-cells = <0>;
++		status = "disabled";
++	};
++
+ 	gic: interrupt-controller@fe600000 {
+ 		compatible = "arm,gic-v3";
+ 		reg = <0x0 0xfe600000 0 0x10000>, /* GICD */
+@@ -1141,7 +1327,24 @@
+ 		mbi-alias = <0x0 0xfe610000>;
+ 		mbi-ranges = <424 56>;
+ 		msi-controller;
++		ranges;
++		#address-cells = <2>;
+ 		#interrupt-cells = <4>;
++		#size-cells = <2>;
++
++		its0: msi-controller@fe640000 {
++			compatible = "arm,gic-v3-its";
++			reg = <0x0 0xfe640000 0x0 0x20000>;
++			msi-controller;
++			#msi-cells = <1>;
++		};
++
++		its1: msi-controller@fe660000 {
++			compatible = "arm,gic-v3-its";
++			reg = <0x0 0xfe660000 0x0 0x20000>;
++			msi-controller;
++			#msi-cells = <1>;
++		};
+ 
+ 		ppi-partitions {
+ 			ppi_partition0: interrupt-partition-0 {
+@@ -1241,6 +1444,22 @@
+ 		status = "disabled";
+ 	};
+ 
++	timer0: timer@feae0000 {
++		compatible = "rockchip,rk3588-timer", "rockchip,rk3288-timer";
++		reg = <0x0 0xfeae0000 0x0 0x20>;
++		interrupts = <GIC_SPI 289 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru PCLK_BUSTIMER0>, <&cru CLK_BUSTIMER0>;
++		clock-names = "pclk", "timer";
++	};
++
++	wdt: watchdog@feaf0000 {
++		compatible = "rockchip,rk3588-wdt", "snps,dw-wdt";
++		reg = <0x0 0xfeaf0000 0x0 0x100>;
++		clocks = <&cru TCLK_WDT0>, <&cru PCLK_WDT0>;
++		clock-names = "tclk", "pclk";
++		interrupts = <GIC_SPI 315 IRQ_TYPE_LEVEL_HIGH 0>;
++	};
++
+ 	spi0: spi@feb00000 {
+ 		compatible = "rockchip,rk3588-spi", "rockchip,rk3066-spi";
+ 		reg = <0x0 0xfeb00000 0x0 0x1000>;
+@@ -1572,6 +1791,38 @@
+ 		status = "disabled";
+ 	};
+ 
++	tsadc: tsadc@fec00000 {
++		compatible = "rockchip,rk3588-tsadc";
++		reg = <0x0 0xfec00000 0x0 0x400>;
++		interrupts = <GIC_SPI 397 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru CLK_TSADC>, <&cru PCLK_TSADC>;
++		clock-names = "tsadc", "apb_pclk";
++		assigned-clocks = <&cru CLK_TSADC>;
++		assigned-clock-rates = <2000000>;
++		resets = <&cru SRST_P_TSADC>, <&cru SRST_TSADC>;
++		reset-names = "tsadc-apb", "tsadc";
++		rockchip,hw-tshut-temp = <120000>;
++		rockchip,hw-tshut-mode = <0>; /* tshut mode 0:CRU 1:GPIO */
++		rockchip,hw-tshut-polarity = <0>; /* tshut polarity 0:LOW 1:HIGH */
++		pinctrl-0 = <&tsadc_gpio_func>;
++		pinctrl-1 = <&tsadc_shut>;
++		pinctrl-names = "gpio", "otpout";
++		#thermal-sensor-cells = <1>;
++		status = "disabled";
++	};
++
++	saradc: adc@fec10000 {
++		compatible = "rockchip,rk3588-saradc";
++		reg = <0x0 0xfec10000 0x0 0x10000>;
++		interrupts = <GIC_SPI 398 IRQ_TYPE_LEVEL_HIGH 0>;
++		#io-channel-cells = <1>;
++		clocks = <&cru CLK_SARADC>, <&cru PCLK_SARADC>;
++		clock-names = "saradc", "apb_pclk";
++		resets = <&cru SRST_P_SARADC>;
++		reset-names = "saradc-apb";
++		status = "disabled";
++	};
++
+ 	i2c6: i2c@fec80000 {
+ 		compatible = "rockchip,rk3588-i2c", "rockchip,rk3399-i2c";
+ 		reg = <0x0 0xfec80000 0x0 0x1000>;
+@@ -1627,6 +1878,60 @@
+ 		status = "disabled";
+ 	};
+ 
++	otp: efuse@fecc0000 {
++		compatible = "rockchip,rk3588-otp";
++		reg = <0x0 0xfecc0000 0x0 0x400>;
++		clocks = <&cru CLK_OTPC_NS>, <&cru PCLK_OTPC_NS>,
++			 <&cru CLK_OTP_PHY_G>, <&cru CLK_OTPC_ARB>;
++		clock-names = "otp", "apb_pclk", "phy", "arb";
++		resets = <&cru SRST_OTPC_NS>, <&cru SRST_P_OTPC_NS>,
++			 <&cru SRST_OTPC_ARB>;
++		reset-names = "otp", "apb", "arb";
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		cpu_code: cpu-code@2 {
++			reg = <0x02 0x2>;
++		};
++
++		otp_id: id@7 {
++			reg = <0x07 0x10>;
++		};
++
++		cpub0_leakage: cpu-leakage@17 {
++			reg = <0x17 0x1>;
++		};
++
++		cpub1_leakage: cpu-leakage@18 {
++			reg = <0x18 0x1>;
++		};
++
++		cpul_leakage: cpu-leakage@19 {
++			reg = <0x19 0x1>;
++		};
++
++		log_leakage: log-leakage@1a {
++			reg = <0x1a 0x1>;
++		};
++
++		gpu_leakage: gpu-leakage@1b {
++			reg = <0x1b 0x1>;
++		};
++
++		otp_cpu_version: cpu-version@1c {
++			reg = <0x1c 0x1>;
++			bits = <3 3>;
++		};
++
++		npu_leakage: npu-leakage@28 {
++			reg = <0x28 0x1>;
++		};
++
++		codec_leakage: codec-leakage@29 {
++			reg = <0x29 0x1>;
++		};
++	};
++
+ 	dmac2: dma-controller@fed10000 {
+ 		compatible = "arm,pl330", "arm,primecell";
+ 		reg = <0x0 0xfed10000 0x0 0x4000>;
+-- 
+2.39.2
+
