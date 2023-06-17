@@ -7,6 +7,7 @@ debian/rootfs
 dtb/linux-*
 dtb/*.dt?
 dtb/*.dtsi
+kernel/linux-*
 uboot/u-boot
 uboot/idbloader*.img
 uboot/u-boot*.itb
