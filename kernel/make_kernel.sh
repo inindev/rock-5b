@@ -21,7 +21,7 @@ main() {\
         exit 0
     fi
 
-    check_installed build-essential python3 flex bison bc rsync libncurses-dev libelf-dev libssl-dev lz4 zstd
+    check_installed build-essential python3 flex bison pahole bc rsync libncurses-dev libelf-dev libssl-dev lz4 zstd
 
     [ -f $lf ] || wget $linux
 
@@ -40,8 +40,11 @@ main() {\
 
     # build
     cd "linux-$lv"
-    echo "\n${h1}cleaning tree (mrproper)...${rst}"
-    make mrproper
+
+    if [ '_inc' != "_$1" ]; then
+        echo "\n${h1}cleaning tree (mrproper)...${rst}"
+        make mrproper
+    fi
 
     echo "\n${h1}beginning compile...${rst}"
     cp ../config .config
