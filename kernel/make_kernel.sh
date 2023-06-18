@@ -16,47 +16,50 @@ main() {\
     local lv=$(echo $lf | sed -nE 's/linux-(.*)\.tar\..z/\1/p')
 
     if [ '_clean' = "_$1" ]; then
-        rm -rf "linux-$lv"
+        rm -rf "kernel-$lv/linux-$lv"
         echo '\nclean complete\n'
         exit 0
     fi
 
     check_installed build-essential python3 flex bison pahole bc rsync libncurses-dev libelf-dev libssl-dev lz4 zstd
 
-    [ -f $lf ] || wget $linux
+    [ -d kernel-$lv ] || mkdir kernel-$lv
+    [ -f kernel-$lv/$lf ] || wget $linux -P kernel-$lv
 
-    if [ _$lxsha != _$(sha256sum $lf | cut -c1-64) ]; then
+    if [ _$lxsha != _$(sha256sum kernel-$lv/$lf | cut -c1-64) ]; then
         echo "invalid hash for linux source file: $lf"
         exit 5
     fi
 
-    if [ ! -d "linux-$lv" ]; then
+    if [ ! -d "kernel-$lv/linux-$lv" ]; then
         tar xavf $lf
 
         for patch in patches/*.patch; do
-            patch -p1 -d "linux-$lv" -i "../$patch"
+            patch -p1 -d "kernel-$lv/linux-$lv" -i "../$patch"
         done
     fi
 
     # build
-    cd "linux-$lv"
-
     if [ '_inc' != "_$1" ]; then
-        echo "\n${h1}cleaning tree (mrproper)...${rst}"
-        make mrproper
+        echo "\n${h1}configuring source tree...${rst}"
+        make -C kernel-$lv/linux-$lv mrproper
+        cp config kernel-$lv/linux-$lv/.config
     fi
 
     echo "\n${h1}beginning compile...${rst}"
-    cp ../config .config
-
-    export SOURCE_DATE_EPOCH=$(stat -c %Y README)
+    rm -f linux-image-*.deb
+    local kv=$(make --no-print-directory -C kernel-$lv/linux-$lv kernelversion)
+    local bv=$(expr $(cat kernel-$lv/linux-$lv/.version 2>/dev/null || echo 0) + 1 2>/dev/null)
+    export SOURCE_DATE_EPOCH=$(stat -c %Y kernel-$lv/linux-$lv/README)
     export KBUILD_BUILD_TIMESTAMP="$(date -d @$SOURCE_DATE_EPOCH)"
     export KBUILD_BUILD_HOST=build-host
     export KBUILD_BUILD_USER=debian-build
-    export KBUILD_BUILD_VERSION=1
+    export KBUILD_BUILD_VERSION=$bv
 
-    nice make -j$(nproc) bindeb-pkg LOCALVERSION=-1-arm64
-    echo "\n${cya}kernel ready${rst}\n"
+    nice make -C kernel-$lv/linux-$lv -j$(nproc) bindeb-pkg LOCALVERSION=-$bv-arm64
+    echo "\n${cya}kernel package ready${mag}"
+    ln -sfv kernel-$lv/linux-image-$kv-$bv-arm64_$kv-${bv}_arm64.deb
+    echo "${rst}"
 }
 
 check_installed() {
@@ -92,6 +95,6 @@ if [ -z $STY ]; then
     exit 7
 fi
 
-cd "$(dirname "$(readlink -f "$0")")"
+cd "$(dirname "$(realpath "$0")")"
 main $@
 
