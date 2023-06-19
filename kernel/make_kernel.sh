@@ -9,11 +9,11 @@ set -e
 #   8: superuser disallowed
 
 main() {\
-    local linux='https://git.kernel.org/torvalds/t/linux-6.4-rc6.tar.gz'
-    local lxsha='29fc6ac5009c19e0e015e64c7efe1e6b705ce9e7cbc0ff6ef751a82838e57438'
+    local linux='https://git.kernel.org/torvalds/t/linux-6.4-rc7.tar.gz'
+    local lxsha='c9626fe3c2564eeda618cb53c3d52c41f7492e1f628b20921d320fc1e57e6c2d'
 
-    local lf=$(basename $linux)
-    local lv=$(echo $lf | sed -nE 's/linux-(.*)\.tar\..z/\1/p')
+    local lf="$(basename "$linux")"
+    local lv="$(echo "$lf" | sed -nE 's/linux-(.*)\.tar\..z/\1/p')"
 
     if [ '_clean' = "_$1" ]; then
         rm -rf "kernel-$lv/linux-$lv"
@@ -21,44 +21,44 @@ main() {\
         exit 0
     fi
 
-    check_installed build-essential python3 flex bison pahole bc rsync libncurses-dev libelf-dev libssl-dev lz4 zstd
+    check_installed 'build-essential' 'python3' 'flex' 'bison' 'pahole' 'bc' 'rsync' 'libncurses-dev' 'libelf-dev' 'libssl-dev' 'lz4' 'zstd'
 
-    [ -d kernel-$lv ] || mkdir kernel-$lv
-    [ -f kernel-$lv/$lf ] || wget $linux -P kernel-$lv
+    mkdir -p "kernel-$lv"
+    [ -f "kernel-$lv/$lf" ] || wget "$linux" -P "kernel-$lv"
 
-    if [ _$lxsha != _$(sha256sum kernel-$lv/$lf | cut -c1-64) ]; then
+    if [ "_$lxsha" != "_$(sha256sum "kernel-$lv/$lf" | cut -c1-64)" ]; then
         echo "invalid hash for linux source file: $lf"
         exit 5
     fi
 
     if [ ! -d "kernel-$lv/linux-$lv" ]; then
-        tar xavf $lf
+        tar -C "kernel-$lv" -xavf "kernel-$lv/$lf"
 
         for patch in patches/*.patch; do
-            patch -p1 -d "kernel-$lv/linux-$lv" -i "../$patch"
+            patch -p1 -d "kernel-$lv/linux-$lv" -i "../../$patch"
         done
     fi
 
     # build
     if [ '_inc' != "_$1" ]; then
         echo "\n${h1}configuring source tree...${rst}"
-        make -C kernel-$lv/linux-$lv mrproper
-        cp config kernel-$lv/linux-$lv/.config
+        make -C "kernel-$lv/linux-$lv" mrproper
+        cp './config' "kernel-$lv/linux-$lv/.config"
     fi
 
     echo "\n${h1}beginning compile...${rst}"
     rm -f linux-image-*.deb
-    local kv=$(make --no-print-directory -C kernel-$lv/linux-$lv kernelversion)
-    local bv=$(expr $(cat kernel-$lv/linux-$lv/.version 2>/dev/null || echo 0) + 1 2>/dev/null)
-    export SOURCE_DATE_EPOCH=$(stat -c %Y kernel-$lv/linux-$lv/README)
+    local kv="$(make --no-print-directory -C "kernel-$lv/linux-$lv" kernelversion)"
+    local bv="$(expr "$(cat "kernel-$lv/linux-$lv/.version" 2>/dev/null || echo 0)" + 1 2>/dev/null)"
+    export SOURCE_DATE_EPOCH="$(stat -c %Y "kernel-$lv/linux-$lv/README")"
     export KBUILD_BUILD_TIMESTAMP="$(date -d @$SOURCE_DATE_EPOCH)"
-    export KBUILD_BUILD_HOST=build-host
-    export KBUILD_BUILD_USER=debian-build
-    export KBUILD_BUILD_VERSION=$bv
+    export KBUILD_BUILD_HOST='build-host'
+    export KBUILD_BUILD_USER='debian-build'
+    export KBUILD_BUILD_VERSION="$bv"
 
-    nice make -C kernel-$lv/linux-$lv -j$(nproc) bindeb-pkg LOCALVERSION=-$bv-arm64
+    nice make -C "kernel-$lv/linux-$lv" -j"$(nproc)" bindeb-pkg LOCALVERSION="-$bv-arm64"
     echo "\n${cya}kernel package ready${mag}"
-    ln -sfv kernel-$lv/linux-image-$kv-$bv-arm64_$kv-${bv}_arm64.deb
+    ln -sfv "kernel-$lv/linux-image-$kv-$bv-arm64_$kv-${bv}_arm64.deb"
     echo "${rst}"
 }
 
