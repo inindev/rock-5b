@@ -8,7 +8,14 @@ set -e
 #   7: no screen session
 #   8: superuser disallowed
 
-main() {\
+config_fixups() {
+    local lpath=$1
+
+    # edit config here
+    #echo 6 > "$lpath/.version"
+}
+
+main() {
     local linux='https://git.kernel.org/torvalds/t/linux-6.4-rc7.tar.gz'
     local lxsha='c9626fe3c2564eeda618cb53c3d52c41f7492e1f628b20921d320fc1e57e6c2d'
 
@@ -16,12 +23,21 @@ main() {\
     local lv="$(echo "$lf" | sed -nE 's/linux-(.*)\.tar\..z/\1/p')"
 
     if [ '_clean' = "_$1" ]; then
+        rm -f *.deb
+        rm -rf kernel-$lv/*.deb
+        rm -rf kernel-$lv/*.buildinfo
+        rm -rf kernel-$lv/*.changes
         rm -rf "kernel-$lv/linux-$lv"
         echo '\nclean complete\n'
         exit 0
     fi
 
-    check_installed 'build-essential' 'python3' 'flex' 'bison' 'pahole' 'bc' 'rsync' 'libncurses-dev' 'libelf-dev' 'libssl-dev' 'lz4' 'zstd'
+    check_installed 'screen' 'build-essential' 'python3' 'flex' 'bison' 'pahole' 'bc' 'rsync' 'libncurses-dev' 'libelf-dev' 'libssl-dev' 'lz4' 'zstd'
+
+    if [ -z $STY ]; then
+        echo 'reminder: run from a screen session, this can take a while...'
+        exit 7
+    fi
 
     mkdir -p "kernel-$lv"
     [ -f "kernel-$lv/$lf" ] || wget "$linux" -P "kernel-$lv"
@@ -44,6 +60,7 @@ main() {\
         echo "\n${h1}configuring source tree...${rst}"
         make -C "kernel-$lv/linux-$lv" mrproper
         cp './config' "kernel-$lv/linux-$lv/.config"
+        config_fixups "kernel-$lv/linux-$lv"
     fi
 
     echo "\n${h1}beginning compile...${rst}"
@@ -88,11 +105,6 @@ h1="${blu}==>${rst} ${bld}"
 if [ 0 -eq $(id -u) ]; then
     echo 'do not compile as root'
     exit 8
-fi
-
-if [ -z $STY ]; then
-    echo 'run from a screen session'
-    exit 7
 fi
 
 cd "$(dirname "$(realpath "$0")")"
