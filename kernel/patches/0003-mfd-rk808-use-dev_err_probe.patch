@@ -1,7 +1,7 @@
-From d9ee48e8a6edbc806823f1e10ef4099b49b58979 Mon Sep 17 00:00:00 2001
+From ce42fe7a452d2d6a7d354dbf226e443e459e16e5 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 4 May 2023 19:36:07 +0200
-Subject: [PATCH 03/14] mfd: rk808: use dev_err_probe
+Date: Tue, 28 Jun 2022 18:12:06 +0200
+Subject: [PATCH 003/100] mfd: rk808: use dev_err_probe
 
 Use dev_err_probe instead of dev_err in probe function,
 which simplifies code a little bit and prints the error

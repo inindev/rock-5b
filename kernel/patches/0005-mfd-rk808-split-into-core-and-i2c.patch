@@ -1,7 +1,7 @@
-From e994dd0416d5a3872f2dd5b05c88c161d37cd88c Mon Sep 17 00:00:00 2001
+From 5239b06d5e9efc135913f5c2d26a47c9e7377bd5 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 4 May 2023 19:36:09 +0200
-Subject: [PATCH 05/14] mfd: rk808: split into core and i2c
+Date: Wed, 29 Jun 2022 16:56:32 +0200
+Subject: [PATCH 005/100] mfd: rk808: split into core and i2c
 
 Split rk808 into a core and an i2c part in preparation for
 SPI support.

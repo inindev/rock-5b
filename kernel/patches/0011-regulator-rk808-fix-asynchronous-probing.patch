@@ -1,7 +1,7 @@
-From 96b541912badcf49eaec0377c6d063b4c950dfdd Mon Sep 17 00:00:00 2001
+From ff49008e4b852202ecb129c725baeba65ad40747 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 4 May 2023 19:36:15 +0200
-Subject: [PATCH 11/14] regulator: rk808: fix asynchronous probing
+Date: Wed, 3 May 2023 18:38:26 +0200
+Subject: [PATCH 011/100] regulator: rk808: fix asynchronous probing
 
 If the probe routine fails with -EPROBE_DEFER after taking over the
 OF node from its parent driver, reprobing triggers pinctrl_bind_pins()

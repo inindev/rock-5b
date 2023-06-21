@@ -1,7 +1,7 @@
-From 9338afbc4168869af3843e124a4045776701c7e9 Mon Sep 17 00:00:00 2001
+From 0385551af6c58ec509109979760a54561cc0a4a6 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 4 May 2023 19:36:12 +0200
-Subject: [PATCH 08/14] mfd: rk8xx: add rk806 support
+Date: Wed, 29 Jun 2022 18:35:59 +0200
+Subject: [PATCH 008/100] mfd: rk8xx: add rk806 support
 
 Add support for SPI connected rk806, which is used by the RK3588
 evaluation boards. The PMIC is advertised to support I2C and SPI,

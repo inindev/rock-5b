@@ -57,7 +57,7 @@ main() {\
 get_for_next() {
     local filepath=$1
     local file=$(basename $filepath)
-    local url=https://git.kernel.org/pub/scm/linux/kernel/git/mmind/linux-rockchip.git/plain/arch/arm64/boot/dts/rockchip/$file?h=for-next
+    local url=https://gitlab.collabora.com/hardware-enablement/rockchip-3588/linux/-/raw/rk3588/arch/arm64/boot/dts/rockchip/$file?inline=false
     wget -O $filepath $url
 }
 

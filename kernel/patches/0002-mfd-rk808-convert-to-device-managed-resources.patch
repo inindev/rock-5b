@@ -1,7 +1,7 @@
-From c9b68211218f08b58acc6078671a63344c0c0a16 Mon Sep 17 00:00:00 2001
+From 839ba62b8f641dd79a2e3d1b8610ca43ad848458 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 4 May 2023 19:36:06 +0200
-Subject: [PATCH 02/14] mfd: rk808: convert to device managed resources
+Date: Tue, 28 Jun 2022 18:05:55 +0200
+Subject: [PATCH 002/100] mfd: rk808: convert to device managed resources
 
 Fully convert the driver to device managed resources.
 

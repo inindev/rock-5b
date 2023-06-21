@@ -1,7 +1,7 @@
-From 0669b90f9f933a263692f6535d1b506e78eff54d Mon Sep 17 00:00:00 2001
+From 98846436f49e5db20eb11562f4222c8d2339f984 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 4 May 2023 19:36:13 +0200
-Subject: [PATCH 09/14] pinctrl: rk805: add rk806 pinctrl support
+Date: Mon, 4 Jul 2022 18:56:16 +0200
+Subject: [PATCH 009/100] pinctrl: rk805: add rk806 pinctrl support
 
 Add support for rk806 dvs pinctrl to the existing rk805
 driver.

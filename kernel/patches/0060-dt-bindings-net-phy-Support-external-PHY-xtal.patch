@@ -1,0 +1,37 @@
+From f10531031c6b5054cb918e51c53252628482c8f9 Mon Sep 17 00:00:00 2001
+From: Detlev Casanova <detlev.casanova@collabora.com>
+Date: Mon, 29 May 2023 10:05:12 -0400
+Subject: [PATCH 060/100] dt-bindings: net: phy: Support external PHY xtal
+
+Ethernet PHYs can have external an clock that needs to be activated before
+probing the PHY.
+
+Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
+---
+ .../devicetree/bindings/net/ethernet-phy.yaml          | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/net/ethernet-phy.yaml b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+index 4f574532e..e83a33c2a 100644
+--- a/Documentation/devicetree/bindings/net/ethernet-phy.yaml
++++ b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+@@ -93,6 +93,16 @@ properties:
+       the turn around line low at end of the control phase of the
+       MDIO transaction.
+ 
++  clock-names:
++    items:
++      - const: xtal
++
++  clocks:
++    maxItems: 1
++    description:
++      External clock connected to the PHY. If not specified it is assumed
++      that the PHY uses a fixed crystal or an internal oscillator.
++
+   enet-phy-lane-swap:
+     $ref: /schemas/types.yaml#/definitions/flag
+     description:
+-- 
+2.39.2
+

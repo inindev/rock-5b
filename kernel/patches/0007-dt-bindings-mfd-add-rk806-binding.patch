@@ -1,7 +1,7 @@
-From 0a693c2ade06c8ad06417297044e17448cf7da8d Mon Sep 17 00:00:00 2001
+From 55215a8b5af07864b3400dbfeae5014df76bc6c2 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 4 May 2023 19:36:11 +0200
-Subject: [PATCH 07/14] dt-bindings: mfd: add rk806 binding
+Date: Fri, 19 Aug 2022 18:19:43 +0200
+Subject: [PATCH 007/100] dt-bindings: mfd: add rk806 binding
 
 Add DT binding document for Rockchip's RK806 PMIC.
 

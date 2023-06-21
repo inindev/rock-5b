@@ -1,7 +1,7 @@
-From 5dedb114f78cf0370894802676c2277d28a84858 Mon Sep 17 00:00:00 2001
+From c7d56408bce3de806a1c739260380f589d11f100 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 4 May 2023 19:36:17 +0200
-Subject: [PATCH 13/14] regulator: rk808: revert to synchronous probing
+Date: Thu, 4 May 2023 16:11:48 +0200
+Subject: [PATCH 013/100] regulator: rk808: revert to synchronous probing
 
 The rk808 driver registers a bunch of regulator devices in a loop.
 If one of the later regulators fails to register (usually because

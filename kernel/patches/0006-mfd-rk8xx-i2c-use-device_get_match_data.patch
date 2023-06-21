@@ -1,7 +1,7 @@
-From 95ce8467bb180a2e615cfad8ddd7c99a83a308e1 Mon Sep 17 00:00:00 2001
+From 5d8b483843005a285242a69bc0b8ea4bd2583f1b Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 4 May 2023 19:36:10 +0200
-Subject: [PATCH 06/14] mfd: rk8xx-i2c: use device_get_match_data
+Date: Tue, 24 Jan 2023 14:25:32 +0100
+Subject: [PATCH 006/100] mfd: rk8xx-i2c: use device_get_match_data
 
 Simplify the device identification logic by supplying the relevant
 information via of_match_data. This also removes the dev_info()

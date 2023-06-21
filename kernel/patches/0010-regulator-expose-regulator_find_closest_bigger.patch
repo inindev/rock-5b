@@ -1,7 +1,7 @@
-From 14165f02b59c1f5535daad20b40b2f2913c5707c Mon Sep 17 00:00:00 2001
+From 21db4f716c3df613362c8c664224d6b0c838eb03 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 4 May 2023 19:36:14 +0200
-Subject: [PATCH 10/14] regulator: expose regulator_find_closest_bigger
+Date: Fri, 9 Sep 2022 18:24:43 +0200
+Subject: [PATCH 010/100] regulator: expose regulator_find_closest_bigger
 
 Expose and document the table lookup logic used by
 regulator_set_ramp_delay_regmap, so that it can be
