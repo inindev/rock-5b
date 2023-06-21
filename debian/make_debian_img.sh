@@ -144,8 +144,10 @@ main() {
 
     print_hdr "installing firmware"
     mkdir -p "$mountpt/lib/firmware"
-    local lfwn=$(basename "$lfw")
-    tar -C "$mountpt/lib/firmware" --strip-components=1 --wildcards -xavf "$lfw" "${lfwn%%.*}/rockchip" "${lfwn%%.*}/rtl_bt" "${lfwn%%.*}/rtl_nic"
+    local lfwn="$(basename "$lfw")"
+    local lfwbn="${lfwn%%.*}"
+    tar -C "$mountpt/lib/firmware" --strip-components=1 --wildcards -xavf "$lfw" "$lfwbn/microchip/mscc*" "$lfwbn/nvidia/tegra???" "$lfwbn/r8a779x*" \
+                                                                                 "$lfwbn/rockchip" "$lfwbn/rtl_bt" "$lfwbn/rtl_nic"
 
     print_hdr "installing rootfs expansion script to /etc/rc.local"
     echo "$(script_rc_local)\n" > "$mountpt/etc/rc.local"
