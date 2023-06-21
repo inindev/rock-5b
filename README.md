@@ -3,7 +3,7 @@
 
 This Debian ARM64 Linux image is built directly from official packages using the Debian [Debootstrap](https://wiki.debian.org/Debootstrap) utility, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L105
 
-Most patches are directly available from the Debian repos using the built-in ```apt``` package manager, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L339
+Most patches are directly available from the Debian repos using the built-in ```apt``` package manager, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L341
 
 <br/>
 
@@ -14,7 +14,7 @@ Most patches are directly available from the Debian repos using the built-in ```
 
 **1. download image**
 ```
-wget https://github.com/inindev/rock-5b/releases/download/v12/rock-5b_bookworm.img.xz
+wget https://github.com/inindev/rock-5b/releases/download/v12.0/rock-5b_bookworm-a1.img.xz
 ```
 
 <br/>
@@ -38,7 +38,7 @@ brw-rw---- 1 root disk 8, 0 Apr 10 15:56 /dev/sda
 
 **3. in the case above, substitute 'a' for 'X' in the command below (for /dev/sda)**
 ```
-sudo sh -c 'xzcat rock-5b_bookworm.img.xz > /dev/sdX && sync'
+sudo sh -c 'xzcat rock-5b_bookworm-a1.img.xz > /dev/sdX && sync'
 ```
 
 #### when the micro sd has finished imaging, eject and use it to boot the odroid m1 to finish setup
@@ -98,8 +98,8 @@ sudo nano /etc/hosts
 
 **1. while booted from mmc, download and copy the image file on to the ssd media**
 ```
-wget https://github.com/inindev/rock-5b/releases/download/v12/rock-5b_bookworm.img.xz
-sudo sh -c 'xzcat rock-5b_bookworm.img.xz > /dev/nvme0n1 && sync'
+wget https://github.com/inindev/rock-5b/releases/download/v12.0/rock-5b_bookworm-a1.img.xz
+sudo sh -c 'xzcat rock-5b_bookworm-a1.img.xz > /dev/nvme0n1 && sync'
 ```
 
 <br/>
@@ -130,7 +130,7 @@ cd rock-5b
 **2. run the debian build script**
 ```
 cd debian
-sudo sh make_debian_img.sh
+sudo sh make_debian_img.sh nocomp
 ```
 * note: edit the build script to change various options: ```nano make_debian_img.sh```
 
@@ -138,7 +138,18 @@ sudo sh make_debian_img.sh
 
 **3. the output if the build completes successfully**
 ```
-mmc_2g.img.xz
+mmc_2g.img
 ```
+
+**4. install the kernel**
+```
+cd debian
+sudo sh install_kernel.sh
+```
+* note: kernel needs to be built and available in the ```../kernel``` directory
+
+<br/>
+
+
 
 <br/>
