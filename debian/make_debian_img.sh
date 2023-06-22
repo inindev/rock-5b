@@ -100,7 +100,6 @@ main() {
     mkdir "$mountpt/etc"
     echo 'link_in_boot = 1' > "$mountpt/etc/kernel-img.conf"
     local pkgs="initramfs-tools, dbus, dhcpcd5, libpam-systemd, openssh-server, systemd-timesyncd"
-    pkgs="$pkgs, wireless-regdb, wpasupplicant"
     pkgs="$pkgs, $extra_pkgs"
     debootstrap --arch arm64 --include "$pkgs" --exclude "isc-dhcp-client" "$deb_dist" "$mountpt" 'https://deb.debian.org/debian/'
 
@@ -117,9 +116,6 @@ main() {
     rm -f "$mountpt/etc/ssh/ssh_host_"*
 
     rm -f "$mountpt/etc/machine.id"
-    rm -rf "$mountpt/etc/systemd/system/multi-user.target.wants/wpa_supplicant.service"
-    echo "$(file_wpa_supplicant_conf)\n" > "$mountpt/etc/wpa_supplicant/wpa_supplicant.conf"
-    cp "$mountpt/usr/share/dhcpcd/hooks/10-wpa_supplicant" "$mountpt/usr/lib/dhcpcd/dhcpcd-hooks"
 
     # hostname
     echo $hostname > "$mountpt/etc/hostname"
