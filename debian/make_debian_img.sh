@@ -115,7 +115,11 @@ main() {
     rm -f "$mountpt/etc/systemd/system/multi-user.target.wants/ssh.service"
     rm -f "$mountpt/etc/ssh/ssh_host_"*
 
+    # generate machine id on first boot
     rm -f "$mountpt/etc/machine.id"
+
+    # misc cleanup
+    rm -f "$mountpt/etc/systemd/system/dbus-org.freedesktop.timesync1.service"
 
     # hostname
     echo $hostname > "$mountpt/etc/hostname"
