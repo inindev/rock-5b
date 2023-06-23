@@ -32,7 +32,7 @@ main() {
         exit 0
     fi
 
-    check_installed 'screen' 'build-essential' 'python3' 'flex' 'bison' 'pahole' 'bc' 'rsync' 'libncurses-dev' 'libelf-dev' 'libssl-dev' 'lz4' 'zstd'
+    check_installed 'screen' 'build-essential' 'python3' 'flex' 'bison' 'pahole' 'debhelper'  'bc' 'rsync' 'libncurses-dev' 'libelf-dev' 'libssl-dev' 'lz4' 'zstd'
 
     if [ -z $STY ]; then
         echo 'reminder: run from a screen session, this can take a while...'
