@@ -1,7 +1,7 @@
-From a588e97d907e92cf0d6cbabb7df9dc768ca3f634 Mon Sep 17 00:00:00 2001
+From 5730ace99d29d0a6f1beda60bdfbdbc034c57c14 Mon Sep 17 00:00:00 2001
 From: Venkatesh Yadav Abbarapu <venkatesh.abbarapu@amd.com>
 Date: Mon, 8 May 2023 08:30:13 +0530
-Subject: [PATCH 21/28] usb: dwc3: core: improve reset sequence
+Subject: [PATCH 21/29] usb: dwc3: core: improve reset sequence
 
 [ Felipe: Ported from Linux kernel commit
 	  f59dcab17629 ("usb: dwc3: core: improve reset sequence") ]

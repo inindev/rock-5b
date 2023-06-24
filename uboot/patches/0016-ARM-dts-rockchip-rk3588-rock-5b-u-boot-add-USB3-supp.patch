@@ -1,7 +1,7 @@
-From ecd2e2f9315260b34b8d3091433edd7e0837e7cf Mon Sep 17 00:00:00 2001
+From 1dd8c5e6877aa6e3baa0f5698ad4fae3c7113a5a Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Fri, 26 May 2023 14:01:40 +0300
-Subject: [PATCH 16/28] ARM: dts: rockchip: rk3588-rock-5b-u-boot: add USB3
+Subject: [PATCH 16/29] ARM: dts: rockchip: rk3588-rock-5b-u-boot: add USB3
  support
 
 Enable the USB3.0 host node, and gadget node.
@@ -14,11 +14,11 @@ in the DT from Linux
 
 Signed-off-by: Eugen Hristev <eugen.hristev@collabora.com>
 ---
- arch/arm/dts/rk3588-rock-5b-u-boot.dtsi | 197 ++++++++++++++++++++++++
- 1 file changed, 197 insertions(+)
+ arch/arm/dts/rk3588-rock-5b-u-boot.dtsi | 196 ++++++++++++++++++++++++
+ 1 file changed, 196 insertions(+)
 
 diff --git a/arch/arm/dts/rk3588-rock-5b-u-boot.dtsi b/arch/arm/dts/rk3588-rock-5b-u-boot.dtsi
-index 1cd8a57a6f..5a32926996 100644
+index 1cd8a57a6f..6cdea11f84 100644
 --- a/arch/arm/dts/rk3588-rock-5b-u-boot.dtsi
 +++ b/arch/arm/dts/rk3588-rock-5b-u-boot.dtsi
 @@ -7,6 +7,7 @@
@@ -117,7 +117,7 @@ index 1cd8a57a6f..5a32926996 100644
  &u2phy2 {
  	resets = <&cru SRST_OTGPHY_U2_0>, <&cru SRST_P_USB2PHY_U2_0_GRF0>;
  	reset-names = "phy", "apb";
-@@ -209,3 +270,139 @@
+@@ -209,3 +270,138 @@
  	status = "okay";
  };
  
@@ -256,7 +256,6 @@ index 1cd8a57a6f..5a32926996 100644
 +		};
 +	};
 +};
-+
 -- 
 2.39.2
 

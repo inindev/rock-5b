@@ -1,7 +1,7 @@
-From ce1ba04012766e0ad1e18209b7c4d69765dad8d8 Mon Sep 17 00:00:00 2001
+From aba4d29ba38b2a480b05c47aecd6d04845b51ff7 Mon Sep 17 00:00:00 2001
 From: Jonas Karlman <jonas@kwiboo.se>
 Date: Sun, 29 Jan 2023 08:44:04 +0000
-Subject: [PATCH 06/28] HACK: mkimage: fit: Keep data that should be loaded
+Subject: [PATCH 06/29] HACK: mkimage: fit: Keep data that should be loaded
  into SRAM embedded
 
 This needs to be reworked, possible into mkimage parameters that can be
