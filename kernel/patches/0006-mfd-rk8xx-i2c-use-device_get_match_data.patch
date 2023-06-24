@@ -1,7 +1,7 @@
-From 5d8b483843005a285242a69bc0b8ea4bd2583f1b Mon Sep 17 00:00:00 2001
+From 6b6097825ff27d5c258a1a3f25121c1e7313cd2b Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 24 Jan 2023 14:25:32 +0100
-Subject: [PATCH 006/100] mfd: rk8xx-i2c: use device_get_match_data
+Subject: [PATCH 006/102] mfd: rk8xx-i2c: use device_get_match_data
 
 Simplify the device identification logic by supplying the relevant
 information via of_match_data. This also removes the dev_info()
@@ -20,7 +20,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  2 files changed, 37 insertions(+), 54 deletions(-)
 
 diff --git a/drivers/mfd/rk8xx-core.c b/drivers/mfd/rk8xx-core.c
-index 5c0a5acef..ddf2052c5 100644
+index 5c0a5acef34c..ddf2052c5190 100644
 --- a/drivers/mfd/rk8xx-core.c
 +++ b/drivers/mfd/rk8xx-core.c
 @@ -597,8 +597,6 @@ int rk8xx_probe(struct device *dev, int variant, unsigned int irq, struct regmap
@@ -33,7 +33,7 @@ index 5c0a5acef..ddf2052c5 100644
  		return dev_err_probe(dev, -EINVAL, "No interrupt support, no core IRQ\n");
  
 diff --git a/drivers/mfd/rk8xx-i2c.c b/drivers/mfd/rk8xx-i2c.c
-index 6d121b589..2822bfa8a 100644
+index 6d121b589fec..2822bfa8a04a 100644
 --- a/drivers/mfd/rk8xx-i2c.c
 +++ b/drivers/mfd/rk8xx-i2c.c
 @@ -16,6 +16,11 @@

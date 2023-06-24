@@ -1,7 +1,7 @@
-From 041538f9a843accc42108643660065092adfe9d4 Mon Sep 17 00:00:00 2001
+From 3d151c5b37ac5b357c00807ec0dfc9c8a187d3a8 Mon Sep 17 00:00:00 2001
 From: Simon Xue <xxm@rock-chips.com>
 Date: Fri, 7 Apr 2023 18:16:38 +0530
-Subject: [PATCH 061/100] iio: adc: rockchip_saradc: Add callback functions
+Subject: [PATCH 061/102] iio: adc: rockchip_saradc: Add callback functions
 
 Add start, read and power_down callback functions,
 which will help in adding new rockchip device support
@@ -14,7 +14,7 @@ Signed-off-by: Shreeya Patel <shreeya.patel@collabora.com>
  1 file changed, 52 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/iio/adc/rockchip_saradc.c b/drivers/iio/adc/rockchip_saradc.c
-index 79448c5ff..21f9d92a6 100644
+index 79448c5ffc2a..21f9d92a6af4 100644
 --- a/drivers/iio/adc/rockchip_saradc.c
 +++ b/drivers/iio/adc/rockchip_saradc.c
 @@ -38,10 +38,15 @@

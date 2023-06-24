@@ -1,7 +1,7 @@
-From 5239b06d5e9efc135913f5c2d26a47c9e7377bd5 Mon Sep 17 00:00:00 2001
+From b7f7f8a2b20c10cfa011640374da0648fd772df6 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Wed, 29 Jun 2022 16:56:32 +0200
-Subject: [PATCH 005/100] mfd: rk808: split into core and i2c
+Subject: [PATCH 005/102] mfd: rk808: split into core and i2c
 
 Split rk808 into a core and an i2c part in preparation for
 SPI support.
@@ -29,7 +29,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  create mode 100644 drivers/mfd/rk8xx-i2c.c
 
 diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
-index 016814e15..c0c8e526a 100644
+index 016814e15536..c0c8e526a1e9 100644
 --- a/drivers/clk/Kconfig
 +++ b/drivers/clk/Kconfig
 @@ -82,7 +82,7 @@ config COMMON_CLK_MAX9485
@@ -42,7 +42,7 @@ index 016814e15..c0c8e526a 100644
  	  This driver supports RK805, RK809 and RK817, RK808 and RK818 crystal oscillator clock.
  	  These multi-function devices have two fixed-rate oscillators, clocked at 32KHz each.
 diff --git a/drivers/input/misc/Kconfig b/drivers/input/misc/Kconfig
-index 81a54a59e..8a320e621 100644
+index 81a54a59e13c..8a320e6218e3 100644
 --- a/drivers/input/misc/Kconfig
 +++ b/drivers/input/misc/Kconfig
 @@ -609,7 +609,7 @@ config INPUT_PWM_VIBRA
@@ -55,7 +55,7 @@ index 81a54a59e..8a320e621 100644
  	  Select this option to enable power key driver for RK805.
  
 diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-index e90463c44..de53e6c70 100644
+index e90463c4441c..de53e6c701fd 100644
 --- a/drivers/mfd/Kconfig
 +++ b/drivers/mfd/Kconfig
 @@ -1183,12 +1183,17 @@ config MFD_RC5T583
@@ -78,7 +78,7 @@ index e90463c44..de53e6c70 100644
  	  If you say yes here you get support for the RK805, RK808, RK809,
  	  RK817 and RK818 Power Management chips.
 diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-index 1d2392f06..ba373193e 100644
+index 1d2392f06f78..ba373193e999 100644
 --- a/drivers/mfd/Makefile
 +++ b/drivers/mfd/Makefile
 @@ -214,7 +214,8 @@ obj-$(CONFIG_MFD_PALMAS)	+= palmas.o
@@ -95,7 +95,7 @@ diff --git a/drivers/mfd/rk808.c b/drivers/mfd/rk8xx-core.c
 similarity index 76%
 rename from drivers/mfd/rk808.c
 rename to drivers/mfd/rk8xx-core.c
-index ce52307cb..5c0a5acef 100644
+index ce52307cbaea..5c0a5acef34c 100644
 --- a/drivers/mfd/rk808.c
 +++ b/drivers/mfd/rk8xx-core.c
 @@ -1,18 +1,15 @@
@@ -451,7 +451,7 @@ index ce52307cb..5c0a5acef 100644
 +MODULE_DESCRIPTION("RK8xx PMIC core");
 diff --git a/drivers/mfd/rk8xx-i2c.c b/drivers/mfd/rk8xx-i2c.c
 new file mode 100644
-index 000000000..6d121b589
+index 000000000000..6d121b589fec
 --- /dev/null
 +++ b/drivers/mfd/rk8xx-i2c.c
 @@ -0,0 +1,200 @@
@@ -656,7 +656,7 @@ index 000000000..6d121b589
 +MODULE_AUTHOR("Wadim Egorov <w.egorov@phytec.de>");
 +MODULE_DESCRIPTION("RK8xx I2C PMIC driver");
 diff --git a/drivers/pinctrl/Kconfig b/drivers/pinctrl/Kconfig
-index 5787c579d..77ff9a641 100644
+index 5787c579dcf6..77ff9a641aeb 100644
 --- a/drivers/pinctrl/Kconfig
 +++ b/drivers/pinctrl/Kconfig
 @@ -407,7 +407,7 @@ config PINCTRL_PISTACHIO
@@ -669,7 +669,7 @@ index 5787c579d..77ff9a641 100644
  	select PINMUX
  	select GENERIC_PINCONF
 diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
-index c78be9f32..4a5e8e1d1 100644
+index c78be9f322e6..4a5e8e1d1237 100644
 --- a/drivers/power/supply/Kconfig
 +++ b/drivers/power/supply/Kconfig
 @@ -706,7 +706,7 @@ config CHARGER_BQ256XX
@@ -682,7 +682,7 @@ index c78be9f32..4a5e8e1d1 100644
  	  Say Y to include support for Rockchip RK817 Battery Charger.
  
 diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
-index e5f3613c1..f2881fe3e 100644
+index e5f3613c15fa..f2881fe3e0a7 100644
 --- a/drivers/regulator/Kconfig
 +++ b/drivers/regulator/Kconfig
 @@ -1056,7 +1056,7 @@ config REGULATOR_RC5T583
@@ -695,7 +695,7 @@ index e5f3613c1..f2881fe3e 100644
  	  Select this option to enable the power regulator of ROCKCHIP
  	  PMIC RK805,RK809&RK817,RK808 and RK818.
 diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-index 753872408..ffca9a8bb 100644
+index 753872408615..ffca9a8bb878 100644
 --- a/drivers/rtc/Kconfig
 +++ b/drivers/rtc/Kconfig
 @@ -395,7 +395,7 @@ config RTC_DRV_NCT3018Y
@@ -708,7 +708,7 @@ index 753872408..ffca9a8bb 100644
  	  If you say yes here you will get support for the
  	  RTC of RK805, RK809 and RK817, RK808 and RK818 PMIC.
 diff --git a/include/linux/mfd/rk808.h b/include/linux/mfd/rk808.h
-index a89ddd9ba..4183427a8 100644
+index a89ddd9ba68e..4183427a80fe 100644
 --- a/include/linux/mfd/rk808.h
 +++ b/include/linux/mfd/rk808.h
 @@ -794,4 +794,10 @@ struct rk808 {
@@ -723,7 +723,7 @@ index a89ddd9ba..4183427a8 100644
 +
  #endif /* __LINUX_REGULATOR_RK808_H */
 diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 8020097d4..0c4c5cbaa 100644
+index 8020097d4e4c..0c4c5cbaa809 100644
 --- a/sound/soc/codecs/Kconfig
 +++ b/sound/soc/codecs/Kconfig
 @@ -1313,7 +1313,7 @@ config SND_SOC_RK3328

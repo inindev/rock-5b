@@ -1,7 +1,7 @@
-From a719c03f2e7cae18a918309c032ca2ee1601f555 Mon Sep 17 00:00:00 2001
+From a05e85dd69004b622706123a32b0ac6f2ad56f61 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 16 May 2023 20:35:24 +0200
-Subject: [PATCH 043/100] dt-bindings: ata: ahci: dwc: enforce rockchip clocks
+Subject: [PATCH 043/102] dt-bindings: ata: ahci: dwc: enforce rockchip clocks
 
 Provide a specific list of clocks allowed for RK3568 and RK3588
 based DWC AHCI controllers.
@@ -12,7 +12,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 31 insertions(+), 3 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/ata/snps,dwc-ahci.yaml b/Documentation/devicetree/bindings/ata/snps,dwc-ahci.yaml
-index c6a0d6c8b..37830185b 100644
+index c6a0d6c8b62c..37830185b9b5 100644
 --- a/Documentation/devicetree/bindings/ata/snps,dwc-ahci.yaml
 +++ b/Documentation/devicetree/bindings/ata/snps,dwc-ahci.yaml
 @@ -13,9 +13,6 @@ description:

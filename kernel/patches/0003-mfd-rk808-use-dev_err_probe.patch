@@ -1,7 +1,7 @@
-From ce42fe7a452d2d6a7d354dbf226e443e459e16e5 Mon Sep 17 00:00:00 2001
+From 9d3fd910d12a0758eb91e1d30440389cbaae0014 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 28 Jun 2022 18:12:06 +0200
-Subject: [PATCH 003/100] mfd: rk808: use dev_err_probe
+Subject: [PATCH 003/102] mfd: rk808: use dev_err_probe
 
 Use dev_err_probe instead of dev_err in probe function,
 which simplifies code a little bit and prints the error
@@ -19,7 +19,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 16 insertions(+), 32 deletions(-)
 
 diff --git a/drivers/mfd/rk808.c b/drivers/mfd/rk808.c
-index a996a43f9..f42e09e3a 100644
+index a996a43f9204..f42e09e3a3f5 100644
 --- a/drivers/mfd/rk808.c
 +++ b/drivers/mfd/rk808.c
 @@ -670,18 +670,12 @@ static int rk808_probe(struct i2c_client *client)

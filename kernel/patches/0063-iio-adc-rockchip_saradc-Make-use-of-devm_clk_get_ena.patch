@@ -1,7 +1,7 @@
-From a063c92ab9df8c1101885de43a3112096f362752 Mon Sep 17 00:00:00 2001
+From 585d36b84872803d112c020ae290489abbebb90a Mon Sep 17 00:00:00 2001
 From: Shreeya Patel <shreeya.patel@collabora.com>
 Date: Wed, 19 Apr 2023 15:41:44 +0530
-Subject: [PATCH 063/100] iio: adc: rockchip_saradc: Make use of
+Subject: [PATCH 063/102] iio: adc: rockchip_saradc: Make use of
  devm_clk_get_enabled
 
 Use devm_clk_get_enabled() to avoid manually disabling the
@@ -13,7 +13,7 @@ Signed-off-by: Shreeya Patel <shreeya.patel@collabora.com>
  1 file changed, 8 insertions(+), 48 deletions(-)
 
 diff --git a/drivers/iio/adc/rockchip_saradc.c b/drivers/iio/adc/rockchip_saradc.c
-index 257f0a80c..2e8a1a5e5 100644
+index 257f0a80c08d..2e8a1a5e5b2c 100644
 --- a/drivers/iio/adc/rockchip_saradc.c
 +++ b/drivers/iio/adc/rockchip_saradc.c
 @@ -346,20 +346,6 @@ static void rockchip_saradc_reset_controller(struct reset_control *reset)

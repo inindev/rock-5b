@@ -1,7 +1,7 @@
-From 86488644a71342cdf4cd04c50914796f01bde712 Mon Sep 17 00:00:00 2001
+From e9fa32899e9c08b95b07a5f6b7b93dec6fe7863e Mon Sep 17 00:00:00 2001
 From: Shreeya Patel <shreeya.patel@collabora.com>
 Date: Sun, 11 Jun 2023 00:56:47 +0530
-Subject: [PATCH 083/100] dt-bindings: iio: rockchip: Fix 'oneOf' condition
+Subject: [PATCH 083/102] dt-bindings: iio: rockchip: Fix 'oneOf' condition
  failed warning
 
 rk3588-saradc isn't compatible with the rk3399-saradc variant,
@@ -23,7 +23,7 @@ Signed-off-by: Shreeya Patel <shreeya.patel@collabora.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml b/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml
-index 11c27ea45..aa24b8413 100644
+index 11c27ea451c8..aa24b841393c 100644
 --- a/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml
 +++ b/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml
 @@ -15,13 +15,13 @@ properties:

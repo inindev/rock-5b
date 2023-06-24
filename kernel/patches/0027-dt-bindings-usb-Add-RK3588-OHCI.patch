@@ -1,7 +1,7 @@
-From 136da31020465199728f2e44b9d7da9163f5eaa3 Mon Sep 17 00:00:00 2001
+From 528f77a544589cf6c7e6b52f26a3bbe05141d67b Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 30 Mar 2023 16:31:18 +0200
-Subject: [PATCH 027/100] dt-bindings: usb: Add RK3588 OHCI
+Subject: [PATCH 027/102] dt-bindings: usb: Add RK3588 OHCI
 
 Add compatible for RK3588 OHCI. As far as I know it's fully
 compatible with generic-ohci.
@@ -13,7 +13,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 16 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/devicetree/bindings/usb/generic-ohci.yaml b/Documentation/devicetree/bindings/usb/generic-ohci.yaml
-index d06d1e7d8..be268e23c 100644
+index d06d1e7d8876..be268e23ca79 100644
 --- a/Documentation/devicetree/bindings/usb/generic-ohci.yaml
 +++ b/Documentation/devicetree/bindings/usb/generic-ohci.yaml
 @@ -44,6 +44,7 @@ properties:

@@ -1,7 +1,7 @@
-From 7864b5bfc180e8beb776a09acf7299a8f9ce9b11 Mon Sep 17 00:00:00 2001
+From 7da652e0c0e455d28143798e97ca684b38122703 Mon Sep 17 00:00:00 2001
 From: Shreeya Patel <shreeya.patel@collabora.com>
 Date: Sat, 10 Jun 2023 16:53:19 +0530
-Subject: [PATCH 082/100] arm64: dts: rockchip: rock5b: Add saradc node
+Subject: [PATCH 082/102] arm64: dts: rockchip: rock5b: Add saradc node
 
 Add ADC support for ROCK 5B.
 
@@ -11,7 +11,7 @@ Signed-off-by: Shreeya Patel <shreeya.patel@collabora.com>
  1 file changed, 5 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
-index b8897c97f..1c1704c5e 100644
+index b8897c97f167..1c1704c5e4d0 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
 @@ -231,6 +231,11 @@ &pwm1 {

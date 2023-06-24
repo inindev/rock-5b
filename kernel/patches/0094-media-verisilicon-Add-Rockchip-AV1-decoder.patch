@@ -1,7 +1,7 @@
-From 0e5dcd8aa99cc6e2f4767d3ced68ffa453bfbcd2 Mon Sep 17 00:00:00 2001
+From 93371dd7723ec7dc02a1f2bd5a1d2ecf62f16a20 Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Wed, 3 May 2023 10:34:35 +0200
-Subject: [PATCH 094/100] media: verisilicon: Add Rockchip AV1 decoder
+Subject: [PATCH 094/102] media: verisilicon: Add Rockchip AV1 decoder
 
 Implement AV1 stateless decoder for rockchip VPU981.
 It decode 8 and 10 bits AV1 bitstreams.
@@ -20,7 +20,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  create mode 100644 drivers/media/platform/verisilicon/rockchip_vpu981_regs.h
 
 diff --git a/drivers/media/platform/verisilicon/Makefile b/drivers/media/platform/verisilicon/Makefile
-index d2b2679c0..c9a9806ab 100644
+index d2b2679c00eb..c9a9806ab8c5 100644
 --- a/drivers/media/platform/verisilicon/Makefile
 +++ b/drivers/media/platform/verisilicon/Makefile
 @@ -18,6 +18,7 @@ hantro-vpu-y += \
@@ -32,7 +32,7 @@ index d2b2679c0..c9a9806ab 100644
  		hantro_jpeg.o \
  		hantro_h264.o \
 diff --git a/drivers/media/platform/verisilicon/hantro_hw.h b/drivers/media/platform/verisilicon/hantro_hw.h
-index d7641eced..84af70616 100644
+index d7641eced32e..84af70616100 100644
 --- a/drivers/media/platform/verisilicon/hantro_hw.h
 +++ b/drivers/media/platform/verisilicon/hantro_hw.h
 @@ -37,6 +37,8 @@
@@ -141,7 +141,7 @@ index d7641eced..84af70616 100644
  {
 diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
 new file mode 100644
-index 000000000..bf175072a
+index 000000000000..bf175072a07b
 --- /dev/null
 +++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
 @@ -0,0 +1,2022 @@
@@ -2169,7 +2169,7 @@ index 000000000..bf175072a
 +};
 diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_regs.h b/drivers/media/platform/verisilicon/rockchip_vpu981_regs.h
 new file mode 100644
-index 000000000..182e6c830
+index 000000000000..182e6c830ff6
 --- /dev/null
 +++ b/drivers/media/platform/verisilicon/rockchip_vpu981_regs.h
 @@ -0,0 +1,477 @@

@@ -1,7 +1,7 @@
-From 8eada0fdf36854b673a4b416e025ca8d34be0d9c Mon Sep 17 00:00:00 2001
+From dfbe0b7b9b8d6cf928e2a546b14bde5b9a28c8f7 Mon Sep 17 00:00:00 2001
 From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Date: Wed, 3 May 2023 10:34:28 +0200
-Subject: [PATCH 087/100] v4l2-common: Add support for fractional bpp
+Subject: [PATCH 087/102] v4l2-common: Add support for fractional bpp
 
 Fraction bytes-per-pixel exist for some packed format. You will find
 notably on Rockhip platform that 10bit data is stored fully packed,
@@ -18,7 +18,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  2 files changed, 82 insertions(+), 80 deletions(-)
 
 diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
-index 3c5ab5ecd..4b3faec14 100644
+index 3c5ab5ecd678..4b3faec14f69 100644
 --- a/drivers/media/v4l2-core/v4l2-common.c
 +++ b/drivers/media/v4l2-core/v4l2-common.c
 @@ -235,91 +235,91 @@ const struct v4l2_format_info *v4l2_format_info(u32 format)
@@ -234,7 +234,7 @@ index 3c5ab5ecd..4b3faec14 100644
  	return 0;
  }
 diff --git a/include/media/v4l2-common.h b/include/media/v4l2-common.h
-index 1bdaea248..d278836fd 100644
+index 1bdaea248089..d278836fd9cb 100644
 --- a/include/media/v4l2-common.h
 +++ b/include/media/v4l2-common.h
 @@ -480,6 +480,7 @@ enum v4l2_pixel_encoding {

@@ -1,7 +1,7 @@
-From 447f9f7cdaf64ad84ef4bfc8d442d5e77abae852 Mon Sep 17 00:00:00 2001
+From 1f8a3795465d4c0aa19ca462af6fba43d6a15a8b Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Wed, 3 May 2023 10:34:34 +0200
-Subject: [PATCH 093/100] media: verisilicon: Add AV1 entropy helpers
+Subject: [PATCH 093/102] media: verisilicon: Add AV1 entropy helpers
 
 AV1 hardware decoder needs entropy parameters to decode frames.
 They are computed from various arrays defined in AV1 section
@@ -23,7 +23,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  create mode 100644 drivers/media/platform/verisilicon/rockchip_av1_entropymode.h
 
 diff --git a/drivers/media/platform/verisilicon/Makefile b/drivers/media/platform/verisilicon/Makefile
-index ebd5ede7b..d2b2679c0 100644
+index ebd5ede7bef7..d2b2679c00eb 100644
 --- a/drivers/media/platform/verisilicon/Makefile
 +++ b/drivers/media/platform/verisilicon/Makefile
 @@ -18,6 +18,7 @@ hantro-vpu-y += \
@@ -35,7 +35,7 @@ index ebd5ede7b..d2b2679c0 100644
  		hantro_h264.o \
  		hantro_hevc.o \
 diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
-index 61480825b..a98cb40a8 100644
+index 61480825b856..a98cb40a8d3b 100644
 --- a/drivers/media/platform/verisilicon/hantro.h
 +++ b/drivers/media/platform/verisilicon/hantro.h
 @@ -240,6 +240,7 @@ struct hantro_dev {
@@ -55,7 +55,7 @@ index 61480825b..a98cb40a8 100644
  };
  
 diff --git a/drivers/media/platform/verisilicon/hantro_hw.h b/drivers/media/platform/verisilicon/hantro_hw.h
-index bc61d4e05..d7641eced 100644
+index bc61d4e051c7..d7641eced32e 100644
 --- a/drivers/media/platform/verisilicon/hantro_hw.h
 +++ b/drivers/media/platform/verisilicon/hantro_hw.h
 @@ -15,6 +15,8 @@
@@ -94,7 +94,7 @@ index bc61d4e05..d7641eced 100644
   *
 diff --git a/drivers/media/platform/verisilicon/rockchip_av1_entropymode.c b/drivers/media/platform/verisilicon/rockchip_av1_entropymode.c
 new file mode 100644
-index 000000000..1c9ce8df2
+index 000000000000..1c9ce8df267e
 --- /dev/null
 +++ b/drivers/media/platform/verisilicon/rockchip_av1_entropymode.c
 @@ -0,0 +1,4424 @@
@@ -4524,7 +4524,7 @@ index 000000000..1c9ce8df2
 +}
 diff --git a/drivers/media/platform/verisilicon/rockchip_av1_entropymode.h b/drivers/media/platform/verisilicon/rockchip_av1_entropymode.h
 new file mode 100644
-index 000000000..bbf8424c7
+index 000000000000..bbf8424c7d2c
 --- /dev/null
 +++ b/drivers/media/platform/verisilicon/rockchip_av1_entropymode.h
 @@ -0,0 +1,272 @@

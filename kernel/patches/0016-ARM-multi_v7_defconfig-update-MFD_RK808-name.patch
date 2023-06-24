@@ -1,7 +1,7 @@
-From 50944859c5fa0af7a0564d4a9313e32c54cea316 Mon Sep 17 00:00:00 2001
+From a347eb8c9adbf8b45a5bfda3b22d46c18357175a Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 18 May 2023 05:11:10 +0200
-Subject: [PATCH 016/100] ARM: multi_v7_defconfig: update MFD_RK808 name
+Subject: [PATCH 016/102] ARM: multi_v7_defconfig: update MFD_RK808 name
 
 MFD_RK808 got split into an I2C and SPI part named MFD_RK8XX_I2C and
 MFD_RK8XX_SPI. Since there are no known ARMv7 boards using the SPI
@@ -16,7 +16,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-index 871fffe92..f0800f806 100644
+index 871fffe92187..f0800f806b5f 100644
 --- a/arch/arm/configs/multi_v7_defconfig
 +++ b/arch/arm/configs/multi_v7_defconfig
 @@ -596,7 +596,7 @@ CONFIG_MFD_CPCAP=y

@@ -1,7 +1,7 @@
-From ac3c03c1491987067d7bd00f2229495630d639e9 Mon Sep 17 00:00:00 2001
+From 3f638053b6f3773b3d884f0b62b95f025d098d30 Mon Sep 17 00:00:00 2001
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Date: Thu, 4 May 2023 23:06:43 +0300
-Subject: [PATCH 072/100] nvmem: rockchip-otp: Add clks and reg_read to
+Subject: [PATCH 072/102] nvmem: rockchip-otp: Add clks and reg_read to
  rockchip_data
 
 In preparation to support new Rockchip OTP memory devices with different
@@ -21,7 +21,7 @@ Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
  1 file changed, 49 insertions(+), 30 deletions(-)
 
 diff --git a/drivers/nvmem/rockchip-otp.c b/drivers/nvmem/rockchip-otp.c
-index 9f53bcce2..b5a84b379 100644
+index 9f53bcce2f87..b5a84b379da4 100644
 --- a/drivers/nvmem/rockchip-otp.c
 +++ b/drivers/nvmem/rockchip-otp.c
 @@ -54,21 +54,19 @@

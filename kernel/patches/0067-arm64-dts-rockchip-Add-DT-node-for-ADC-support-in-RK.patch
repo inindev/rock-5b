@@ -1,7 +1,7 @@
-From 6ff2dd053f9a52b098f9db180aabb2141cefc8c7 Mon Sep 17 00:00:00 2001
+From 5a50354c966c570986c8729061ca09a123327c91 Mon Sep 17 00:00:00 2001
 From: Shreeya Patel <shreeya.patel@collabora.com>
 Date: Sun, 4 Jun 2023 17:13:45 +0530
-Subject: [PATCH 067/100] arm64: dts: rockchip: Add DT node for ADC support in
+Subject: [PATCH 067/102] arm64: dts: rockchip: Add DT node for ADC support in
  RK3588
 
 Add DT node for ADC support in RK3588
@@ -12,7 +12,7 @@ Signed-off-by: Shreeya Patel <shreeya.patel@collabora.com>
  1 file changed, 12 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-index b5fdc046d..e1c146f02 100644
+index b5fdc046d8f7..e1c146f022a2 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 @@ -2586,6 +2586,18 @@ combphy2_psu: phy@fee20000 {

@@ -1,7 +1,7 @@
-From 014c07a22d31a61002263156cd506187f8bcf037 Mon Sep 17 00:00:00 2001
+From 8f26a2c45f3f0ba39901cb46db7d216e156ea17b Mon Sep 17 00:00:00 2001
 From: Shreeya Patel <shreeya.patel@collabora.com>
 Date: Wed, 17 May 2023 02:41:03 +0530
-Subject: [PATCH 068/100] dt-bindings: iio: adc: Add rockchip,rk3588-saradc
+Subject: [PATCH 068/102] dt-bindings: iio: adc: Add rockchip,rk3588-saradc
  string
 
 Add rockchip,rk3588-saradc compatible string.
@@ -12,7 +12,7 @@ Signed-off-by: Shreeya Patel <shreeya.patel@collabora.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml b/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml
-index da50b529c..11c27ea45 100644
+index da50b529c157..11c27ea451c8 100644
 --- a/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml
 +++ b/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml
 @@ -21,6 +21,7 @@ properties:

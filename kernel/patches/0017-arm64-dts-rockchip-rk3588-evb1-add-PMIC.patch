@@ -1,7 +1,7 @@
-From f27ea8f475b00f5401318868cdac15f5767e7e1c Mon Sep 17 00:00:00 2001
+From 42f16d465040401ee83d15b1e7bc6ea03a95fd7a Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 12 Jul 2022 15:17:33 +0200
-Subject: [PATCH 017/100] arm64: dts: rockchip: rk3588-evb1: add PMIC
+Subject: [PATCH 017/102] arm64: dts: rockchip: rk3588-evb1: add PMIC
 
 This adds PMIC support for the RK3588 EVB.
 
@@ -13,7 +13,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 637 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-index b91af0204..4b2d857ee 100644
+index b91af0204dbe..4b2d857ee219 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
 @@ -49,6 +49,38 @@ vcc5v0_sys: vcc5v0-sys-regulator {

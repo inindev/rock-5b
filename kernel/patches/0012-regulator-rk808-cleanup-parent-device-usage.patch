@@ -1,7 +1,7 @@
-From e1b93ce51724c7670cf68f3e0f9f3dc709e6017f Mon Sep 17 00:00:00 2001
+From 49296e81442e71371c1c5a2f13e0b743de3ff101 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Wed, 3 May 2023 19:19:42 +0200
-Subject: [PATCH 012/100] regulator: rk808: cleanup parent device usage
+Subject: [PATCH 012/102] regulator: rk808: cleanup parent device usage
 
 By overridering the device's of_node a bit earlier we can
 get the GPIOs and any other DT properties from our own
@@ -13,7 +13,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 6 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/regulator/rk808-regulator.c b/drivers/regulator/rk808-regulator.c
-index 80ba782d8..71a1ca8b9 100644
+index 80ba782d8923..71a1ca8b917e 100644
 --- a/drivers/regulator/rk808-regulator.c
 +++ b/drivers/regulator/rk808-regulator.c
 @@ -1245,20 +1245,19 @@ static const struct regulator_desc rk818_reg[] = {

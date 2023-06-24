@@ -1,7 +1,7 @@
-From 55215a8b5af07864b3400dbfeae5014df76bc6c2 Mon Sep 17 00:00:00 2001
+From 2e86a4f31d9df82a06a75e9337113cc235e85120 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Fri, 19 Aug 2022 18:19:43 +0200
-Subject: [PATCH 007/100] dt-bindings: mfd: add rk806 binding
+Subject: [PATCH 007/102] dt-bindings: mfd: add rk806 binding
 
 Add DT binding document for Rockchip's RK806 PMIC.
 
@@ -14,7 +14,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
 diff --git a/Documentation/devicetree/bindings/mfd/rockchip,rk806.yaml b/Documentation/devicetree/bindings/mfd/rockchip,rk806.yaml
 new file mode 100644
-index 000000000..cf2500f2e
+index 000000000000..cf2500f2e9a0
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/mfd/rockchip,rk806.yaml
 @@ -0,0 +1,406 @@

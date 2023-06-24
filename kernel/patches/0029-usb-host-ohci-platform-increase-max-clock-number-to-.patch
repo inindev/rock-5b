@@ -1,7 +1,7 @@
-From 1c0fd8d67ce01396e8a75b2586185f5909fdae1f Mon Sep 17 00:00:00 2001
+From aeac49ee674a6d1ca2214b65b446b3eec56aaa97 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Wed, 29 Mar 2023 18:54:49 +0200
-Subject: [PATCH 029/100] usb: host: ohci-platform: increase max clock number
+Subject: [PATCH 029/102] usb: host: ohci-platform: increase max clock number
  to 4
 
 Rockchip RK3588 OHCI requires 4 clocks to be enabled.
@@ -13,7 +13,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/usb/host/ohci-platform.c b/drivers/usb/host/ohci-platform.c
-index a84305091..dec38a845 100644
+index a84305091c43..dec38a845cff 100644
 --- a/drivers/usb/host/ohci-platform.c
 +++ b/drivers/usb/host/ohci-platform.c
 @@ -33,7 +33,7 @@

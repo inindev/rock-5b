@@ -1,7 +1,7 @@
-From eaedfada1c25a32ecb204717fbb4290bd4e60f1c Mon Sep 17 00:00:00 2001
+From d868c364dffcb265ea14607be97f72088276f9d2 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Wed, 24 May 2023 19:39:37 +0200
-Subject: [PATCH 018/100] arm64: dts: rockchip: rock-5b: add PMIC
+Subject: [PATCH 018/102] arm64: dts: rockchip: rock-5b: add PMIC
 
 This adds PMIC support for the Radxa ROCK 5B
 
@@ -13,7 +13,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 350 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
-index 3e4aee8f7..2180fea1f 100644
+index 3e4aee8f70c1..2180fea1fb82 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
 @@ -51,6 +51,16 @@ vcc5v0_sys: vcc5v0-sys-regulator {

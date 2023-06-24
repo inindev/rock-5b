@@ -1,7 +1,7 @@
-From e72d224dbebabfd80e9c582d26412efe5b4cb658 Mon Sep 17 00:00:00 2001
+From 736bc9ed6cf440b5e3f24177e5c52e7f08185251 Mon Sep 17 00:00:00 2001
 From: Daniel Almeida <daniel.almeida@collabora.com>
 Date: Mon, 6 Mar 2023 13:18:50 -0300
-Subject: [PATCH 084/100] media: Add AV1 uAPI
+Subject: [PATCH 084/102] media: Add AV1 uAPI
 
 This patch adds the  AOMedia Video 1 (AV1) kernel uAPI.
 
@@ -30,7 +30,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  12 files changed, 2335 insertions(+), 2 deletions(-)
 
 diff --git a/Documentation/userspace-api/media/v4l/biblio.rst b/Documentation/userspace-api/media/v4l/biblio.rst
-index 9cd18c153..72aef1759 100644
+index 9cd18c153d19..72aef1759b60 100644
 --- a/Documentation/userspace-api/media/v4l/biblio.rst
 +++ b/Documentation/userspace-api/media/v4l/biblio.rst
 @@ -427,3 +427,12 @@ VP9
@@ -47,7 +47,7 @@ index 9cd18c153..72aef1759 100644
 +
 +:author:    Peter de Rivaz, Argon Design Ltd, Jack Haughton, Argon Design Ltd
 diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
-index 3d8411acd..fd8c5fb67 100644
+index 3d8411acd5b8..fd8c5fb67d90 100644
 --- a/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
 +++ b/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
 @@ -1890,11 +1890,11 @@ params syntax' of the :ref:`vp9` specification for more details.
@@ -1274,7 +1274,7 @@ index 3d8411acd..fd8c5fb67 100644
 +        If not set, indicates that clipping to the full range shall be applied
 +        to the sample values after adding the film grain.
 diff --git a/Documentation/userspace-api/media/v4l/pixfmt-compressed.rst b/Documentation/userspace-api/media/v4l/pixfmt-compressed.rst
-index 06b78e558..806ed73ac 100644
+index 06b78e5589d2..806ed73ac474 100644
 --- a/Documentation/userspace-api/media/v4l/pixfmt-compressed.rst
 +++ b/Documentation/userspace-api/media/v4l/pixfmt-compressed.rst
 @@ -258,6 +258,22 @@ Compressed Formats
@@ -1301,7 +1301,7 @@ index 06b78e558..806ed73ac 100644
  
      \normalsize
 diff --git a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-index 5292d5e1a..960cddbdc 100644
+index 5292d5e1a91f..960cddbdca05 100644
 --- a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
 +++ b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
 @@ -279,6 +279,22 @@ still cause this situation.
@@ -1328,7 +1328,7 @@ index 5292d5e1a..960cddbdc 100644
        - ``ptr``
        - A pointer to a compound type which can be an N-dimensional array
 diff --git a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
-index a20dfa2a9..4d38acafe 100644
+index a20dfa2a933b..4d38acafe8e1 100644
 --- a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
 +++ b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
 @@ -525,6 +525,30 @@ See also the examples in :ref:`control`.
@@ -1363,7 +1363,7 @@ index a20dfa2a9..4d38acafe 100644
  .. raw:: latex
  
 diff --git a/Documentation/userspace-api/media/videodev2.h.rst.exceptions b/Documentation/userspace-api/media/videodev2.h.rst.exceptions
-index 2a589d34b..3e58aac4e 100644
+index 2a589d34b80e..3e58aac4ef0b 100644
 --- a/Documentation/userspace-api/media/videodev2.h.rst.exceptions
 +++ b/Documentation/userspace-api/media/videodev2.h.rst.exceptions
 @@ -161,6 +161,10 @@ replace symbol V4L2_CTRL_TYPE_HEVC_PPS :c:type:`v4l2_ctrl_type`
@@ -1378,7 +1378,7 @@ index 2a589d34b..3e58aac4e 100644
  # V4L2 capability defines
  replace define V4L2_CAP_VIDEO_CAPTURE device-capabilities
 diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-index 291691708..9fd37e94d 100644
+index 29169170880a..9fd37e94db17 100644
 --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
 +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
 @@ -350,6 +350,19 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl)
@@ -1668,7 +1668,7 @@ index 291691708..9fd37e94d 100644
  		elem_size = sizeof(struct v4l2_area);
  		break;
 diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-index 564fedee2..8696eb1cd 100644
+index 564fedee2c88..8696eb1cdd61 100644
 --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
 +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
 @@ -499,6 +499,40 @@ const char * const *v4l2_ctrl_get_menu(u32 id)
@@ -1775,7 +1775,7 @@ index 564fedee2..8696eb1cd 100644
  		*type = V4L2_CTRL_TYPE_AREA;
  		*flags |= V4L2_CTRL_FLAG_READ_ONLY;
 diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
-index a858acea6..41d7a8e37 100644
+index a858acea6547..41d7a8e3712a 100644
 --- a/drivers/media/v4l2-core/v4l2-ioctl.c
 +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
 @@ -1506,6 +1506,7 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
@@ -1787,7 +1787,7 @@ index a858acea6..41d7a8e37 100644
  			if (fmt->description[0])
  				return;
 diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
-index 7788eeb3e..59679a42b 100644
+index 7788eeb3e2bb..59679a42b3e7 100644
 --- a/include/media/v4l2-ctrls.h
 +++ b/include/media/v4l2-ctrls.h
 @@ -52,6 +52,10 @@ struct video_device;
@@ -1813,7 +1813,7 @@ index 7788eeb3e..59679a42b 100644
  	const void *p_const;
  };
 diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
-index 5e80daa4f..1fce30cbd 100644
+index 5e80daa4ffe0..1fce30cbd7dc 100644
 --- a/include/uapi/linux/v4l2-controls.h
 +++ b/include/uapi/linux/v4l2-controls.h
 @@ -804,6 +804,88 @@ enum v4l2_mpeg_video_frame_skip_mode {
@@ -2552,7 +2552,7 @@ index 5e80daa4f..1fce30cbd 100644
  #ifndef __KERNEL__
  #define V4L2_CTRL_CLASS_MPEG            V4L2_CTRL_CLASS_CODEC
 diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-index aee75eb9e..e3d83b59b 100644
+index aee75eb9e686..e3d83b59b25f 100644
 --- a/include/uapi/linux/videodev2.h
 +++ b/include/uapi/linux/videodev2.h
 @@ -758,6 +758,7 @@ struct v4l2_pix_format {

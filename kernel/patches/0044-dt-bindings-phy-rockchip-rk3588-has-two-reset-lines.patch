@@ -1,7 +1,7 @@
-From 4fdad9f6cb6c3241ff64c6d611af6ea98c231990 Mon Sep 17 00:00:00 2001
+From deb58f87f808614a792f47f1b70f0c83979444b0 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 6 Apr 2023 19:09:53 +0200
-Subject: [PATCH 044/100] dt-bindings: phy: rockchip: rk3588 has two reset
+Subject: [PATCH 044/102] dt-bindings: phy: rockchip: rk3588 has two reset
  lines
 
 The RK3588 has two reset lines for the combphy. One for the
@@ -13,7 +13,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-combphy.yaml b/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-combphy.yaml
-index 9ae514fa7..82550a5c2 100644
+index 9ae514fa7533..82550a5c2ed5 100644
 --- a/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-combphy.yaml
 +++ b/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-combphy.yaml
 @@ -31,8 +31,14 @@ properties:

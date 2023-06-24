@@ -1,7 +1,7 @@
-From 17588c4aad1a2e23f50dbc3dcbf3c214ba417c33 Mon Sep 17 00:00:00 2001
+From 15cfe39fb3c1cdb3f22853aff61c8debbfdd4563 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 12 Jul 2022 14:19:57 +0200
-Subject: [PATCH 001/100] clk: RK808: reduce 'struct rk808' usage
+Subject: [PATCH 001/102] clk: RK808: reduce 'struct rk808' usage
 
 Reduce usage of 'struct rk808' (driver data of the parent MFD), so
 that only the chip variant field is still being accessed directly.
@@ -17,7 +17,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 16 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/clk/clk-rk808.c b/drivers/clk/clk-rk808.c
-index 32f833d73..f7412b137 100644
+index 32f833d732ed..f7412b137e5e 100644
 --- a/drivers/clk/clk-rk808.c
 +++ b/drivers/clk/clk-rk808.c
 @@ -12,10 +12,9 @@

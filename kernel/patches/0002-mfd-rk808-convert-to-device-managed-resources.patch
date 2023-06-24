@@ -1,7 +1,7 @@
-From 839ba62b8f641dd79a2e3d1b8610ca43ad848458 Mon Sep 17 00:00:00 2001
+From b24730099668acbf6702228daad45c0c4d5d9acd Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 28 Jun 2022 18:05:55 +0200
-Subject: [PATCH 002/100] mfd: rk808: convert to device managed resources
+Subject: [PATCH 002/102] mfd: rk808: convert to device managed resources
 
 Fully convert the driver to device managed resources.
 
@@ -14,7 +14,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 22 insertions(+), 42 deletions(-)
 
 diff --git a/drivers/mfd/rk808.c b/drivers/mfd/rk808.c
-index 0f22ef61e..a996a43f9 100644
+index 0f22ef61e817..a996a43f9204 100644
 --- a/drivers/mfd/rk808.c
 +++ b/drivers/mfd/rk808.c
 @@ -548,13 +548,11 @@ static const struct regmap_irq_chip rk818_irq_chip = {

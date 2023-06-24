@@ -1,7 +1,7 @@
-From b6382958e73b43780d1fbc06fc5142a6483a7da0 Mon Sep 17 00:00:00 2001
+From f9519a91d90ec6e172dcdc501000d36f7c7e012c Mon Sep 17 00:00:00 2001
 From: Shreeya Patel <shreeya.patel@collabora.com>
 Date: Wed, 3 May 2023 01:52:53 +0530
-Subject: [PATCH 064/100] iio: adc: rockchip_saradc: Use
+Subject: [PATCH 064/102] iio: adc: rockchip_saradc: Use
  of_device_get_match_data
 
 Use of_device_get_match_data() to simplify the code.
@@ -13,7 +13,7 @@ Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/iio/adc/rockchip_saradc.c b/drivers/iio/adc/rockchip_saradc.c
-index 2e8a1a5e5..65ca71c31 100644
+index 2e8a1a5e5b2c..65ca71c31f25 100644
 --- a/drivers/iio/adc/rockchip_saradc.c
 +++ b/drivers/iio/adc/rockchip_saradc.c
 @@ -415,10 +415,10 @@ static void rockchip_saradc_regulator_unreg_notifier(void *data)

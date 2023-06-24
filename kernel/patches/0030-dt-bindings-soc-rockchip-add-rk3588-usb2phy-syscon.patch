@@ -1,7 +1,7 @@
-From 13b12d1c1f4bff635b2d9a12e1dc05f6ba7d3593 Mon Sep 17 00:00:00 2001
+From c2108ae625f2526d992969abd47d3b470e0b79d8 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Fri, 31 Mar 2023 16:21:02 +0200
-Subject: [PATCH 030/100] dt-bindings: soc: rockchip: add rk3588 usb2phy syscon
+Subject: [PATCH 030/102] dt-bindings: soc: rockchip: add rk3588 usb2phy syscon
 
 The usb2phy is accessible via a syscon registers on RK3588, similar
 to rk3399.
@@ -13,7 +13,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-index 65a2d5a4f..e8fca419c 100644
+index 65a2d5a4f28d..e8fca419cc8e 100644
 --- a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
 +++ b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
 @@ -52,6 +52,7 @@ properties:

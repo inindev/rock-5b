@@ -1,7 +1,7 @@
-From 6dbc12d6a8a48fb08803ac681b9dcf4c49ddff15 Mon Sep 17 00:00:00 2001
+From 8113ee7b1cad825b2a53ff9581c734a9b682bc27 Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Wed, 3 May 2023 10:34:30 +0200
-Subject: [PATCH 089/100] media: verisilicon: Get bit depth for
+Subject: [PATCH 089/102] media: verisilicon: Get bit depth for
  V4L2_PIX_FMT_NV15_4L4
 
 Let's the driver knows that V4L2_PIX_FMT_NV15_4L4 is a 10bits
@@ -15,7 +15,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
-index 61cfaaf4e..4a4ab0b76 100644
+index 61cfaaf4e927..4a4ab0b7627a 100644
 --- a/drivers/media/platform/verisilicon/hantro_v4l2.c
 +++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
 @@ -71,6 +71,7 @@ int hantro_get_format_depth(u32 fourcc)

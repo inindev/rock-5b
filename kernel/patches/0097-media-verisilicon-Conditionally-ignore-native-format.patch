@@ -1,7 +1,7 @@
-From 8d2d0cb0f79eacf48a606a46d18a5f6e4e7adea0 Mon Sep 17 00:00:00 2001
+From 570d92338553b06870f6c5e5c88f619966ac1887 Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Wed, 3 May 2023 10:34:38 +0200
-Subject: [PATCH 097/100] media: verisilicon: Conditionally ignore native
+Subject: [PATCH 097/102] media: verisilicon: Conditionally ignore native
  formats
 
 AV1 film grain feature requires to use the postprocessor to produce
@@ -22,7 +22,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  5 files changed, 63 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
-index a98cb40a8..6523ffb74 100644
+index a98cb40a8d3b..6523ffb74881 100644
 --- a/drivers/media/platform/verisilicon/hantro.h
 +++ b/drivers/media/platform/verisilicon/hantro.h
 @@ -231,6 +231,8 @@ struct hantro_dev {
@@ -43,7 +43,7 @@ index a98cb40a8..6523ffb74 100644
  	/* Specific for particular codec modes. */
  	union {
 diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index dd41a6de1..c0a368bac 100644
+index dd41a6de1a0c..c0a368bacf88 100644
 --- a/drivers/media/platform/verisilicon/hantro_drv.c
 +++ b/drivers/media/platform/verisilicon/hantro_drv.c
 @@ -319,7 +319,7 @@ static int hantro_vp9_s_ctrl(struct v4l2_ctrl *ctrl)
@@ -85,7 +85,7 @@ index dd41a6de1..c0a368bac 100644
  	default:
  		return -EINVAL;
 diff --git a/drivers/media/platform/verisilicon/hantro_postproc.c b/drivers/media/platform/verisilicon/hantro_postproc.c
-index bb16af507..c977d6410 100644
+index bb16af50719d..c977d64105b1 100644
 --- a/drivers/media/platform/verisilicon/hantro_postproc.c
 +++ b/drivers/media/platform/verisilicon/hantro_postproc.c
 @@ -57,6 +57,10 @@ bool hantro_needs_postproc(const struct hantro_ctx *ctx,
@@ -109,7 +109,7 @@ index bb16af507..c977d6410 100644
  		return -EINVAL;
  	v4l2_fill_pixfmt_mp(&pix_mp, fmt->fourcc, ctx->src_fmt.width,
 diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
-index 3367aa956..e871c078d 100644
+index 3367aa956ba3..e871c078dd59 100644
 --- a/drivers/media/platform/verisilicon/hantro_v4l2.c
 +++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
 @@ -31,15 +31,21 @@
@@ -290,7 +290,7 @@ index 3367aa956..e871c078d 100644
  
  static int
 diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.h b/drivers/media/platform/verisilicon/hantro_v4l2.h
-index 9ea2fef57..fca7e3a69 100644
+index 9ea2fef57dcd..fca7e3a690e5 100644
 --- a/drivers/media/platform/verisilicon/hantro_v4l2.h
 +++ b/drivers/media/platform/verisilicon/hantro_v4l2.h
 @@ -18,13 +18,17 @@

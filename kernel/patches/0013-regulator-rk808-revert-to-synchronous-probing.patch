@@ -1,7 +1,7 @@
-From c7d56408bce3de806a1c739260380f589d11f100 Mon Sep 17 00:00:00 2001
+From 9b5f8d45a50c8466517dcd64867862324e435198 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 4 May 2023 16:11:48 +0200
-Subject: [PATCH 013/100] regulator: rk808: revert to synchronous probing
+Subject: [PATCH 013/102] regulator: rk808: revert to synchronous probing
 
 The rk808 driver registers a bunch of regulator devices in a loop.
 If one of the later regulators fails to register (usually because
@@ -26,7 +26,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/regulator/rk808-regulator.c b/drivers/regulator/rk808-regulator.c
-index 71a1ca8b9..5f14d6dd4 100644
+index 71a1ca8b917e..5f14d6dd4593 100644
 --- a/drivers/regulator/rk808-regulator.c
 +++ b/drivers/regulator/rk808-regulator.c
 @@ -1355,7 +1355,7 @@ static struct platform_driver rk808_regulator_driver = {

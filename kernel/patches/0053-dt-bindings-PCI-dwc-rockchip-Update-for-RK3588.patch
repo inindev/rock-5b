@@ -1,7 +1,7 @@
-From 5fa651ebb2e5bc6f7d5ec19cdc8bda14647e7852 Mon Sep 17 00:00:00 2001
+From 4ae0c6d8a601b1eed16628cc702b337d34993a61 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Wed, 19 Apr 2023 20:49:46 +0200
-Subject: [PATCH 053/100] dt-bindings: PCI: dwc: rockchip: Update for RK3588
+Subject: [PATCH 053/102] dt-bindings: PCI: dwc: rockchip: Update for RK3588
 
 The PCIe 2.0 controllers on RK3588 need one additional clock,
 one additional reset line and one for ranges entry.
@@ -12,7 +12,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml b/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
-index bf81d306c..7897af0ec 100644
+index bf81d306cc80..7897af0ec297 100644
 --- a/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
 +++ b/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
 @@ -41,20 +41,24 @@ properties:

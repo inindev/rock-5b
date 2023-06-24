@@ -1,7 +1,7 @@
-From 0385551af6c58ec509109979760a54561cc0a4a6 Mon Sep 17 00:00:00 2001
+From eb3df44253a33b1c2fdf0c887d46b8c6e26e3903 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Wed, 29 Jun 2022 18:35:59 +0200
-Subject: [PATCH 008/100] mfd: rk8xx: add rk806 support
+Subject: [PATCH 008/102] mfd: rk8xx: add rk806 support
 
 Add support for SPI connected rk806, which is used by the RK3588
 evaluation boards. The PMIC is advertised to support I2C and SPI,
@@ -22,7 +22,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  create mode 100644 drivers/mfd/rk8xx-spi.c
 
 diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-index de53e6c70..d4879cb4e 100644
+index de53e6c701fd..d4879cb4e1f6 100644
 --- a/drivers/mfd/Kconfig
 +++ b/drivers/mfd/Kconfig
 @@ -1201,6 +1201,20 @@ config MFD_RK8XX_I2C
@@ -47,7 +47,7 @@ index de53e6c70..d4879cb4e 100644
  	tristate "Ricoh RN5T567/618 PMIC"
  	depends on I2C
 diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-index ba373193e..4e666ef5b 100644
+index ba373193e999..4e666ef5b7fc 100644
 --- a/drivers/mfd/Makefile
 +++ b/drivers/mfd/Makefile
 @@ -216,6 +216,7 @@ obj-$(CONFIG_MFD_NTXEC)		+= ntxec.o
@@ -59,7 +59,7 @@ index ba373193e..4e666ef5b 100644
  obj-$(CONFIG_MFD_SEC_CORE)	+= sec-core.o sec-irq.o
  obj-$(CONFIG_MFD_SYSCON)	+= syscon.o
 diff --git a/drivers/mfd/rk8xx-core.c b/drivers/mfd/rk8xx-core.c
-index ddf2052c5..e8fc9e2ab 100644
+index ddf2052c5190..e8fc9e2ab1d0 100644
 --- a/drivers/mfd/rk8xx-core.c
 +++ b/drivers/mfd/rk8xx-core.c
 @@ -37,6 +37,11 @@ static const struct resource rk805_key_resources[] = {
@@ -196,7 +196,7 @@ index ddf2052c5..e8fc9e2ab 100644
  		return dev_err_probe(dev, ret, "failed to add MFD devices\n");
 diff --git a/drivers/mfd/rk8xx-spi.c b/drivers/mfd/rk8xx-spi.c
 new file mode 100644
-index 000000000..fd137f38c
+index 000000000000..fd137f38c2c4
 --- /dev/null
 +++ b/drivers/mfd/rk8xx-spi.c
 @@ -0,0 +1,124 @@
@@ -325,7 +325,7 @@ index 000000000..fd137f38c
 +MODULE_DESCRIPTION("RK8xx SPI PMIC driver");
 +MODULE_LICENSE("GPL");
 diff --git a/include/linux/mfd/rk808.h b/include/linux/mfd/rk808.h
-index 4183427a8..78e167a92 100644
+index 4183427a80fe..78e167a92483 100644
 --- a/include/linux/mfd/rk808.h
 +++ b/include/linux/mfd/rk808.h
 @@ -289,6 +289,414 @@ enum rk805_reg {

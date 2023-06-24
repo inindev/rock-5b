@@ -1,7 +1,7 @@
-From ce8ec2ba24344bed750fddb8cb294e7adc6a8ac4 Mon Sep 17 00:00:00 2001
+From d30525468dbcef93235b69c46191fd60e039e509 Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Wed, 3 May 2023 10:34:36 +0200
-Subject: [PATCH 095/100] media: verisilicon: Add film grain feature to AV1
+Subject: [PATCH 095/102] media: verisilicon: Add film grain feature to AV1
  driver
 
 Film grain feature add "old style" grain noise on decoded streams.
@@ -22,7 +22,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  create mode 100644 drivers/media/platform/verisilicon/rockchip_av1_filmgrain.h
 
 diff --git a/drivers/media/platform/verisilicon/Makefile b/drivers/media/platform/verisilicon/Makefile
-index c9a9806ab..6ad2ef885 100644
+index c9a9806ab8c5..6ad2ef885920 100644
 --- a/drivers/media/platform/verisilicon/Makefile
 +++ b/drivers/media/platform/verisilicon/Makefile
 @@ -19,6 +19,7 @@ hantro-vpu-y += \
@@ -34,7 +34,7 @@ index c9a9806ab..6ad2ef885 100644
  		hantro_jpeg.o \
  		hantro_h264.o \
 diff --git a/drivers/media/platform/verisilicon/hantro_hw.h b/drivers/media/platform/verisilicon/hantro_hw.h
-index 84af70616..021fad15d 100644
+index 84af70616100..021fad15d66f 100644
 --- a/drivers/media/platform/verisilicon/hantro_hw.h
 +++ b/drivers/media/platform/verisilicon/hantro_hw.h
 @@ -16,6 +16,7 @@
@@ -63,7 +63,7 @@ index 84af70616..021fad15d 100644
  	struct hantro_aux_buf tile_buf;
 diff --git a/drivers/media/platform/verisilicon/rockchip_av1_filmgrain.c b/drivers/media/platform/verisilicon/rockchip_av1_filmgrain.c
 new file mode 100644
-index 000000000..f2ae84f0b
+index 000000000000..f2ae84f0b436
 --- /dev/null
 +++ b/drivers/media/platform/verisilicon/rockchip_av1_filmgrain.c
 @@ -0,0 +1,401 @@
@@ -470,7 +470,7 @@ index 000000000..f2ae84f0b
 +}
 diff --git a/drivers/media/platform/verisilicon/rockchip_av1_filmgrain.h b/drivers/media/platform/verisilicon/rockchip_av1_filmgrain.h
 new file mode 100644
-index 000000000..31a8b7920
+index 000000000000..31a8b7920c31
 --- /dev/null
 +++ b/drivers/media/platform/verisilicon/rockchip_av1_filmgrain.h
 @@ -0,0 +1,36 @@
@@ -511,7 +511,7 @@ index 000000000..31a8b7920
 +
 +#endif
 diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-index bf175072a..cc4483857 100644
+index bf175072a07b..cc4483857489 100644
 --- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
 +++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
 @@ -334,6 +334,12 @@ void rockchip_vpu981_av1_dec_exit(struct hantro_ctx *ctx)

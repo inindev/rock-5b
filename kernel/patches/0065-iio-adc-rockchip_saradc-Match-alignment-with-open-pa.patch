@@ -1,7 +1,7 @@
-From 7e7ee7eff6644f51d608eb64d9e0a9b029721267 Mon Sep 17 00:00:00 2001
+From 7d241fcc7c6b9f666575326f82b04cb36b275200 Mon Sep 17 00:00:00 2001
 From: Shreeya Patel <shreeya.patel@collabora.com>
 Date: Thu, 4 May 2023 18:06:00 +0530
-Subject: [PATCH 065/100] iio: adc: rockchip_saradc: Match alignment with open
+Subject: [PATCH 065/102] iio: adc: rockchip_saradc: Match alignment with open
  parenthesis
 
 Match alignment with open parenthesis for improving the code
@@ -14,7 +14,7 @@ Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com
  1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/iio/adc/rockchip_saradc.c b/drivers/iio/adc/rockchip_saradc.c
-index 65ca71c31..7883394fd 100644
+index 65ca71c31f25..7883394fdbca 100644
 --- a/drivers/iio/adc/rockchip_saradc.c
 +++ b/drivers/iio/adc/rockchip_saradc.c
 @@ -151,7 +151,7 @@ static void rockchip_saradc_power_down(struct rockchip_saradc *info)

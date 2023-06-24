@@ -1,7 +1,7 @@
-From ae6cdadd3d56092a6375bd01abc8170f52ce3104 Mon Sep 17 00:00:00 2001
+From 2c4a9fe9b3868660d6664683736142344d0b3947 Mon Sep 17 00:00:00 2001
 From: Lucas Tanure <lucas.tanure@collabora.com>
 Date: Thu, 23 Mar 2023 12:37:12 +0000
-Subject: [PATCH 057/100] arm64: defconfig: Enable Sound Card for Rock 5B
+Subject: [PATCH 057/102] arm64: defconfig: Enable Sound Card for Rock 5B
 
 Signed-off-by: Lucas Tanure <lucas.tanure@collabora.com>
 ---
@@ -9,7 +9,7 @@ Signed-off-by: Lucas Tanure <lucas.tanure@collabora.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index 78a0ec730..da0ae6cd3 100644
+index 78a0ec730b96..da0ae6cd393b 100644
 --- a/arch/arm64/configs/defconfig
 +++ b/arch/arm64/configs/defconfig
 @@ -872,6 +872,7 @@ CONFIG_SND_SOC_SM8250=m

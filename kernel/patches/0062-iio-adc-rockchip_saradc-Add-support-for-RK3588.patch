@@ -1,7 +1,7 @@
-From cbfad926629c4ec3e1e9c2ebdf900821aa7f27f1 Mon Sep 17 00:00:00 2001
+From b049beee8ec2bb1346f2c93a8105bc8973a73a66 Mon Sep 17 00:00:00 2001
 From: Simon Xue <xxm@rock-chips.com>
 Date: Thu, 25 May 2023 00:23:34 +0530
-Subject: [PATCH 062/100] iio: adc: rockchip_saradc: Add support for RK3588
+Subject: [PATCH 062/102] iio: adc: rockchip_saradc: Add support for RK3588
 
 Add new start and read functions to support rk3588 device.
 Also, add a device compatible string for the same.
@@ -14,7 +14,7 @@ Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com
  1 file changed, 70 insertions(+)
 
 diff --git a/drivers/iio/adc/rockchip_saradc.c b/drivers/iio/adc/rockchip_saradc.c
-index 21f9d92a6..257f0a80c 100644
+index 21f9d92a6af4..257f0a80c08d 100644
 --- a/drivers/iio/adc/rockchip_saradc.c
 +++ b/drivers/iio/adc/rockchip_saradc.c
 @@ -4,6 +4,7 @@

@@ -1,7 +1,7 @@
-From 5d2256a5b7a195fc213486d36780a3ba827691c4 Mon Sep 17 00:00:00 2001
+From bb1e92b1c0e030bfc46483911b454e2d039f322b Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Wed, 3 May 2023 10:34:32 +0200
-Subject: [PATCH 091/100] media: verisilicon: Check AV1 bitstreams bit depth
+Subject: [PATCH 091/102] media: verisilicon: Check AV1 bitstreams bit depth
 
 The driver supports 8 and 10 bits bitstreams, make sure to discard
 other cases.
@@ -18,7 +18,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  2 files changed, 40 insertions(+)
 
 diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index 8f6021e39..be1f06c21 100644
+index 8f6021e3953c..be1f06c21910 100644
 --- a/drivers/media/platform/verisilicon/hantro_drv.c
 +++ b/drivers/media/platform/verisilicon/hantro_drv.c
 @@ -275,7 +275,13 @@ static int hantro_try_ctrl(struct v4l2_ctrl *ctrl)
@@ -87,7 +87,7 @@ index 8f6021e39..be1f06c21 100644
  	}, {
  		.codec = HANTRO_AV1_DECODER,
 diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
-index 4a4ab0b76..35035b641 100644
+index 4a4ab0b7627a..35035b641e51 100644
 --- a/drivers/media/platform/verisilicon/hantro_v4l2.c
 +++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
 @@ -86,6 +86,10 @@ hantro_check_depth_match(const struct hantro_fmt *fmt, int bit_depth)

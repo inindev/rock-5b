@@ -1,7 +1,7 @@
-From 98846436f49e5db20eb11562f4222c8d2339f984 Mon Sep 17 00:00:00 2001
+From 963737dca14c854cfe186e3bc809b664d1c9c6b0 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 4 Jul 2022 18:56:16 +0200
-Subject: [PATCH 009/100] pinctrl: rk805: add rk806 pinctrl support
+Subject: [PATCH 009/102] pinctrl: rk805: add rk806 pinctrl support
 
 Add support for rk806 dvs pinctrl to the existing rk805
 driver.
@@ -21,7 +21,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 168 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/pinctrl/pinctrl-rk805.c b/drivers/pinctrl/pinctrl-rk805.c
-index 7c1f7408f..2639a9ee8 100644
+index 7c1f7408fb9a..2639a9ee82cd 100644
 --- a/drivers/pinctrl/pinctrl-rk805.c
 +++ b/drivers/pinctrl/pinctrl-rk805.c
 @@ -1,10 +1,12 @@

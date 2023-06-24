@@ -1,7 +1,7 @@
-From ca1387130a8a3557e111e5faab68bf61dcbfca39 Mon Sep 17 00:00:00 2001
+From 3ffa0e81baceb6d5e551e02811a6346036a2754e Mon Sep 17 00:00:00 2001
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Date: Thu, 4 May 2023 23:06:44 +0300
-Subject: [PATCH 073/100] nvmem: rockchip-otp: Generalize
+Subject: [PATCH 073/102] nvmem: rockchip-otp: Generalize
  rockchip_otp_wait_status()
 
 In preparation to support additional Rockchip OTP memory devices with
@@ -17,7 +17,7 @@ Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
  1 file changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/nvmem/rockchip-otp.c b/drivers/nvmem/rockchip-otp.c
-index b5a84b379..b62e001f9 100644
+index b5a84b379da4..b62e001f9116 100644
 --- a/drivers/nvmem/rockchip-otp.c
 +++ b/drivers/nvmem/rockchip-otp.c
 @@ -90,18 +90,19 @@ static int rockchip_otp_reset(struct rockchip_otp *otp)

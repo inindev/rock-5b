@@ -1,7 +1,7 @@
-From aeb2864f510cb569a862527f52e7e73118f3283a Mon Sep 17 00:00:00 2001
+From e2ea79837e726cca7e57201c86e7877abc893bc2 Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Wed, 3 May 2023 10:34:27 +0200
-Subject: [PATCH 086/100] media: AV1: Make sure that bit depth in correctly
+Subject: [PATCH 086/102] media: AV1: Make sure that bit depth in correctly
  initialize
 
 Make sure that bit_depth field of V4L2_CTRL_TYPE_AV1_SEQUENCE
@@ -15,7 +15,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 5 insertions(+)
 
 diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-index 9fd37e94d..a662fb60f 100644
+index 9fd37e94db17..a662fb60f73f 100644
 --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
 +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
 @@ -111,6 +111,7 @@ static void std_init_compound(const struct v4l2_ctrl *ctrl, u32 idx,

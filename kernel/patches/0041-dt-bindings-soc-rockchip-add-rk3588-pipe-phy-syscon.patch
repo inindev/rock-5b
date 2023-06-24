@@ -1,7 +1,7 @@
-From 0f3971383a98c1676f8d6d36782892eb2d9a5e25 Mon Sep 17 00:00:00 2001
+From f59a01780d73c0cc466060d0f7444a0229b7546e Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 6 Apr 2023 16:41:49 +0200
-Subject: [PATCH 041/100] dt-bindings: soc: rockchip: add rk3588 pipe-phy
+Subject: [PATCH 041/102] dt-bindings: soc: rockchip: add rk3588 pipe-phy
  syscon
 
 The pipe-phy syscon is used by rockchip,rk3588-naneng-combphy,
@@ -14,7 +14,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-index e8fca419c..bf2370c66 100644
+index e8fca419cc8e..bf2370c66ed9 100644
 --- a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
 +++ b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
 @@ -24,6 +24,7 @@ properties:

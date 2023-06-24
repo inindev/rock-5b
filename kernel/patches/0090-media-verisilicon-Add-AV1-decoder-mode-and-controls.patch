@@ -1,7 +1,7 @@
-From 392ae8f648bd9d0fcf809e5386778f495a0a849f Mon Sep 17 00:00:00 2001
+From 07e0a73981697a4f7c684bcfa646713f57c87abb Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Wed, 3 May 2023 10:34:31 +0200
-Subject: [PATCH 090/100] media: verisilicon: Add AV1 decoder mode and controls
+Subject: [PATCH 090/102] media: verisilicon: Add AV1 decoder mode and controls
 
 Add AV1 decoder as new decoder mode to Hantro driver.
 Register needed AV1 controls for the decoder.
@@ -15,7 +15,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  2 files changed, 24 insertions(+)
 
 diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
-index 2989ebc63..61480825b 100644
+index 2989ebc631cc..61480825b856 100644
 --- a/drivers/media/platform/verisilicon/hantro.h
 +++ b/drivers/media/platform/verisilicon/hantro.h
 @@ -38,6 +38,7 @@ struct hantro_postproc_ops;
@@ -43,7 +43,7 @@ index 2989ebc63..61480825b 100644
  
  /*
 diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index 09c74a573..8f6021e39 100644
+index 09c74a573ddb..8f6021e3953c 100644
 --- a/drivers/media/platform/verisilicon/hantro_drv.c
 +++ b/drivers/media/platform/verisilicon/hantro_drv.c
 @@ -525,6 +525,27 @@ static const struct hantro_ctrl controls[] = {

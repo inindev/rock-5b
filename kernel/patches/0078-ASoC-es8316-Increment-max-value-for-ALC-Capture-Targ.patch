@@ -1,7 +1,7 @@
-From 51b98e1ecad0800f3e386b585b11a9c80468ce1b Mon Sep 17 00:00:00 2001
+From 90b6f453f93a569e52aef3a85d53350cae033bcb Mon Sep 17 00:00:00 2001
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Date: Tue, 30 May 2023 21:11:38 +0300
-Subject: [PATCH 078/100] ASoC: es8316: Increment max value for ALC Capture
+Subject: [PATCH 078/102] ASoC: es8316: Increment max value for ALC Capture
  Target Volume control
 
 The following error occurs when trying to restore a previously saved
@@ -55,7 +55,7 @@ Signed-off-by: Mark Brown <broonie@kernel.org>
  1 file changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
-index a27d80956..18d485e69 100644
+index a27d80956459..18d485e6921a 100644
 --- a/sound/soc/codecs/es8316.c
 +++ b/sound/soc/codecs/es8316.c
 @@ -52,7 +52,12 @@ static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(dac_vol_tlv, -9600, 50, 1);

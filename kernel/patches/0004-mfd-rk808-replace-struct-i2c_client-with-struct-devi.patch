@@ -1,7 +1,7 @@
-From 552ca9110aa330f32b97279c1e7c92d0f218de7a Mon Sep 17 00:00:00 2001
+From 27f9bf8969dcabcdbe08425e6fab93dde50b793f Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 12 Jul 2022 14:17:54 +0200
-Subject: [PATCH 004/100] mfd: rk808: replace 'struct i2c_client' with 'struct
+Subject: [PATCH 004/102] mfd: rk808: replace 'struct i2c_client' with 'struct
  device'
 
 Put 'struct device' pointer into the MFD platform_data instead
@@ -18,7 +18,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  2 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/mfd/rk808.c b/drivers/mfd/rk808.c
-index f42e09e3a..ce52307cb 100644
+index f42e09e3a3f5..ce52307cbaea 100644
 --- a/drivers/mfd/rk808.c
 +++ b/drivers/mfd/rk808.c
 @@ -577,7 +577,7 @@ static int rk808_power_off(struct sys_off_data *data)
@@ -49,7 +49,7 @@ index f42e09e3a..ce52307cb 100644
  
  	rk808->regmap = devm_regmap_init_i2c(client, rk808->regmap_cfg);
 diff --git a/include/linux/mfd/rk808.h b/include/linux/mfd/rk808.h
-index 9af1f3105..a89ddd9ba 100644
+index 9af1f3105f80..a89ddd9ba68e 100644
 --- a/include/linux/mfd/rk808.h
 +++ b/include/linux/mfd/rk808.h
 @@ -787,7 +787,7 @@ enum {

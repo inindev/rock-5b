@@ -1,7 +1,7 @@
-From 0914f81f9da03aef94c08c6ce80ee179cbdffdb8 Mon Sep 17 00:00:00 2001
+From 1d413d212e79ac60dfec3a1e9565e40523a77b31 Mon Sep 17 00:00:00 2001
 From: Shreeya Patel <shreeya.patel@collabora.com>
 Date: Thu, 4 May 2023 18:28:14 +0530
-Subject: [PATCH 066/100] iio: adc: rockchip_saradc: Use dev_err_probe
+Subject: [PATCH 066/102] iio: adc: rockchip_saradc: Use dev_err_probe
 
 Use dev_err_probe instead of dev_err in probe function,
 which simplifies code a little bit and prints the error
@@ -13,7 +13,7 @@ Signed-off-by: Shreeya Patel <shreeya.patel@collabora.com>
  1 file changed, 20 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/iio/adc/rockchip_saradc.c b/drivers/iio/adc/rockchip_saradc.c
-index 7883394fd..4b011f7ed 100644
+index 7883394fdbca..4b011f7eddec 100644
 --- a/drivers/iio/adc/rockchip_saradc.c
 +++ b/drivers/iio/adc/rockchip_saradc.c
 @@ -425,25 +425,23 @@ static int rockchip_saradc_probe(struct platform_device *pdev)

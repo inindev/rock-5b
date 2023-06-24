@@ -1,7 +1,7 @@
-From cbe01297883013c4fcb2eabc0d1890325dc295d3 Mon Sep 17 00:00:00 2001
+From 2af26c1312403aa577fb7255adf7f110c6ec6e65 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Wed, 19 Apr 2023 14:57:14 +0200
-Subject: [PATCH 051/100] dt-bindings: PCI: dwc: rockchip: Fix interrupt-names
+Subject: [PATCH 051/102] dt-bindings: PCI: dwc: rockchip: Fix interrupt-names
  issue
 
 The RK356x (and RK3588) have 5 ganged interrupts. For example the
@@ -21,7 +21,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  2 files changed, 32 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml b/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
-index 24c88942e..98e45d2d8 100644
+index 24c88942e59e..98e45d2d8dfe 100644
 --- a/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
 +++ b/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
 @@ -56,6 +56,17 @@ properties:
@@ -64,7 +64,7 @@ index 24c88942e..98e45d2d8 100644
              max-link-speed = <2>;
              msi-map = <0x2000 &its 0x2000 0x1000>;
 diff --git a/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml b/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
-index 1a83f0f65..9f605eb29 100644
+index 1a83f0f65f19..9f605eb297f5 100644
 --- a/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
 +++ b/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
 @@ -193,9 +193,22 @@ properties:

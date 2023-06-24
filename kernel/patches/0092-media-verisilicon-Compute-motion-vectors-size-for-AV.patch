@@ -1,7 +1,7 @@
-From 34128ee4a65b5aeeb901f0b24d613176250fec50 Mon Sep 17 00:00:00 2001
+From 5c171bb433db049bbb016b2f4484e00be993b5e0 Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Wed, 3 May 2023 10:34:33 +0200
-Subject: [PATCH 092/100] media: verisilicon: Compute motion vectors size for
+Subject: [PATCH 092/102] media: verisilicon: Compute motion vectors size for
  AV1 frames
 
 Compute the additional space required to store motion vectors at
@@ -17,7 +17,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  3 files changed, 21 insertions(+)
 
 diff --git a/drivers/media/platform/verisilicon/hantro_hw.h b/drivers/media/platform/verisilicon/hantro_hw.h
-index e83f0c523..bc61d4e05 100644
+index e83f0c523a30..bc61d4e051c7 100644
 --- a/drivers/media/platform/verisilicon/hantro_hw.h
 +++ b/drivers/media/platform/verisilicon/hantro_hw.h
 @@ -417,6 +417,19 @@ hantro_hevc_mv_size(unsigned int width, unsigned int height)
@@ -41,7 +41,7 @@ index e83f0c523..bc61d4e05 100644
  int rockchip_vpu2_mpeg2_dec_run(struct hantro_ctx *ctx);
  void hantro_mpeg2_dec_copy_qtable(u8 *qtable,
 diff --git a/drivers/media/platform/verisilicon/hantro_postproc.c b/drivers/media/platform/verisilicon/hantro_postproc.c
-index 6437423cc..bb16af507 100644
+index 6437423ccf3a..bb16af50719d 100644
 --- a/drivers/media/platform/verisilicon/hantro_postproc.c
 +++ b/drivers/media/platform/verisilicon/hantro_postproc.c
 @@ -213,6 +213,9 @@ int hantro_postproc_alloc(struct hantro_ctx *ctx)
@@ -55,7 +55,7 @@ index 6437423cc..bb16af507 100644
  	for (i = 0; i < num_buffers; ++i) {
  		struct hantro_aux_buf *priv = &ctx->postproc.dec_q[i];
 diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
-index 35035b641..3367aa956 100644
+index 35035b641e51..3367aa956ba3 100644
 --- a/drivers/media/platform/verisilicon/hantro_v4l2.c
 +++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
 @@ -333,6 +333,11 @@ static int hantro_try_fmt(const struct hantro_ctx *ctx,

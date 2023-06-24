@@ -1,7 +1,7 @@
-From d25e7dd73ff0224b64ef668c654962489a7c67a9 Mon Sep 17 00:00:00 2001
+From 421ef84962f257df8656cfa4e2033ab76594ad24 Mon Sep 17 00:00:00 2001
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Date: Tue, 30 May 2023 21:11:39 +0300
-Subject: [PATCH 079/100] ASoC: es8316: Do not set rate constraints for
+Subject: [PATCH 079/102] ASoC: es8316: Do not set rate constraints for
  unsupported MCLKs
 
 When using the codec through the generic audio graph card, there are at
@@ -49,7 +49,7 @@ Signed-off-by: Mark Brown <broonie@kernel.org>
  1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
-index 18d485e69..ccecfdf70 100644
+index 18d485e6921a..ccecfdf70064 100644
 --- a/sound/soc/codecs/es8316.c
 +++ b/sound/soc/codecs/es8316.c
 @@ -369,13 +369,11 @@ static int es8316_set_dai_sysclk(struct snd_soc_dai *codec_dai,

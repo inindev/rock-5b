@@ -1,7 +1,7 @@
-From 21bbb2eeba553c1a85cc97fdbe662fd36e017c7d Mon Sep 17 00:00:00 2001
+From ddd389e0f9e87e6e0c6868c38a0fed87039a108c Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Wed, 3 May 2023 10:34:37 +0200
-Subject: [PATCH 096/100] media: verisilicon: Enable AV1 decoder on rk3588
+Subject: [PATCH 096/102] media: verisilicon: Enable AV1 decoder on rk3588
 
 Add rk3588 AV1 decoder to Hantro variant.
 The hardware support image from 64x64 up to 7680x4320
@@ -17,7 +17,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  3 files changed, 137 insertions(+)
 
 diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index be1f06c21..dd41a6de1 100644
+index be1f06c21910..dd41a6de1a0c 100644
 --- a/drivers/media/platform/verisilicon/hantro_drv.c
 +++ b/drivers/media/platform/verisilicon/hantro_drv.c
 @@ -713,6 +713,7 @@ static const struct of_device_id of_hantro_match[] = {
@@ -29,7 +29,7 @@ index be1f06c21..dd41a6de1 100644
  #ifdef CONFIG_VIDEO_HANTRO_IMX8M
  	{ .compatible = "nxp,imx8mm-vpu-g1", .data = &imx8mm_vpu_g1_variant, },
 diff --git a/drivers/media/platform/verisilicon/hantro_hw.h b/drivers/media/platform/verisilicon/hantro_hw.h
-index 021fad15d..7f33f7b07 100644
+index 021fad15d66f..7f33f7b07ce4 100644
 --- a/drivers/media/platform/verisilicon/hantro_hw.h
 +++ b/drivers/media/platform/verisilicon/hantro_hw.h
 @@ -403,11 +403,13 @@ extern const struct hantro_variant rk3328_vpu_variant;
@@ -47,7 +47,7 @@ index 021fad15d..7f33f7b07 100644
  extern const u32 hantro_vp8_dec_mc_filter[8][6];
  
 diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-index 8de6fd2e8..816ffa905 100644
+index 8de6fd2e8eef..816ffa905a4b 100644
 --- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
 +++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
 @@ -13,9 +13,13 @@

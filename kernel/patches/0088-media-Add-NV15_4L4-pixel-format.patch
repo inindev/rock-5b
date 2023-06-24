@@ -1,7 +1,7 @@
-From b933bf948440d795e235ca0b348d6a3561837e4b Mon Sep 17 00:00:00 2001
+From c9304634dd1d7ed194c630e39dd22048132525db Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Wed, 3 May 2023 10:34:29 +0200
-Subject: [PATCH 088/100] media: Add NV15_4L4 pixel format
+Subject: [PATCH 088/102] media: Add NV15_4L4 pixel format
 
 NV15_4L4 is the 10-bits per component 4x4 tiled format.
 
@@ -16,7 +16,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  4 files changed, 20 insertions(+)
 
 diff --git a/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst b/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
-index 72324274f..989b94c46 100644
+index 72324274f20c..989b94c46288 100644
 --- a/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
 +++ b/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
 @@ -137,6 +137,13 @@ All components are stored with the same number of bits per component.
@@ -50,7 +50,7 @@ index 72324274f..989b94c46 100644
  .. _V4L2-PIX-FMT-NV16:
  .. _V4L2-PIX-FMT-NV61:
 diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
-index 4b3faec14..145db7ab7 100644
+index 4b3faec14f69..145db7ab7397 100644
 --- a/drivers/media/v4l2-core/v4l2-common.c
 +++ b/drivers/media/v4l2-core/v4l2-common.c
 @@ -283,6 +283,8 @@ const struct v4l2_format_info *v4l2_format_info(u32 format)
@@ -63,7 +63,7 @@ index 4b3faec14..145db7ab7 100644
  
  		/* YUV planar formats, non contiguous variant */
 diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
-index 41d7a8e37..01ba27f2e 100644
+index 41d7a8e3712a..01ba27f2ef87 100644
 --- a/drivers/media/v4l2-core/v4l2-ioctl.c
 +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
 @@ -1356,6 +1356,7 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
@@ -75,7 +75,7 @@ index 41d7a8e37..01ba27f2e 100644
  	case V4L2_PIX_FMT_NV12M:	descr = "Y/UV 4:2:0 (N-C)"; break;
  	case V4L2_PIX_FMT_NV21M:	descr = "Y/VU 4:2:0 (N-C)"; break;
 diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-index e3d83b59b..2b04cf203 100644
+index e3d83b59b25f..2b04cf20345f 100644
 --- a/include/uapi/linux/videodev2.h
 +++ b/include/uapi/linux/videodev2.h
 @@ -672,6 +672,7 @@ struct v4l2_pix_format {

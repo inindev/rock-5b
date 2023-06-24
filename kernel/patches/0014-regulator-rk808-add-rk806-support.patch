@@ -1,7 +1,7 @@
-From ef852fd775ff1e26eb605efee0897664a544c2e0 Mon Sep 17 00:00:00 2001
+From 562fd3cce4121a869763fed779be1bd120c73c18 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 20 Oct 2022 22:08:09 +0200
-Subject: [PATCH 014/100] regulator: rk808: add rk806 support
+Subject: [PATCH 014/102] regulator: rk808: add rk806 support
 
 Add rk806 support to the existing rk808 regulator
 driver.
@@ -20,7 +20,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 385 insertions(+)
 
 diff --git a/drivers/regulator/rk808-regulator.c b/drivers/regulator/rk808-regulator.c
-index 5f14d6dd4..460525ed0 100644
+index 5f14d6dd4593..460525ed006c 100644
 --- a/drivers/regulator/rk808-regulator.c
 +++ b/drivers/regulator/rk808-regulator.c
 @@ -3,9 +3,11 @@

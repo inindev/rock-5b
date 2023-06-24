@@ -1,7 +1,7 @@
-From 4d88a26f13aa57abbfb060fae40ba9f2d55b921f Mon Sep 17 00:00:00 2001
+From 67ab83f963ec4410492e49066409a343cee58e88 Mon Sep 17 00:00:00 2001
 From: Lucas Tanure <lucas.tanure@collabora.com>
 Date: Thu, 23 Mar 2023 12:27:19 +0000
-Subject: [PATCH 056/100] arm64: defconfig: Enable ethernet for Rock 5B
+Subject: [PATCH 056/102] arm64: defconfig: Enable ethernet for Rock 5B
 
 Signed-off-by: Lucas Tanure <lucas.tanure@collabora.com>
 ---
@@ -9,7 +9,7 @@ Signed-off-by: Lucas Tanure <lucas.tanure@collabora.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index cd69c9ced..78a0ec730 100644
+index cd69c9ced7da..78a0ec730b96 100644
 --- a/arch/arm64/configs/defconfig
 +++ b/arch/arm64/configs/defconfig
 @@ -217,6 +217,7 @@ CONFIG_PCIE_ALTERA=y

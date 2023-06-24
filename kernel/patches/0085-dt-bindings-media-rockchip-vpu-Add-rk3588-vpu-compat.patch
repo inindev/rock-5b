@@ -1,7 +1,7 @@
-From 451977d5f86546bee6854187d40b778b09b61eab Mon Sep 17 00:00:00 2001
+From 28246403584c1b603992155d982771b54700a0a9 Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Wed, 3 May 2023 10:34:26 +0200
-Subject: [PATCH 085/100] dt-bindings: media: rockchip-vpu: Add rk3588 vpu
+Subject: [PATCH 085/102] dt-bindings: media: rockchip-vpu: Add rk3588 vpu
  compatible
 
 Add compatible for rk3588 AV1 vpu decoder.
@@ -14,7 +14,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/Documentation/devicetree/bindings/media/rockchip-vpu.yaml b/Documentation/devicetree/bindings/media/rockchip-vpu.yaml
-index ee622a8ee..772ec3283 100644
+index ee622a8ee1cc..772ec3283bc6 100644
 --- a/Documentation/devicetree/bindings/media/rockchip-vpu.yaml
 +++ b/Documentation/devicetree/bindings/media/rockchip-vpu.yaml
 @@ -24,6 +24,7 @@ properties:

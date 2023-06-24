@@ -1,7 +1,7 @@
-From 21db4f716c3df613362c8c664224d6b0c838eb03 Mon Sep 17 00:00:00 2001
+From d0f13ee15d34917ac392b6f91c422fb63c5168f6 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Fri, 9 Sep 2022 18:24:43 +0200
-Subject: [PATCH 010/100] regulator: expose regulator_find_closest_bigger
+Subject: [PATCH 010/102] regulator: expose regulator_find_closest_bigger
 
 Expose and document the table lookup logic used by
 regulator_set_ramp_delay_regmap, so that it can be
@@ -17,7 +17,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  2 files changed, 20 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/regulator/helpers.c b/drivers/regulator/helpers.c
-index ad2237a95..586f42e37 100644
+index ad2237a95572..586f42e378ee 100644
 --- a/drivers/regulator/helpers.c
 +++ b/drivers/regulator/helpers.c
 @@ -902,8 +902,21 @@ bool regulator_is_equal(struct regulator *reg1, struct regulator *reg2)
@@ -64,7 +64,7 @@ index ad2237a95..586f42e37 100644
  	if (ret) {
  		dev_warn(rdev_get_dev(rdev),
 diff --git a/include/linux/regulator/driver.h b/include/linux/regulator/driver.h
-index d3b4a3d45..c6ef7d68e 100644
+index d3b4a3d4514a..c6ef7d68eb9a 100644
 --- a/include/linux/regulator/driver.h
 +++ b/include/linux/regulator/driver.h
 @@ -758,6 +758,8 @@ int regulator_set_current_limit_regmap(struct regulator_dev *rdev,
