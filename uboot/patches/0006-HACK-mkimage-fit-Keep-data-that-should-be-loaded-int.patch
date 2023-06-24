@@ -1,0 +1,46 @@
+From ce1ba04012766e0ad1e18209b7c4d69765dad8d8 Mon Sep 17 00:00:00 2001
+From: Jonas Karlman <jonas@kwiboo.se>
+Date: Sun, 29 Jan 2023 08:44:04 +0000
+Subject: [PATCH 06/28] HACK: mkimage: fit: Keep data that should be loaded
+ into SRAM embedded
+
+This needs to be reworked, possible into mkimage parameters that can be
+passed from binman. Or let binman add a "keep-embedded" prop singling
+mkimage that data should remain embedded.
+
+With this we should also be able to remove the u-boot,spl-fifo-mode prop
+from other rk33 arm64 devices.
+
+Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+---
+ tools/fit_image.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/tools/fit_image.c b/tools/fit_image.c
+index 9fe69ea0d9..7f41df36be 100644
+--- a/tools/fit_image.c
++++ b/tools/fit_image.c
+@@ -535,9 +535,20 @@ static int fit_extract_data(struct image_tool_params *params, const char *fname)
+ 	for (node = fdt_first_subnode(fdt, images);
+ 	     node >= 0;
+ 	     node = fdt_next_subnode(fdt, node)) {
++		ulong load_addr;
+ 		const char *data;
+ 		int len;
+ 
++		/*
++		 * HACK: Do not extract data that should be loaded
++		 *       outside normal SDRAM range, 0x0 - 0xf0000000.
++		 *       Workaround to avoid failed DMA read from
++		 *       non-secure MMC into secure SRAM.
++		 */
++		if (!fit_image_get_load(fdt, node, &load_addr) &&
++		    load_addr > 0xf0000000)
++			continue;
++
+ 		data = fdt_getprop(fdt, node, FIT_DATA_PROP, &len);
+ 		if (!data)
+ 			continue;
+-- 
+2.39.2
+

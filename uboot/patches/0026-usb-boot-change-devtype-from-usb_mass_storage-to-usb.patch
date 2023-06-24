@@ -1,0 +1,31 @@
+From c2a815cfa3f79bed02dba23bd82511b363c572a7 Mon Sep 17 00:00:00 2001
+From: John Clark <inindev@gmail.com>
+Date: Sat, 24 Jun 2023 00:38:24 +0000
+Subject: [PATCH 26/28] usb boot: change devtype from "usb_mass_storage" to
+ "usb"
+
+Signed-off-by: John Clark <inindev@gmail.com>
+---
+ boot/bootmeth_script.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/boot/bootmeth_script.c b/boot/bootmeth_script.c
+index 225eb18ee6..837987da88 100644
+--- a/boot/bootmeth_script.c
++++ b/boot/bootmeth_script.c
+@@ -190,7 +190,11 @@ static int script_boot(struct udevice *dev, struct bootflow *bflow)
+ 	ulong addr;
+ 	int ret;
+ 
+-	ret = env_set("devtype", blk_get_devtype(bflow->blk));
++	const char *devtype = blk_get_devtype(bflow->blk);
++	if(0 == strcmp("usb_mass_storage", devtype))
++		ret = env_set("devtype", "usb");
++	else
++		ret = env_set("devtype", devtype);
+ 	if (!ret)
+ 		ret = env_set_hex("devnum", desc->devnum);
+ 	if (!ret)
+-- 
+2.39.2
+

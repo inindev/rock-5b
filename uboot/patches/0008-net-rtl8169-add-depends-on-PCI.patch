@@ -1,0 +1,37 @@
+From d6cfe036ece2aea7f022c1585644d4e758bc1860 Mon Sep 17 00:00:00 2001
+From: Eugen Hristev <eugen.hristev@collabora.com>
+Date: Wed, 17 May 2023 13:35:39 +0300
+Subject: [PATCH 08/28] net: rtl8169: add depends on PCI
+
+The rtl8169 driver uses calls to dm_pci_bus_to_phys,
+which are compiled under CONFIG_PCI.
+
+Without CONFIG_PCI, this happens:
+
+drivers/net/rtl8169.o: in function `rtl_recv_common':
+drivers/net/rtl8169.c:555: undefined reference to `dm_pci_bus_to_phys'
+
+It is only natural that this driver depends on CONFIG_PCI then.
+The device does not work connected in another way anyway, and the driver
+does not assume anything else at this moment.
+
+Signed-off-by: Eugen Hristev <eugen.hristev@collabora.com>
+---
+ drivers/net/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/Kconfig b/drivers/net/Kconfig
+index 09039a283e..39eee98ca7 100644
+--- a/drivers/net/Kconfig
++++ b/drivers/net/Kconfig
+@@ -633,6 +633,7 @@ config RTL8139
+ 
+ config RTL8169
+ 	bool "Realtek 8169 series Ethernet controller driver"
++	depends on PCI
+ 	help
+ 	  This driver supports Realtek 8169 series gigabit ethernet family of
+ 	  PCI/PCIe chipsets/adapters.
+-- 
+2.39.2
+

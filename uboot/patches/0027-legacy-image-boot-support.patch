@@ -1,7 +1,7 @@
-From ff37cea21d4e944ed8ab8d073e974d0c3d4f61e2 Mon Sep 17 00:00:00 2001
+From 129435fdd68cc0da340d9a482a778d75fbcec6c0 Mon Sep 17 00:00:00 2001
 From: John Clark <inindev@gmail.com>
 Date: Mon, 5 Jun 2023 19:37:24 -0400
-Subject: [PATCH 1/2] legacy image boot support
+Subject: [PATCH 27/28] legacy image boot support
 
 Signed-off-by: John Clark <inindev@gmail.com>
 ---
@@ -9,10 +9,10 @@ Signed-off-by: John Clark <inindev@gmail.com>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/configs/rock5b-rk3588_defconfig b/configs/rock5b-rk3588_defconfig
-index c1155c20ef..fa83a3ba66 100644
+index 3f28a68f0c..6f2e460137 100644
 --- a/configs/rock5b-rk3588_defconfig
 +++ b/configs/rock5b-rk3588_defconfig
-@@ -29,8 +29,9 @@ CONFIG_FIT=y
+@@ -30,8 +30,9 @@ CONFIG_FIT=y
  CONFIG_FIT_VERBOSE=y
  CONFIG_SPL_FIT_SIGNATURE=y
  CONFIG_SPL_LOAD_FIT=y

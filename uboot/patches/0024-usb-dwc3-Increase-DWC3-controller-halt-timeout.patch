@@ -1,0 +1,50 @@
+From 954811a6d947f70a7626a1af6b9d29e0e8af37c7 Mon Sep 17 00:00:00 2001
+From: Eugen Hristev <eugen.hristev@collabora.com>
+Date: Tue, 20 Jun 2023 13:38:42 +0300
+Subject: [PATCH 24/28] usb: dwc3: Increase DWC3 controller halt timeout
+
+Since EP0 transactions need to be completed before the controller halt
+sequence is finished, this may take some time depending on the host and the
+enabled functions.  Increase the controller halt timeout, so that we give
+the controller sufficient time to handle EP0 transfers.
+
+Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+Link: https://lore.kernel.org/r/20220901193625.8727-4-quic_wcheng@quicinc.com
+Cherry-picked from Linux: 461ee467507c ("usb: dwc3: Increase DWC3 controller halt timeout")
+Signed-off-by: Eugen Hristev <eugen.hristev@collabora.com>
+---
+ drivers/usb/dwc3/gadget.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
+index 24a2c455b0..a866807191 100644
+--- a/drivers/usb/dwc3/gadget.c
++++ b/drivers/usb/dwc3/gadget.c
+@@ -1356,7 +1356,7 @@ static int dwc3_gadget_set_selfpowered(struct usb_gadget *g,
+ static int dwc3_gadget_run_stop(struct dwc3 *dwc, int is_on, int suspend)
+ {
+ 	u32			reg;
+-	u32			timeout = 500;
++	u32			timeout = 2000;
+ 
+ 	reg = dwc3_readl(dwc->regs, DWC3_DCTL);
+ 	if (is_on) {
+@@ -1385,6 +1385,7 @@ static int dwc3_gadget_run_stop(struct dwc3 *dwc, int is_on, int suspend)
+ 	dwc3_gadget_dctl_write_safe(dwc, reg);
+ 
+ 	do {
++		mdelay(2);
+ 		reg = dwc3_readl(dwc->regs, DWC3_DSTS);
+ 		if (is_on) {
+ 			if (!(reg & DWC3_DSTS_DEVCTRLHLT))
+@@ -1396,7 +1397,6 @@ static int dwc3_gadget_run_stop(struct dwc3 *dwc, int is_on, int suspend)
+ 		timeout--;
+ 		if (!timeout)
+ 			return -ETIMEDOUT;
+-		udelay(1);
+ 	} while (1);
+ 
+ 	dev_vdbg(dwc->dev, "gadget %s data soft-%s\n",
+-- 
+2.39.2
+

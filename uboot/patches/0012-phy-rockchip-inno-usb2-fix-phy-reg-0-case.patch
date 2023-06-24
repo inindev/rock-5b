@@ -1,0 +1,51 @@
+From 8384f59b253ab796e8f998c1307fa2cea7ea9e17 Mon Sep 17 00:00:00 2001
+From: Eugen Hristev <eugen.hristev@collabora.com>
+Date: Mon, 22 May 2023 11:32:34 +0300
+Subject: [PATCH 12/28] phy: rockchip: inno-usb2: fix phy reg=0 case
+
+The support for #address-cells=2 has a loophole: if the reg is actually 0,
+but the #address-cells is actually 1, like in such case below:
+
+syscon {
+	#address-cells = <1>;
+
+	phy {
+		reg = <0 0x10>;
+	};
+};
+
+then the second u32 of the 'reg' is the size, not the address.
+
+The code should check for the parent's #address-cells value, and not
+assume that if the first u32 is 0, then the #address-cells is 2, and the
+reg property is something like
+	reg = <0 0xff00 0x10>;
+
+Fixed this by looking for the #address-cells value and retrieving the
+reg address only if this is ==2.
+To avoid breaking anything I also kept the check `if reg==0` as some DT's
+may have a wrong #address-cells as parent and even if this commit is
+correct, it might break the existing wrong device-trees.
+
+Fixes: d538efb9adcf ("phy: rockchip: inno-usb2: Add support #address_cells = 2")
+Signed-off-by: Eugen Hristev <eugen.hristev@collabora.com>
+---
+ drivers/phy/rockchip/phy-rockchip-inno-usb2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
+index e43a5ba9b5..8d6f27735c 100644
+--- a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
++++ b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
+@@ -259,7 +259,7 @@ static int rockchip_usb2phy_probe(struct udevice *dev)
+ 	}
+ 
+ 	/* support address_cells=2 */
+-	if (reg == 0) {
++	if (dev_read_addr_cells(dev) == 2 && reg == 0) {
+ 		if (ofnode_read_u32_index(dev_ofnode(dev), "reg", 1, &reg)) {
+ 			dev_err(dev, "%s must have reg[1]\n",
+ 				ofnode_get_name(dev_ofnode(dev)));
+-- 
+2.39.2
+

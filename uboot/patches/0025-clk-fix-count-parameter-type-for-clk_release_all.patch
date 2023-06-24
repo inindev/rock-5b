@@ -1,0 +1,70 @@
+From 2f09d6ed9b50ada833d41e5e88c9324bb0062b4b Mon Sep 17 00:00:00 2001
+From: Eugen Hristev <eugen.hristev@collabora.com>
+Date: Fri, 16 Jun 2023 16:06:21 +0300
+Subject: [PATCH 25/28] clk: fix count parameter type for clk_release_all
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The second parameter for clk_release_all is used as an unsigned
+(which makes sense) but the function prototype declares it as an int.
+This causes warnings/error like such below:
+
+include/clk.h:422:48: error: conversion to ‘int’ from ‘unsigned int’ may change the sign of the result [-Werror=sign-conversion]
+  422 |         return clk_release_all(bulk->clks, bulk->count);
+
+To fix this, changed the type of the count to `unsigned int`
+
+Fixes: 82a8a669b4f7 ("clk: add clk_release_all()")
+Signed-off-by: Eugen Hristev <eugen.hristev@collabora.com>
+---
+ drivers/clk/clk-uclass.c | 7 ++++---
+ include/clk.h            | 4 ++--
+ 2 files changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/clk/clk-uclass.c b/drivers/clk/clk-uclass.c
+index dc3e9d6a26..eada3a3a5b 100644
+--- a/drivers/clk/clk-uclass.c
++++ b/drivers/clk/clk-uclass.c
+@@ -416,12 +416,13 @@ int clk_get_by_name_nodev(ofnode node, const char *name, struct clk *clk)
+ 	return clk_get_by_index_nodev(node, index, clk);
+ }
+ 
+-int clk_release_all(struct clk *clk, int count)
++int clk_release_all(struct clk *clk, unsigned int count)
+ {
+-	int i, ret;
++	unsigned int i;
++	int ret;
+ 
+ 	for (i = 0; i < count; i++) {
+-		debug("%s(clk[%d]=%p)\n", __func__, i, &clk[i]);
++		debug("%s(clk[%u]=%p)\n", __func__, i, &clk[i]);
+ 
+ 		/* check if clock has been previously requested */
+ 		if (!clk[i].dev)
+diff --git a/include/clk.h b/include/clk.h
+index d91285235f..a342297007 100644
+--- a/include/clk.h
++++ b/include/clk.h
+@@ -243,7 +243,7 @@ static inline struct clk *devm_clk_get_optional(struct udevice *dev,
+  *
+  * Return: zero on success, or -ve error code.
+  */
+-int clk_release_all(struct clk *clk, int count);
++int clk_release_all(struct clk *clk, unsigned int count);
+ 
+ /**
+  * devm_clk_put	- "free" a managed clock source
+@@ -307,7 +307,7 @@ clk_get_by_name_nodev(ofnode node, const char *name, struct clk *clk)
+ 	return -ENOSYS;
+ }
+ 
+-static inline int clk_release_all(struct clk *clk, int count)
++static inline int clk_release_all(struct clk *clk, unsigned int count)
+ {
+ 	return -ENOSYS;
+ }
+-- 
+2.39.2
+

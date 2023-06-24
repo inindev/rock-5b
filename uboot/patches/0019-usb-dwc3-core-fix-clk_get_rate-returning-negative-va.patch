@@ -1,0 +1,36 @@
+From db3c1d7fc44e53585dee94c4809dc080185f3f48 Mon Sep 17 00:00:00 2001
+From: Eugen Hristev <eugen.hristev@collabora.com>
+Date: Thu, 15 Jun 2023 17:48:52 +0300
+Subject: [PATCH 19/28] usb: dwc3: core: fix clk_get_rate returning negative
+ value
+
+Unlike it's Linux counterpart, clk_get_rate can return a negative value, -ve.
+The driver does not take that into account, stores the rate into
+an unsigned long, and if clk_get_rate fails, it will take into consideration
+the actual value and wrongly program the hardware.
+E.g. on error -2 (no such entry), the rate will be 18446744073709551614
+and this will be subsequently used by the driver to program the DWC3
+To fix this, exit the function if the value is negative.
+
+Fixes: 6bae0eb5b8bd ("usb: dwc3: Calculate REFCLKPER based on reference clock")
+Signed-off-by: Eugen Hristev <eugen.hristev@collabora.com>
+---
+ drivers/usb/dwc3/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+index 49f6a1900b..5a8c294245 100644
+--- a/drivers/usb/dwc3/core.c
++++ b/drivers/usb/dwc3/core.c
+@@ -138,7 +138,7 @@ static void dwc3_ref_clk_period(struct dwc3 *dwc)
+ 
+ 	if (dwc->ref_clk) {
+ 		rate = clk_get_rate(dwc->ref_clk);
+-		if (!rate)
++		if (!rate || (long)rate < 0)
+ 			return;
+ 		period = NSEC_PER_SEC / rate;
+ 	} else {
+-- 
+2.39.2
+

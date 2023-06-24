@@ -1,0 +1,35 @@
+From e056a1f560ce9e9a384b182d10a027fbda16c022 Mon Sep 17 00:00:00 2001
+From: Venkatesh Yadav Abbarapu <venkatesh.abbarapu@amd.com>
+Date: Mon, 8 May 2023 08:30:15 +0530
+Subject: [PATCH 23/28] usb: dwc3: core: Only handle soft-reset in DCTL
+
+[ Nguyen/Greg: Ported from Linux kernel commit
+	f4fd84ae0765a ("usb: dwc3: core: Only handle soft-reset in DCTL") ]
+
+Make sure not to set run_stop bit or link state change request while
+initiating soft-reset. Register read-modify-write operation may
+unintentionally start the controller before the initialization completes
+with its previous DCTL value, which can cause initialization failure.
+
+Signed-off-by: Venkatesh Yadav Abbarapu <venkatesh.abbarapu@amd.com>
+---
+ drivers/usb/dwc3/core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+index bdfe51c3df..06ca3fc968 100644
+--- a/drivers/usb/dwc3/core.c
++++ b/drivers/usb/dwc3/core.c
+@@ -72,7 +72,8 @@ static int dwc3_core_soft_reset(struct dwc3 *dwc)
+ 
+ 	reg = dwc3_readl(dwc->regs, DWC3_DCTL);
+ 	reg |= DWC3_DCTL_CSFTRST;
+-	dwc3_writel(dwc->regs, DWC3_DCTL, reg);
++	reg &= ~DWC3_DCTL_RUN_STOP;
++	dwc3_gadget_dctl_write_safe(dwc, reg);
+ 
+ 	/* Assert USB3 PHY reset */
+ 	reg = dwc3_readl(dwc->regs, DWC3_GUSB3PIPECTL(0));
+-- 
+2.39.2
+

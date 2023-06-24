@@ -1,0 +1,36 @@
+From ce1018fab190485aa0ace975bd55bd09faca0b2c Mon Sep 17 00:00:00 2001
+From: Eugen Hristev <eugen.hristev@collabora.com>
+Date: Tue, 25 Apr 2023 15:46:31 +0300
+Subject: [PATCH 07/28] configs: rock5b-rk3588: add rtl8169 driver
+
+Add the rtl8169 driver, which supports the rtl8125b device, which is
+connected on the pciE bus on this board.
+Enable also CONFIG_SYS_HAS_NONCACHED_MEMORY to have the descriptors stored.
+
+Signed-off-by: Eugen Hristev <eugen.hristev@collabora.com>
+---
+ configs/rock5b-rk3588_defconfig | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/configs/rock5b-rk3588_defconfig b/configs/rock5b-rk3588_defconfig
+index c1155c20ef..a4a3c0afd1 100644
+--- a/configs/rock5b-rk3588_defconfig
++++ b/configs/rock5b-rk3588_defconfig
+@@ -1,5 +1,6 @@
+ CONFIG_ARM=y
+ CONFIG_SKIP_LOWLEVEL_INIT=y
++CONFIG_SYS_HAS_NONCACHED_MEMORY=y
+ CONFIG_COUNTER_FREQUENCY=24000000
+ CONFIG_ARCH_ROCKCHIP=y
+ CONFIG_TEXT_BASE=0x00a00000
+@@ -70,6 +71,7 @@ CONFIG_MMC_SDHCI_ROCKCHIP=y
+ CONFIG_SPI_FLASH_MACRONIX=y
+ CONFIG_SPI_FLASH_XTX=y
+ CONFIG_ETH_DESIGNWARE=y
++CONFIG_RTL8169=y
+ CONFIG_GMAC_ROCKCHIP=y
+ CONFIG_PCIE_DW_ROCKCHIP=y
+ CONFIG_PHY_ROCKCHIP_INNO_USB2=y
+-- 
+2.39.2
+
