@@ -36,7 +36,14 @@ main() {
     mv "$mountpt/boot/vmlinuz-$kernver" "$mountpt/boot/vmlinuz-$kernver.gz"
     gzip -d "$mountpt/boot/vmlinuz-$kernver.gz"
 
+    [ -e "$mountpt/boot/dtb" ] && mv "$mountpt/boot/dtb" "$mountpt/boot/dtb.old"
+    install -m 644 "$mountpt/lib/linux-image-$kernver/rockchip/rk3588-rock-5b.dtb" "$mountpt/boot/rk3588-rock-5b-$kernver.dtb"
+    ln -svf "rk3588-rock-5b-$kernver.dtb" "$mountpt/boot/dtb"
+
+    [ -e "$mountpt/boot/initrd.img" ] && mv "$mountpt/boot/initrd.img" "$mountpt/boot/initrd.img.old"
     ln -sfv "initrd.img-$kernver" "$mountpt/boot/initrd.img"
+
+    [ -e "$mountpt/boot/vmlinuz" ] && mv "$mountpt/boot/vmlinuz" "$mountpt/boot/vmlinuz.old"
     ln -sfv "vmlinuz-$kernver" "$mountpt/boot/vmlinuz"
 }
 

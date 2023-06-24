@@ -48,9 +48,7 @@ main() {
     # linux firmware
     local lfw=$(download "$cache" 'https://mirrors.edge.kernel.org/pub/linux/kernel/firmware/linux-firmware-20230210.tar.xz')
     local lfwsha='6e3d9e8d52cffc4ec0dbe8533a8445328e0524a20f159a5b61c2706f983ce38a'
-    # device tree
-#    local dtb=$(download "$cache" 'https://github.com/inindev/rock-5b/releases/download/v12/rk3588-rock-5b.dtb')
-    local dtb='../dtb/rk3588-rock-5b.dtb'
+    # u-boot
 #    local uboot_spl=$(download "$cache" 'https://github.com/inindev/rock-5b/releases/download/v12/idbloader.img')
     local uboot_spl='../uboot/idbloader.img'
 #    local uboot_itb=$(download "$cache" 'https://github.com/inindev/rock-5b/releases/download/v12/u-boot.itb')
@@ -59,11 +57,6 @@ main() {
     if [ "$lfwsha" != $(sha256sum "$lfw" | cut -c1-64) ]; then
         echo "invalid hash for linux firmware: $lfw"
         exit 5
-    fi
-
-    if [ ! -f "$dtb" ]; then
-        echo "device tree binary is missing: $dtb"
-        exit 4
     fi
 
     if [ ! -f "$uboot_spl" ]; then
@@ -139,8 +132,6 @@ main() {
     mkimage -A arm64 -O linux -T script -C none -n 'u-boot boot script' -d "$mountpt/boot/boot.txt" "$mountpt/boot/boot.scr"
     echo "$(script_mkscr_sh)\n" > "$mountpt/boot/mkscr.sh"
     chmod 754 "$mountpt/boot/mkscr.sh"
-    install -m 644 "$dtb" "$mountpt/boot"
-    ln -sf $(basename "$dtb") "$mountpt/boot/dtb"
 
     print_hdr "installing firmware"
     mkdir -p "$mountpt/lib/firmware"
