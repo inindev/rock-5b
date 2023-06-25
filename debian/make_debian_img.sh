@@ -21,7 +21,7 @@ main() {
     local extra_pkgs='curl, pciutils, sudo, u-boot-tools, unzip, wget, xxd, xz-utils, zip, zstd'
 
     if is_param 'clean' $@; then
-        rm -rf cache.*
+        rm -rf cache*/var
         rm -f "$media"*
         exit 0
     fi
