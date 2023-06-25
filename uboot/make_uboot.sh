@@ -11,13 +11,16 @@ main() {
     local tpl_file='../rkbin/rk3588_ddr_lp4_2112MHz_lp5_2736MHz_v1.08.bin'
 
     if [ '_clean' = "_$1" ]; then
-        rm -f u-boot/simple-bin.fit.*
-        make -C u-boot distclean
-        git -C u-boot clean -f
-        git -C u-boot checkout master
-        git -C u-boot branch -D $utag 2>/dev/null || true
-        git -C u-boot pull --ff-only
         rm -f *.img *.itb
+        if [ -d u-boot ]; then
+            rm -f u-boot/simple-bin.fit.*
+            make -C u-boot distclean
+            git -C u-boot clean -f
+            git -C u-boot checkout master
+            git -C u-boot branch -D $utag 2>/dev/null || true
+            git -C u-boot pull --ff-only
+        fi
+        echo '\nclean complete\n'
         exit 0
     fi
 
