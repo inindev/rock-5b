@@ -37,15 +37,15 @@ index 1c1704c5e4d0..14fc1e916be5 100644
 +			#size-cells = <1>;
 +
 +			partition@0 {
-+				label = "SPL";
++				label = "u-boot-spl";
 +				reg = <0x0 0xe0000>;
 +			};
 +			partition@e0000 {
-+				label = "U-Boot Env";
++				label = "u-boot-env";
 +				reg = <0xe0000 0x20000>;
 +			};
 +			partition@100000 {
-+				label = "U-Boot";
++				label = "u-boot";
 +				reg = <0x100000 0x200000>;
 +			};
 +			partition@300000 {
@@ -53,7 +53,7 @@ index 1c1704c5e4d0..14fc1e916be5 100644
 +				reg = <0x300000 0x100000>;
 +			};
 +			partition@400000 {
-+				label = "Filesystem";
++				label = "filesystem";
 +				reg = <0x400000 0xc00000>;
 +			};
 +		};
