@@ -84,5 +84,6 @@ mag='\033[35m'
 cya='\033[36m'
 h1="${blu}==>${rst} ${bld}"
 
+cd "$(dirname "$(realpath "$0")")"
 main $@
 
