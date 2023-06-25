@@ -1,42 +1,48 @@
-From 0c4d0d386e8a2259d4f81bc14a9c372c159098a6 Mon Sep 17 00:00:00 2001
+From 3a18e0093866618e66d606714dad78d4627e34fc Mon Sep 17 00:00:00 2001
 From: John Clark <inindev@gmail.com>
 Date: Sat, 24 Jun 2023 16:31:12 +0000
 Subject: [PATCH 27/29] add sfc partition table
 
 Signed-off-by: John Clark <inindev@gmail.com>
 ---
- arch/arm/dts/rk3588-rock-5b-u-boot.dtsi | 21 +++++++++++++++++++++
+ arch/arm/dts/rk3588-rock-5b-u-boot.dtsi | 27 +++++++++++++++++++++++++
  configs/rock5b-rk3588_defconfig         |  2 +-
- 2 files changed, 22 insertions(+), 1 deletion(-)
+ 2 files changed, 28 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm/dts/rk3588-rock-5b-u-boot.dtsi b/arch/arm/dts/rk3588-rock-5b-u-boot.dtsi
-index 6cdea11f84..ca484bb02c 100644
+index 6cdea11f84..27e4d6a357 100644
 --- a/arch/arm/dts/rk3588-rock-5b-u-boot.dtsi
 +++ b/arch/arm/dts/rk3588-rock-5b-u-boot.dtsi
-@@ -196,6 +196,27 @@
+@@ -196,6 +196,33 @@
  		spi-max-frequency = <24000000>;
  		spi-rx-bus-width = <4>;
  		spi-tx-bus-width = <1>;
 +
-+		partition@0 {
-+			label = "u-boot-spl";
-+			reg = <0x0 0xe0000>;
-+		};
-+		partition@e0000 {
-+			label = "u-boot-env";
-+			reg = <0xe0000 0x20000>;
-+		};
-+		partition@100000 {
-+			label = "u-boot";
-+			reg = <0x100000 0x200000>;
-+		};
-+		partition@300000 {
-+			label = "splash";
-+			reg = <0x300000 0x100000>;
-+		};
-+		partition@400000 {
-+			label = "filesystem";
-+			reg = <0x400000 0xc00000>;
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			partition@0 {
++				label = "u-boot-spl";
++				reg = <0x0 0xe0000>;
++			};
++			partition@e0000 {
++				label = "u-boot-env";
++				reg = <0xe0000 0x20000>;
++			};
++			partition@100000 {
++				label = "u-boot";
++				reg = <0x100000 0x200000>;
++			};
++			partition@300000 {
++				label = "splash";
++				reg = <0x300000 0x100000>;
++			};
++			partition@400000 {
++				label = "filesystem";
++				reg = <0x400000 0xc00000>;
++			};
 +		};
  	};
  };
