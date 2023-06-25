@@ -20,7 +20,11 @@ main() {
     local disable_ipv6=true
     local extra_pkgs='curl, pciutils, sudo, u-boot-tools, unzip, wget, xxd, xz-utils, zip, zstd'
 
-    is_param 'clean' $@ && rm -rf cache.* && rm "$media"* && exit 0
+    if is_param 'clean' $@; then
+        rm -rf cache.*
+        rm -f "$media"*
+        exit 0
+    fi
 
     if [ -f "$media" ]; then
         read -p "file $media exists, overwrite? <y/N> " yn
