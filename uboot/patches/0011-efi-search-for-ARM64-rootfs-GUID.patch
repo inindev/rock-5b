@@ -1,7 +1,7 @@
-From b0d720dc0db286985e3a9bd8eaca0cef3ec96592 Mon Sep 17 00:00:00 2001
+From 14e38295b44d24d81f051e66d6059c2bc7ba3cae Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Thu, 18 May 2023 16:23:48 +0300
-Subject: [PATCH 11/29] efi: search for ARM64 rootfs GUID
+Subject: [PATCH 11/28] efi: search for ARM64 rootfs GUID
 
 Currently, U-boot considers bootable only the EFI System Partition
 (SD_GPT_ESP).
