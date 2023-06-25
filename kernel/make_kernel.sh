@@ -23,11 +23,12 @@ main() {
     local lv="$(echo "$lf" | sed -nE 's/linux-(.*)\.tar\..z/\1/p')"
 
     if [ '_clean' = "_$1" ]; then
-        rm -f *.deb
-        rm -rf kernel-$lv/*.deb
-        rm -rf kernel-$lv/*.buildinfo
-        rm -rf kernel-$lv/*.changes
-        rm -rf "kernel-$lv/linux-$lv"
+        echo "\n${h1}cleaning...${rst}"
+        rm -fv *.deb
+        rm -rfv kernel-$lv/*.deb
+        rm -rfv kernel-$lv/*.buildinfo
+        rm -rfv kernel-$lv/*.changes
+        rm -rfv "kernel-$lv/linux-$lv"
         echo '\nclean complete\n'
         exit 0
     fi
