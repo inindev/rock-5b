@@ -16,8 +16,8 @@ config_fixups() {
 }
 
 main() {
-    local linux='https://git.kernel.org/torvalds/t/linux-6.4-rc7.tar.gz'
-    local lxsha='c9626fe3c2564eeda618cb53c3d52c41f7492e1f628b20921d320fc1e57e6c2d'
+    local linux='//git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/snapshot/linux-6.4.tar.gz'
+    local lxsha='621e7bb2e20eafeb360324c56b58989521fac60225675e605bdb583c944a5085'
 
     local lf="$(basename "$linux")"
     local lv="$(echo "$lf" | sed -nE 's/linux-(.*)\.tar\..z/\1/p')"
@@ -28,7 +28,7 @@ main() {
         rm -rfv kernel-$lv/*.deb
         rm -rfv kernel-$lv/*.buildinfo
         rm -rfv kernel-$lv/*.changes
-        rm -rfv "kernel-$lv/linux-$lv"
+        rm -rf "kernel-$lv/linux-$lv"
         echo '\nclean complete\n'
         exit 0
     fi
