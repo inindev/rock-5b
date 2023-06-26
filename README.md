@@ -1,9 +1,10 @@
 # rock-5b
 #### *Debian ARM64 Linux for the Radxa Rock 5 Model B*
 
-This Debian ARM64 Linux image is built directly from official packages using the Debian [Debootstrap](https://wiki.debian.org/Debootstrap) utility, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L105
+This Debian ARM64 Linux image is built directly from official packages using the Debian [Debootstrap](https://wiki.debian.org/Debootstrap) utility, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L102
 
-Most patches are directly available from the Debian repos using the built-in ```apt``` package manager, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L341
+Most patches are directly available from the Debian repos using the built-in ```apt``` package manager, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L337
+* Note: The kernel in this bundle is custom and will not get updates from debian.
 
 <br/>
 
@@ -14,7 +15,7 @@ Most patches are directly available from the Debian repos using the built-in ```
 
 **1. download image**
 ```
-wget https://github.com/inindev/rock-5b/releases/download/v12.0/rock-5b_bookworm-a1.img.xz
+wget https://github.com/inindev/rock-5b/releases/download/v12.0-4.6/rock-5b_bookworm-a1.img.xz
 ```
 
 <br/>
@@ -30,7 +31,7 @@ ls: cannot access '/dev/sd*': No such file or directory
  * after plugging-in device
 ```
 ls -l /dev/sd*
-brw-rw---- 1 root disk 8, 0 Apr 10 15:56 /dev/sda
+brw-rw---- 1 root disk 8, 0 Jun 25 14:50 /dev/sda
 ```
 * note: for mac, the device is ```/dev/rdiskX```
 
@@ -98,7 +99,7 @@ sudo nano /etc/hosts
 
 **1. while booted from mmc, download and copy the image file on to the ssd media**
 ```
-wget https://github.com/inindev/rock-5b/releases/download/v12.0/rock-5b_bookworm-a1.img.xz
+wget https://github.com/inindev/rock-5b/releases/download/v12.0-4.6/rock-5b_bookworm-a1.img.xz
 sudo sh -c 'xzcat rock-5b_bookworm-a1.img.xz > /dev/nvme0n1 && sync'
 ```
 
