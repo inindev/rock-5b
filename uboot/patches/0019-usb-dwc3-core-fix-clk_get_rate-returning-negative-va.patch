@@ -1,7 +1,7 @@
 From 8af0253f49a5af1d765465bd67bed2eca14eb3db Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Thu, 15 Jun 2023 17:48:52 +0300
-Subject: [PATCH 19/28] usb: dwc3: core: fix clk_get_rate returning negative
+Subject: [PATCH 19/29] usb: dwc3: core: fix clk_get_rate returning negative
  value
 
 Unlike it's Linux counterpart, clk_get_rate can return a negative value, -ve.

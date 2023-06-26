@@ -1,7 +1,7 @@
 From ee7b740085fb458094d63ccef03f18ff0df64c6d Mon Sep 17 00:00:00 2001
 From: John Clark <inindev@gmail.com>
 Date: Sat, 24 Jun 2023 00:38:24 +0000
-Subject: [PATCH 26/28] usb boot: change devtype from "usb_mass_storage" to
+Subject: [PATCH 26/29] usb boot: change devtype from "usb_mass_storage" to
  "usb"
 
 Signed-off-by: John Clark <inindev@gmail.com>
