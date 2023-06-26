@@ -59,8 +59,8 @@ main() {
     echo "${blu}optionally, flash to spi (apt install mtd-utils):${rst}"
     echo
     echo "  ${blu}flash u-boot to spi:${rst}"
-    echo "    ${blu}sudo flashcp -v idbloader.img /dev/mtd0${rst}"
-    echo "    ${blu}sudo flashcp -v u-boot.itb /dev/mtd2${rst}"
+    echo "    ${blu}sudo flashcp -Av idbloader.img /dev/mtd0${rst}"
+    echo "    ${blu}sudo flashcp -Av u-boot.itb /dev/mtd2${rst}"
     echo
 }
 
