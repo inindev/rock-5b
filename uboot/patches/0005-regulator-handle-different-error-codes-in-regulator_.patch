@@ -1,7 +1,7 @@
-From 009d0d3eec3937f9ba0794c5bf495f1166a30ca7 Mon Sep 17 00:00:00 2001
+From 1ed2cb9c8de419e229e8213d8a61be4120ac1b1b Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Wed, 19 Apr 2023 15:36:12 +0300
-Subject: [PATCH 05/29] regulator: handle different error codes in
+Subject: [PATCH 05/28] regulator: handle different error codes in
  regulator_set_enable_if_allowed
 
 The regulator core can return different codes which are not considered

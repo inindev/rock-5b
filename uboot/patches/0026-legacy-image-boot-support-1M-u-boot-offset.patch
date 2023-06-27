@@ -1,7 +1,7 @@
-From 8b6d86ddb28f17cb0c602de103bb403a6e9fce05 Mon Sep 17 00:00:00 2001
+From 56e2c7ae0edaf1cc257a06dc1bcb485072f4e67e Mon Sep 17 00:00:00 2001
 From: John Clark <inindev@gmail.com>
 Date: Mon, 5 Jun 2023 19:37:24 -0400
-Subject: [PATCH 27/29] legacy image boot support, 1M u-boot offset
+Subject: [PATCH 26/28] legacy image boot support, 1M u-boot offset
 
 Signed-off-by: John Clark <inindev@gmail.com>
 ---

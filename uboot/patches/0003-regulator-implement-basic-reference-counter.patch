@@ -1,7 +1,7 @@
-From 2f0c69424f6a62e3ae5177c3c0d877bf754fa324 Mon Sep 17 00:00:00 2001
+From 5de3b72db8d0b3b2d0801f53e3728ad07638a267 Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Thu, 16 Mar 2023 15:04:33 +0200
-Subject: [PATCH 03/29] regulator: implement basic reference counter
+Subject: [PATCH 03/28] regulator: implement basic reference counter
 
 Some devices share a regulator supply, when the first one will request
 regulator disable, the second device will have it's supply cut off before

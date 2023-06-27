@@ -1,7 +1,7 @@
-From 03200db7cb97bd579ab72a6577d662ea01957e28 Mon Sep 17 00:00:00 2001
+From d86d3b8d22ff18d8d0f78d39dcc12967b078f8e8 Mon Sep 17 00:00:00 2001
 From: John Clark <inindev@gmail.com>
 Date: Mon, 26 Jun 2023 00:02:33 +0000
-Subject: [PATCH 28/29] change spi-max-frequency to 50000000 as per radxa's dts
+Subject: [PATCH 27/28] change spi-max-frequency to 50000000 as per radxa's dts
  https://github.com/radxa/kernel/blob/stable-5.10-rock5/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
 
 Signed-off-by: John Clark <inindev@gmail.com>

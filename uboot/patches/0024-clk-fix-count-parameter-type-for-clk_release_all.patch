@@ -1,7 +1,7 @@
-From 55411f30fe3b1d52dbb27b1145daee1a0d2efbf9 Mon Sep 17 00:00:00 2001
+From ef6974bfdceafe8d2cd1a54f8110e5d7889e2a78 Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Fri, 16 Jun 2023 16:06:21 +0300
-Subject: [PATCH 25/29] clk: fix count parameter type for clk_release_all
+Subject: [PATCH 24/28] clk: fix count parameter type for clk_release_all
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit

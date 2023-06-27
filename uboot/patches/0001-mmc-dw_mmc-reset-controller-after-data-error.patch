@@ -1,7 +1,7 @@
-From 3108bceef8d89aa50dff0b61d45f5255264def3a Mon Sep 17 00:00:00 2001
+From c140a78133c4f0a69e55a4f7682e9f4ecab01c2d Mon Sep 17 00:00:00 2001
 From: Ziyuan Xu <xzy.xu@rock-chips.com>
 Date: Mon, 15 May 2017 14:07:14 +0800
-Subject: [PATCH 01/29] mmc: dw_mmc: reset controller after data error
+Subject: [PATCH 01/28] mmc: dw_mmc: reset controller after data error
 
 Per dw_mmc databook, it's recommended to reset the host controller if
 some data-related error occurred.
