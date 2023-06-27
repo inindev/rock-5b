@@ -33,9 +33,6 @@ main() {
     print_hdr "installing kernel $kernver"
     chroot "$mountpt" "/usr/bin/dpkg" -i "/mnt/$kernfile"
 
-    mv "$mountpt/boot/vmlinuz-$kernver" "$mountpt/boot/vmlinuz-$kernver.gz"
-    gzip -d "$mountpt/boot/vmlinuz-$kernver.gz"
-
     [ -e "$mountpt/boot/dtb" ] && mv "$mountpt/boot/dtb" "$mountpt/boot/dtb.old"
     install -m 644 "$mountpt/lib/linux-image-$kernver/rockchip/rk3588-rock-5b.dtb" "$mountpt/boot/rk3588-rock-5b.dtb-$kernver"
     ln -svf "rk3588-rock-5b.dtb-$kernver" "$mountpt/boot/dtb"

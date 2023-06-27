@@ -75,7 +75,7 @@ main() {
     export KBUILD_BUILD_USER='debian-build'
     export KBUILD_BUILD_VERSION="$bv"
 
-    nice make -C "kernel-$lv/linux-$lv" -j"$(nproc)" bindeb-pkg LOCALVERSION="-$bv-arm64"
+    nice make -C "kernel-$lv/linux-$lv" -j"$(nproc)" bindeb-pkg KBUILD_IMAGE='arch/arm64/boot/Image' LOCALVERSION="-$bv-arm64"
     echo "\n${cya}kernel package ready${mag}"
     ln -sfv "kernel-$lv/linux-image-$kv-$bv-arm64_$kv-${bv}_arm64.deb"
     echo "${rst}"
