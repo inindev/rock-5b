@@ -61,6 +61,7 @@ main() {
         echo "\n${h1}configuring source tree...${rst}"
         make -C "kernel-$lv/linux-$lv" mrproper
         cp './config' "kernel-$lv/linux-$lv/.config"
+        [ -z "$1" ] || echo "$1" > "kernel-$lv/linux-$lv/.version"
         config_fixups "kernel-$lv/linux-$lv"
     fi
 
