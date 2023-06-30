@@ -1,4 +1,4 @@
-From d86d3b8d22ff18d8d0f78d39dcc12967b078f8e8 Mon Sep 17 00:00:00 2001
+From 1f4737620af111816df81b901b37739d8cf15ae1 Mon Sep 17 00:00:00 2001
 From: John Clark <inindev@gmail.com>
 Date: Mon, 26 Jun 2023 00:02:33 +0000
 Subject: [PATCH 27/28] change spi-max-frequency to 50000000 as per radxa's dts

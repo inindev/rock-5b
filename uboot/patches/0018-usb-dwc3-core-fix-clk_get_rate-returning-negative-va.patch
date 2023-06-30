@@ -1,4 +1,4 @@
-From cae301e0be0494cfeea7d9c5133da3194b0e3a49 Mon Sep 17 00:00:00 2001
+From 30d681e83955f347b59acecd001fce046b36b711 Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Thu, 15 Jun 2023 17:48:52 +0300
 Subject: [PATCH 18/28] usb: dwc3: core: fix clk_get_rate returning negative

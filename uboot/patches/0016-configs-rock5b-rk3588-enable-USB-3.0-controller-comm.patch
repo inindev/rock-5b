@@ -1,4 +1,4 @@
-From 7a4c7956b57264242877b5893746d5d9021e0315 Mon Sep 17 00:00:00 2001
+From c85cf0c6a0782fd8f9a5c2dd8547b6e0f66eddb2 Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Fri, 26 May 2023 14:01:52 +0300
 Subject: [PATCH 16/28] configs: rock5b-rk3588: enable USB 3.0 controller,

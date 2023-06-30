@@ -1,4 +1,4 @@
-From c140a78133c4f0a69e55a4f7682e9f4ecab01c2d Mon Sep 17 00:00:00 2001
+From cb7f9a4f9720ba82a774f867a4e3bd185600e3e7 Mon Sep 17 00:00:00 2001
 From: Ziyuan Xu <xzy.xu@rock-chips.com>
 Date: Mon, 15 May 2017 14:07:14 +0800
 Subject: [PATCH 01/28] mmc: dw_mmc: reset controller after data error

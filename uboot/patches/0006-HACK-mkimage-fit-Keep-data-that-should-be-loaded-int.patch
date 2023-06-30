@@ -1,4 +1,4 @@
-From 8e341fb7d669cf309d891027aa79f5f1a7d74d1a Mon Sep 17 00:00:00 2001
+From be0544623cd5b5a61cda4161937d7f1cb865400f Mon Sep 17 00:00:00 2001
 From: Jonas Karlman <jonas@kwiboo.se>
 Date: Sun, 29 Jan 2023 08:44:04 +0000
 Subject: [PATCH 06/28] HACK: mkimage: fit: Keep data that should be loaded

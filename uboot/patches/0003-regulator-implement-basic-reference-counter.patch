@@ -1,4 +1,4 @@
-From 5de3b72db8d0b3b2d0801f53e3728ad07638a267 Mon Sep 17 00:00:00 2001
+From 659d85253355c0f1ccbf83ffe0bb93d9843e6726 Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Thu, 16 Mar 2023 15:04:33 +0200
 Subject: [PATCH 03/28] regulator: implement basic reference counter

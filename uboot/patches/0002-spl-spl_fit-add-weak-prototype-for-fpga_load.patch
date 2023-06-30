@@ -1,4 +1,4 @@
-From 96c35573a8e1c1ce538498d8e815e50a4fee8d44 Mon Sep 17 00:00:00 2001
+From 44f4d005175486b1e2b80f904786f245b999e490 Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Mon, 27 Feb 2023 12:24:14 +0200
 Subject: [PATCH 02/28] spl: spl_fit: add weak prototype for fpga_load

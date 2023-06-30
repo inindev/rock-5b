@@ -1,4 +1,4 @@
-From ba9f5aa3f3839d4d33890d1805b553ee75beed61 Mon Sep 17 00:00:00 2001
+From 9b2001e39ddfb4a7e92bb1839290be4828fa1dd3 Mon Sep 17 00:00:00 2001
 From: Venkatesh Yadav Abbarapu <venkatesh.abbarapu@amd.com>
 Date: Mon, 8 May 2023 08:30:15 +0530
 Subject: [PATCH 22/28] usb: dwc3: core: Only handle soft-reset in DCTL

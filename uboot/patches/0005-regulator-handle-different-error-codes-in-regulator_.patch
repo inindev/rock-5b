@@ -1,4 +1,4 @@
-From 1ed2cb9c8de419e229e8213d8a61be4120ac1b1b Mon Sep 17 00:00:00 2001
+From 57ee05c1e4d1522e5b5915be504d433fc131dda5 Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Wed, 19 Apr 2023 15:36:12 +0300
 Subject: [PATCH 05/28] regulator: handle different error codes in

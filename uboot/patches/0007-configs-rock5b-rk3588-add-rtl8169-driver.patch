@@ -1,4 +1,4 @@
-From 6e3d952e0addfce4d2723e918b5bdcaa2785ddff Mon Sep 17 00:00:00 2001
+From 95d727f99ec349cde8bbaca56abaa91b34a66b72 Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Tue, 25 Apr 2023 15:46:31 +0300
 Subject: [PATCH 07/28] configs: rock5b-rk3588: add rtl8169 driver
