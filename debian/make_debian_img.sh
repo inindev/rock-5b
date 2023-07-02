@@ -105,6 +105,9 @@ main() {
     umount "$mountpt/var/lib/apt/lists"
 
     print_hdr "configuring files"
+    local mdev="$(findmnt -no SOURCE "$mountpt")"
+    local uuid="$(blkid -o value -s UUID "$mdev")"
+    printf 'UUID=%s  /        ext4  errors=remount-ro    0  1\n' "$uuid" > "$mountpt/etc/fstab"
     echo "$(file_apt_sources $deb_dist)\n" > "$mountpt/etc/apt/sources.list"
     echo "$(file_locale_cfg)\n" > "$mountpt/etc/default/locale"
 
@@ -402,6 +405,7 @@ script_rc_local() {
 	    uuid="\$(cat /proc/sys/kernel/random/uuid)"
 	    echo "changing rootfs uuid: \$uuid"
 	    tune2fs -U "\$uuid" "\$rp"
+	    printf 'UUID=%s  /        ext4  errors=remount-ro    0  1\n' "\$uuid" > '/etc/fstab'
 
 	    # setup for expand fs
 	    chmod 774 "\$this"
