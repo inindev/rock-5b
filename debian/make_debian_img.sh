@@ -207,11 +207,11 @@ format_media() {
     # create ext4 filesystem
     if [ -b "$media" ]; then
         local part1="/dev/$(lsblk -no kname "$media" | grep '.*p1$')"
-        mkfs.ext4 "$part1" && sync
+        mkfs.ext4 -O metadata_csum_seed "$part1" && sync
     else
         local lodev="$(losetup -f)"
         losetup -P "$lodev" "$media" && sync
-        mkfs.ext4 "${lodev}p1" && sync
+        mkfs.ext4 -O metadata_csum_seed "${lodev}p1" && sync
         losetup -d "$lodev" && sync
     fi
 }
@@ -383,7 +383,7 @@ script_rc_local() {
 
 	if [ 774 -eq \$perm ]; then
 	    # expand fs
-	    resize2fs \$(findmnt / -o source -n)
+	    resize2fs "\$(findmnt -no source /)"
 	    rm "\$this"
 	    systemctl stop rc-local.service
 	else
@@ -392,11 +392,16 @@ script_rc_local() {
 	    systemctl enable ssh.service
 
 	    # expand root parition & change uuid
-	    rp=\$(findmnt / -o source -n)
-	    rpn=\$(echo "\$rp" | grep -o '[[:digit:]]*\$')
-	    rd=/dev/\$(lsblk -no pkname \$rp)
-	    uuid=\$(cat /proc/sys/kernel/random/uuid)
-	    echo "size=+, uuid=\$uuid" | sfdisk -f -N \$rpn \$rd
+	    rp="\$(findmnt -no source /)"
+	    rpn="\$(echo "\$rp" | grep -o '[[:digit:]]*\$')"
+	    rd="/dev/\$(lsblk -no pkname "\$rp")"
+	    uuid="\$(cat /proc/sys/kernel/random/uuid)"
+	    echo "size=+, uuid=\$uuid" | sfdisk -f -N "\$rpn" "\$rd"
+
+	    # change rootfs uuid
+	    uuid="\$(cat /proc/sys/kernel/random/uuid)"
+	    echo "changing rootfs uuid: \$uuid"
+	    tune2fs -U "\$uuid" "\$rp"
 
 	    # setup for expand fs
 	    chmod 774 "\$this"
