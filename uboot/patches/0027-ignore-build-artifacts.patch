@@ -1,7 +1,7 @@
-From bdbabb56ec76da8718e12727e48c37049816b965 Mon Sep 17 00:00:00 2001
+From 2634e6932fe854f8d4c431ef8158eb599f207ad3 Mon Sep 17 00:00:00 2001
 From: John Clark <inindev@gmail.com>
 Date: Tue, 7 Mar 2023 01:47:26 +0000
-Subject: [PATCH 28/28] ignore build artifacts
+Subject: [PATCH 27/27] ignore build artifacts
 
 Signed-off-by: John Clark <inindev@gmail.com>
 ---

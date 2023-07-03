@@ -1,7 +1,7 @@
-From c85cf0c6a0782fd8f9a5c2dd8547b6e0f66eddb2 Mon Sep 17 00:00:00 2001
+From eec42114e88d08a81a276417607fb41ba829a374 Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Fri, 26 May 2023 14:01:52 +0300
-Subject: [PATCH 16/28] configs: rock5b-rk3588: enable USB 3.0 controller,
+Subject: [PATCH 15/27] configs: rock5b-rk3588: enable USB 3.0 controller,
  command, gadget
 
 Enable configuration for USB 3.0 controller, the commands required,
@@ -13,10 +13,10 @@ Signed-off-by: Eugen Hristev <eugen.hristev@collabora.com>
  1 file changed, 14 insertions(+)
 
 diff --git a/configs/rock5b-rk3588_defconfig b/configs/rock5b-rk3588_defconfig
-index a4a3c0afd1..3f28a68f0c 100644
+index 85cb70bd09..7618258ac5 100644
 --- a/configs/rock5b-rk3588_defconfig
 +++ b/configs/rock5b-rk3588_defconfig
-@@ -47,9 +47,11 @@ CONFIG_SYS_SPI_U_BOOT_OFFS=0x60000
+@@ -48,9 +48,11 @@ CONFIG_SYS_SPI_U_BOOT_OFFS=0x60000
  CONFIG_SPL_ATF=y
  CONFIG_CMD_GPIO=y
  CONFIG_CMD_GPT=y
@@ -28,7 +28,7 @@ index a4a3c0afd1..3f28a68f0c 100644
  # CONFIG_CMD_SETEXPR is not set
  CONFIG_CMD_REGULATOR=y
  # CONFIG_SPL_DOS_PARTITION is not set
-@@ -59,6 +61,7 @@ CONFIG_OF_SPL_REMOVE_PROPS="clock-names interrupt-parent assigned-clocks assigne
+@@ -60,6 +62,7 @@ CONFIG_OF_SPL_REMOVE_PROPS="clock-names interrupt-parent assigned-clocks assigne
  CONFIG_SPL_REGMAP=y
  CONFIG_SPL_SYSCON=y
  CONFIG_SPL_CLK=y
@@ -36,7 +36,7 @@ index a4a3c0afd1..3f28a68f0c 100644
  CONFIG_ROCKCHIP_GPIO=y
  CONFIG_SYS_I2C_ROCKCHIP=y
  CONFIG_MISC=y
-@@ -76,6 +79,7 @@ CONFIG_GMAC_ROCKCHIP=y
+@@ -77,6 +80,7 @@ CONFIG_GMAC_ROCKCHIP=y
  CONFIG_PCIE_DW_ROCKCHIP=y
  CONFIG_PHY_ROCKCHIP_INNO_USB2=y
  CONFIG_PHY_ROCKCHIP_NANENG_COMBOPHY=y
@@ -44,7 +44,7 @@ index a4a3c0afd1..3f28a68f0c 100644
  CONFIG_SPL_PINCTRL=y
  CONFIG_REGULATOR_PWM=y
  CONFIG_PWM_ROCKCHIP=y
-@@ -86,10 +90,16 @@ CONFIG_SYS_NS16550_MEM32=y
+@@ -87,10 +91,16 @@ CONFIG_SYS_NS16550_MEM32=y
  CONFIG_ROCKCHIP_SFC=y
  CONFIG_SYSRESET=y
  CONFIG_USB=y
@@ -61,7 +61,7 @@ index a4a3c0afd1..3f28a68f0c 100644
  CONFIG_USB_HOST_ETHER=y
  CONFIG_USB_ETHER_ASIX=y
  CONFIG_USB_ETHER_ASIX88179=y
-@@ -98,4 +108,8 @@ CONFIG_USB_ETHER_LAN78XX=y
+@@ -99,4 +109,8 @@ CONFIG_USB_ETHER_LAN78XX=y
  CONFIG_USB_ETHER_MCS7830=y
  CONFIG_USB_ETHER_RTL8152=y
  CONFIG_USB_ETHER_SMSC95XX=y

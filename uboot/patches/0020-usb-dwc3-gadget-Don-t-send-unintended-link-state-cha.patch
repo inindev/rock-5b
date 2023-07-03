@@ -1,7 +1,7 @@
-From c8979744d44c9af4bf11b580dbfc1b0e8720bd93 Mon Sep 17 00:00:00 2001
+From 9dd2bea724b497890c9a92b2c0ce8f448ff6be01 Mon Sep 17 00:00:00 2001
 From: Venkatesh Yadav Abbarapu <venkatesh.abbarapu@amd.com>
 Date: Mon, 8 May 2023 08:30:14 +0530
-Subject: [PATCH 21/28] usb: dwc3: gadget: Don't send unintended link state
+Subject: [PATCH 20/27] usb: dwc3: gadget: Don't send unintended link state
  change
 
 [ Nguyen/Felipe/Greg: Ported from Linux kernel commit

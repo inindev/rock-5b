@@ -1,7 +1,7 @@
-From 95d727f99ec349cde8bbaca56abaa91b34a66b72 Mon Sep 17 00:00:00 2001
+From 59b29323a8041eef446a3ce588c1ac350821f433 Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Tue, 25 Apr 2023 15:46:31 +0300
-Subject: [PATCH 07/28] configs: rock5b-rk3588: add rtl8169 driver
+Subject: [PATCH 07/27] configs: rock5b-rk3588: add rtl8169 driver
 
 Add the rtl8169 driver, which supports the rtl8125b device, which is
 connected on the pciE bus on this board.
@@ -13,7 +13,7 @@ Signed-off-by: Eugen Hristev <eugen.hristev@collabora.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/configs/rock5b-rk3588_defconfig b/configs/rock5b-rk3588_defconfig
-index c1155c20ef..a4a3c0afd1 100644
+index 17205a56cd..85cb70bd09 100644
 --- a/configs/rock5b-rk3588_defconfig
 +++ b/configs/rock5b-rk3588_defconfig
 @@ -1,5 +1,6 @@
@@ -23,7 +23,7 @@ index c1155c20ef..a4a3c0afd1 100644
  CONFIG_COUNTER_FREQUENCY=24000000
  CONFIG_ARCH_ROCKCHIP=y
  CONFIG_TEXT_BASE=0x00a00000
-@@ -70,6 +71,7 @@ CONFIG_MMC_SDHCI_ROCKCHIP=y
+@@ -71,6 +72,7 @@ CONFIG_MMC_SDHCI_ROCKCHIP=y
  CONFIG_SPI_FLASH_MACRONIX=y
  CONFIG_SPI_FLASH_XTX=y
  CONFIG_ETH_DESIGNWARE=y

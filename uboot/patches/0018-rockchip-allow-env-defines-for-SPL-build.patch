@@ -1,7 +1,7 @@
-From 0bcebd6827a094d9a4f71676c645bc7824650418 Mon Sep 17 00:00:00 2001
+From e388dd465469d9e7ab810c66101cc7761c9ac462 Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Thu, 15 Jun 2023 18:25:52 +0300
-Subject: [PATCH 19/28] rockchip: allow env defines for SPL build
+Subject: [PATCH 18/27] rockchip: allow env defines for SPL build
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit

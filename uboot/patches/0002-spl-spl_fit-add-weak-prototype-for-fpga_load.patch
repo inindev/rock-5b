@@ -1,7 +1,7 @@
-From 44f4d005175486b1e2b80f904786f245b999e490 Mon Sep 17 00:00:00 2001
+From a5afa471b3baac01bd60c45abf047da62f9937a8 Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Mon, 27 Feb 2023 12:24:14 +0200
-Subject: [PATCH 02/28] spl: spl_fit: add weak prototype for fpga_load
+Subject: [PATCH 02/27] spl: spl_fit: add weak prototype for fpga_load
 
 In case OPTIMIZE_DEBUG is set, unused code will not be optimized out, hence
 the reference to fpga_load will be compiled.
