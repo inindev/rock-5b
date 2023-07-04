@@ -111,6 +111,10 @@ main() {
     echo "$(file_apt_sources $deb_dist)\n" > "$mountpt/etc/apt/sources.list"
     echo "$(file_locale_cfg)\n" > "$mountpt/etc/default/locale"
 
+    # kernel install hooks
+    install -m 754 'files/rock5b_dtb_copy' "$mountpt/etc/kernel/postinst.d"
+    install -m 754 'files/rock5b_dtb_rm' "$mountpt/etc/kernel/postrm.d"
+
     # disable sshd until after keys are regenerated on first boot
     rm -f "$mountpt/etc/systemd/system/sshd.service"
     rm -f "$mountpt/etc/systemd/system/multi-user.target.wants/ssh.service"
