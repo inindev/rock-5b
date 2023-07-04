@@ -2,9 +2,9 @@
 
 set -e
 
-EXTL_MENU_ENABLE='auto'
-EXTL_MENU_ITEMS=2
-EXTL_MENU_TIMEOUT=4
+EXTL_MENU_ENABLE='auto'   # true, false, auto
+EXTL_MENU_ITEMS=2         # max kernels in menu
+EXTL_MENU_TIMEOUT=4       # timeout in seconds
 EXLT_CMD_LINE='ro rootwait ipv6.disable=1'
 
 
@@ -34,6 +34,7 @@ gen_menu_header() {
     echo '#'
     echo '# this is an automatically generated file'
     echo '# edit options at the top of the /boot/mk_extlinux.sh file'
+    echo '# then run /boot/mk_extlinux.sh to rebuild'
     echo '#'
     echo
     echo 'menu title u-boot menu'
@@ -81,7 +82,7 @@ main() {
 
     mkdir -pv '/boot/extlinux'
     echo "${config}" > '/boot/extlinux/extlinux.conf'
-    echo 'file extlinux.conf updated successfully'
+    echo 'file /boot/extlinux/extlinux.conf updated successfully'
 }
 
 if [ 0 -ne $(id -u) ]; then
