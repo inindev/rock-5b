@@ -108,7 +108,7 @@ main() {
     print_hdr "configuring files"
     local mdev="$(findmnt -no SOURCE "$mountpt")"
     local uuid="$(blkid -o value -s UUID "$mdev")"
-    printf 'UUID=%s  /        ext4  errors=remount-ro    0  1\n' "$uuid" > "$mountpt/etc/fstab"
+    echo "$(file_fstab $uuid)\n" > "$mountpt/etc/fstab"
     echo "$(file_apt_sources $deb_dist)\n" > "$mountpt/etc/apt/sources.list"
     echo "$(file_locale_cfg)\n" > "$mountpt/etc/default/locale"
 
@@ -339,6 +339,18 @@ check_installed() {
     fi
 }
 
+file_fstab() {
+    local uuid="$1"
+
+    cat <<-EOF
+	# if editing the device name for the root entry, it is necessary to
+	# regenerate the extlinux.conf file by running /boot/mk_extlinux.sh
+
+	# <device>					<mount>	<type>	<options>		<dump> <pass>
+	UUID=$uuid	/	ext4	errors=remount-ro	0      1
+	EOF
+}
+
 file_apt_sources() {
     local deb_dist="$1"
 
@@ -407,7 +419,8 @@ script_rc_local() {
 	    uuid="\$(cat /proc/sys/kernel/random/uuid)"
 	    echo "changing rootfs uuid: \$uuid"
 	    tune2fs -U "\$uuid" "\$rp"
-	    printf 'UUID=%s  /        ext4  errors=remount-ro    0  1\n' "\$uuid" > '/etc/fstab'
+	    sed -i "s|\$(findmnt -fsno SOURCE '/')|UUID=\$uuid|" /etc/fstab
+	    /boot/mk_extlinux.sh
 
 	    # setup for expand fs
 	    chmod 774 "\$this"
