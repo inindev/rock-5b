@@ -93,10 +93,11 @@ main() {
     mount -o bind "$cache/var/cache" "$mountpt/var/cache"
     mount -o bind "$cache/var/lib/apt/lists" "$mountpt/var/lib/apt/lists"
 
-    # install debian linux from official repo packages
+    # install debian linux from deb packages (debootstrap)
     print_hdr "installing root filesystem from debian.org"
     mkdir "$mountpt/etc"
     echo 'link_in_boot = 1' > "$mountpt/etc/kernel-img.conf"
+    echo 'do_symlink = No' >> "$mountpt/etc/kernel-img.conf"
     local pkgs="initramfs-tools, dbus, dhcpcd5, libpam-systemd, openssh-server, systemd-timesyncd"
     pkgs="$pkgs, $extra_pkgs"
     debootstrap --arch arm64 --include "$pkgs" --exclude "isc-dhcp-client" "$deb_dist" "$mountpt" 'https://deb.debian.org/debian/'
@@ -110,6 +111,17 @@ main() {
     printf 'UUID=%s  /        ext4  errors=remount-ro    0  1\n' "$uuid" > "$mountpt/etc/fstab"
     echo "$(file_apt_sources $deb_dist)\n" > "$mountpt/etc/apt/sources.list"
     echo "$(file_locale_cfg)\n" > "$mountpt/etc/default/locale"
+
+    # setup extlinux boot
+    install -m 644 'files/extlinux_defaults.txt' "$mountpt/boot"
+    install -m 754 'files/mk_extlinux.sh' "$mountpt/boot"
+    if ! $disable_ipv6; then
+        sed -i 's/ ipv6.disable=1//g' "$mountpt/boot/extlinux_defaults.txt"
+        sed -i 's/ ipv6.disable=1//g' "$mountpt/boot/mk_extlinux.sh"
+    fi
+    ln -svf '../../../boot/mk_extlinux.sh' "$mountpt/etc/kernel/postinst.d/update_extlinux"
+    ln -svf '../../../boot/mk_extlinux.sh' "$mountpt/etc/kernel/postrm.d/update_extlinux"
+    #chroot "$mountpt" '/boot/mk_extlinux.sh'
 
     # kernel install hooks
     install -m 754 'files/dtb_copy' "$mountpt/etc/kernel/postinst.d"
@@ -139,19 +151,12 @@ main() {
     # motd (off by default)
     is_param 'motd' $@ && [ -f '../etc/motd' ] && cp -f '../etc/motd' "$mountpt/etc"
 
-    # setup /boot
-    echo "$(script_boot_txt $disable_ipv6)\n" > "$mountpt/boot/boot.txt"
-    mkimage -A arm64 -O linux -T script -C none -n 'u-boot boot script' -d "$mountpt/boot/boot.txt" "$mountpt/boot/boot.scr"
-    echo "$(script_mkscr_sh)\n" > "$mountpt/boot/mkscr.sh"
-    chmod 754 "$mountpt/boot/mkscr.sh"
-
     print_hdr "installing firmware"
     mkdir -p "$mountpt/lib/firmware"
     local lfwn="$(basename "$lfw")"
     local lfwbn="${lfwn%%.*}"
     tar -C "$mountpt/lib/firmware" --strip-components=1 --wildcards -xavf "$lfw" "$lfwbn/microchip/mscc*" "$lfwbn/nvidia/tegra???" "$lfwbn/r8a779x*" \
                                                                                  "$lfwbn/rockchip" "$lfwbn/rtl_bt" "$lfwbn/rtl_nic"
-
     print_hdr "installing rootfs expansion script to /etc/rc.local"
     echo "$(script_rc_local)\n" > "$mountpt/etc/rc.local"
     chmod 754 "$mountpt/etc/rc.local"
@@ -352,13 +357,6 @@ file_apt_sources() {
 	EOF
 }
 
-file_wpa_supplicant_conf() {
-    cat <<-EOF
-	ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-	update_config=1
-	EOF
-}
-
 file_locale_cfg() {
     cat <<-EOF
 	LANG="C.UTF-8"
@@ -418,43 +416,6 @@ script_rc_local() {
 	EOF
 }
 
-script_boot_txt() {
-    local no_ipv6="$($1 && echo ' ipv6.disable=1')"
-
-    cat <<-EOF
-	# after modifying, run ./mkscr.sh
-
-	part uuid \${devtype} \${devnum}:\${distro_bootpart} uuid
-	setenv bootargs console=ttyS2,1500000 root=PARTUUID=\${uuid} rw rootwait$no_ipv6 earlycon=uart8250,mmio32,0xfeb50000
-
-	if load \${devtype} \${devnum}:\${distro_bootpart} \${kernel_addr_r} /boot/vmlinuz; then
-	    if load \${devtype} \${devnum}:\${distro_bootpart} \${fdt_addr_r} /boot/dtb; then
-	        fdt addr \${fdt_addr_r}
-	        fdt resize
-	        if load \${devtype} \${devnum}:\${distro_bootpart} \${ramdisk_addr_r} /boot/initrd.img; then
-	            booti \${kernel_addr_r} \${ramdisk_addr_r}:\${filesize} \${fdt_addr_r};
-	        else
-	            booti \${kernel_addr_r} - \${fdt_addr_r};
-	        fi;
-	    fi;
-	fi
-	EOF
-}
-
-script_mkscr_sh() {
-    cat <<-EOF
-	#!/bin/sh
-
-	if [ ! -x /usr/bin/mkimage ]; then
-	    echo 'mkimage not found, please install uboot tools:'
-	    echo '  sudo apt -y install u-boot-tools'
-	    exit 1
-	fi
-
-	mkimage -A arm64 -O linux -T script -C none -n 'u-boot boot script' -d boot.txt boot.scr
-	EOF
-}
-
 is_param() {
     local match
     for item in $@; do
@@ -468,7 +429,7 @@ is_param() {
 }
 
 print_hdr() {
-    local msg=$1
+    local msg="$1"
     echo "\n${h1}$msg...${rst}"
 }
 
@@ -476,13 +437,13 @@ print_hdr() {
 on_exit() {
     if mountpoint -q "$mountpt"; then
         print_hdr "cleaning up mount points"
-        mountpoint -q "$mountpt/var/cache" && umount "$mountpt/var/cache"
-        mountpoint -q "$mountpt/var/lib/apt/lists" && umount "$mountpt/var/lib/apt/lists"
+        mountpoint -q "$mountpt/var/cache" && umount -v "$mountpt/var/cache"
+        mountpoint -q "$mountpt/var/lib/apt/lists" && umount -v "$mountpt/var/lib/apt/lists"
 
         read -p "$mountpt is still mounted, unmount? <Y/n> " yn
         if [ -z "$yn" -o "$yn" = 'y' -o "$yn" = 'Y' -o "$yn" = 'yes' -o "$yn" = 'Yes' ]; then
             echo "unmounting $mountpt"
-            umount "$mountpt"
+            umount -v "$mountpt"
             sync
             rm -rf "$mountpt"
         fi
