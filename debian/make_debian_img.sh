@@ -113,12 +113,8 @@ main() {
     echo "$(file_locale_cfg)\n" > "$mountpt/etc/default/locale"
 
     # setup extlinux boot
-    install -m 644 'files/extlinux_defaults.txt' "$mountpt/boot"
     install -m 754 'files/mk_extlinux.sh' "$mountpt/boot"
-    if ! $disable_ipv6; then
-        sed -i 's/ ipv6.disable=1//g' "$mountpt/boot/extlinux_defaults.txt"
-        sed -i 's/ ipv6.disable=1//g' "$mountpt/boot/mk_extlinux.sh"
-    fi
+    $disable_ipv6 || sed -i 's/ ipv6.disable=1//g' "$mountpt/boot/mk_extlinux.sh"
     ln -svf '../../../boot/mk_extlinux.sh' "$mountpt/etc/kernel/postinst.d/update_extlinux"
     ln -svf '../../../boot/mk_extlinux.sh' "$mountpt/etc/kernel/postrm.d/update_extlinux"
     #chroot "$mountpt" '/boot/mk_extlinux.sh'
