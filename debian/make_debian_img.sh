@@ -23,6 +23,7 @@ main() {
     if is_param 'clean' $@; then
         rm -rf cache*/var
         rm -f "$media"*
+        rm -rf rootfs
         echo '\nclean complete\n'
         exit 0
     fi
