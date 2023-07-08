@@ -7,8 +7,8 @@ set -e
 #   5: invalid file hash
 
 main() {\
-    local linux='https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.3.7.tar.xz'
-    local lxsha='fe369743996c522a7b473e99dcf8f88847bd5cc88546fd3b7a41d9fe5a5b97a9'
+    local linux='https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.4.2.tar.xz'
+    local lxsha='a326ab224176c5b17c73c9ccad85f32e49b6e4e764861d57595727b7ef10062c'
 
     local lf=$(basename $linux)
     local lv=$(echo $lf | sed -nE 's/linux-(.*)\.tar\..z/\1/p')
@@ -50,7 +50,10 @@ main() {\
     # build
     local dt=rk3588-rock-5b
     gcc -I linux-$lv/include -E -nostdinc -undef -D__DTS__ -x assembler-with-cpp -o ${dt}-top.dts $rkpath/${dt}.dts
-    dtc -@ -I dts -O dtb -o ${dt}.dtb ${dt}-top.dts
+
+    local fldtc='-Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg'
+    dtc -I dts -O dtb -b 0 ${fldtc} -o ${dt}.dtb ${dt}-top.dts
+
     echo "\n${cya}device tree ready: ${dt}.dtb${rst}\n"
 }
 
