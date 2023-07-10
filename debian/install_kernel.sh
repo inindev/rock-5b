@@ -2,6 +2,7 @@
 
 set -e
 
+
 main() {
     local kerndeb="$(ls ../kernel/linux-image-*.deb | sort | tail -n1)"
     if [ ! -e "$kerndeb" ]; then
@@ -9,9 +10,9 @@ main() {
         exit 1
     fi
 
-    local imgfile='mmc_2g.img'
+    local imgfile="${1:-mmc_2g.img}"
     if [ ! -e "$imgfile" ]; then
-        echo 'mmc image file not found'
+        echo "error: \"$imgfile\" file not found"
         exit 2
     fi
 
@@ -20,7 +21,8 @@ main() {
     local kernfile="$(basename "$kerndeb")" # kern.deb
     local kernver="$(echo "$kernfile" | sed -rn 's/linux-image-(.*)_[[:digit:]].*/\1/p')"
 
-    print_hdr "mounting image"
+    print_hdr "mounting image $imgfile"
+    echo "image: $imgfile -> mount: $mountpt"
     mkdir -p "$mountpt"
     mount -vno loop,offset=16M "$imgfile" "$mountpt"
     mount -vo bind "$kerndir" "$mountpt/mnt"
@@ -75,5 +77,5 @@ if [ 0 -ne $(id -u) ]; then
 fi
 
 cd "$(dirname "$(realpath "$0")")"
-main $@
+main "$@"
 
