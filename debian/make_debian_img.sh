@@ -407,7 +407,7 @@ script_rc_local() {
 
 	    # expand root parition & change uuid
 	    rp="\$(findmnt -no source /)"
-	    rpn="\$(echo "\$rp" | grep -o '[[:digit:]]*\$')"
+	    rpn="\$(echo "\$rp" | grep -Eo '[[:digit:]]*\$')"
 	    rd="/dev/\$(lsblk -no pkname "\$rp")"
 	    uuid="\$(cat /proc/sys/kernel/random/uuid)"
 	    echo "size=+, uuid=\$uuid" | sfdisk -f -N "\$rpn" "\$rd"
