@@ -1,0 +1,48 @@
+From 051a77cc61755f7473d31cf2cc5604269b0c2432 Mon Sep 17 00:00:00 2001
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Tue, 4 Jul 2023 18:00:05 +0200
+Subject: [PATCH 16/53] arm64: dts: rockchip: rock-5a: add fan support
+
+Add the necessary DT changes for the Rock 5A board to enable support for
+the PWM controlled heat sink fan.
+
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
+index 194ceefe5..18d852b08 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
+@@ -33,6 +33,14 @@ io-led {
+ 		};
+ 	};
+ 
++	fan: pwm-fan {
++		compatible = "pwm-fan";
++		cooling-levels = <0 95 145 195 255>;
++		fan-supply = <&vcc_5v0>;
++		pwms = <&pwm3 0 50000 0>;
++		#cooling-cells = <2>;
++	};
++
+ 	sound {
+ 		compatible = "audio-graph-card";
+ 		label = "Analog";
+@@ -293,6 +301,12 @@ rtl8211f_rst: rtl8211f-rst {
+ 	};
+ };
+ 
++&pwm3 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pwm3m1_pins>;
++	status = "okay";
++};
++
+ &saradc {
+ 	vref-supply = <&avcc_1v8_s0>;
+ 	status = "okay";
+-- 
+2.39.2
+

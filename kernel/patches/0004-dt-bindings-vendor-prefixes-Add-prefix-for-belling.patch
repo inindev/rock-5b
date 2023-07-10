@@ -1,0 +1,28 @@
+From 6a6f38e1cd1f2f9f09795844c696ca47d6d622ca Mon Sep 17 00:00:00 2001
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Tue, 27 Jun 2023 18:45:18 +0200
+Subject: [PATCH 04/53] dt-bindings: vendor-prefixes: Add prefix for belling
+
+Add a vendor prefix entry for belling (https://www.belling.com.cn)
+
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index af60bf1a6..c80a86647 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -190,6 +190,8 @@ patternProperties:
+     description: Compass Electronics Group, LLC
+   "^beagle,.*":
+     description: BeagleBoard.org Foundation
++  "^belling,.*":
++    description: Shanghai Belling Co., Ltd.
+   "^bhf,.*":
+     description: Beckhoff Automation GmbH & Co. KG
+   "^bitmain,.*":
+-- 
+2.39.2
+

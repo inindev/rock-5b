@@ -1,0 +1,60 @@
+From fb77793dd783b85b15ca9213c93dda468dd10a67 Mon Sep 17 00:00:00 2001
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Fri, 23 Jun 2023 17:44:07 +0200
+Subject: [PATCH 10/53] arm64: dts: rockchip: rock-5a: add status LED
+
+Describe the Rock 5A status LED in its device tree.
+
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ .../boot/dts/rockchip/rk3588s-rock-5a.dts     | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
+index 19e05dba2..5bad81c5b 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
+@@ -3,6 +3,7 @@
+ /dts-v1/;
+ 
+ #include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pinctrl/rockchip.h>
+ #include "rk3588s.dtsi"
+ 
+@@ -19,6 +20,19 @@ chosen {
+ 		stdout-path = "serial2:1500000n8";
+ 	};
+ 
++	leds {
++		compatible = "gpio-leds";
++		pinctrl-names = "default";
++		pinctrl-0 = <&io_led>;
++
++		io-led {
++			function = LED_FUNCTION_STATUS;
++			color = <LED_COLOR_ID_BLUE>;
++			gpios = <&gpio3 RK_PD5 GPIO_ACTIVE_HIGH>;
++			linux,default-trigger = "heartbeat";
++		};
++	};
++
+ 	vcc12v_dcin: vcc12v-dcin {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc12v_dcin";
+@@ -164,6 +178,12 @@ rgmii_phy1: ethernet-phy@1 {
+ };
+ 
+ &pinctrl {
++	leds {
++		io_led: io-led {
++			rockchip,pins = <3 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
+ 	power {
+ 		vcc_5v0_en: vcc-5v0-en {
+ 			rockchip,pins = <4 RK_PA3 RK_FUNC_GPIO &pcfg_pull_none>;
+-- 
+2.39.2
+

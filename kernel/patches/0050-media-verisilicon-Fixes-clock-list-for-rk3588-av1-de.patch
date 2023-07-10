@@ -1,0 +1,33 @@
+From 414b86124b09d9342698382463275de85bc9473a Mon Sep 17 00:00:00 2001
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Date: Mon, 12 Jun 2023 10:11:24 +0200
+Subject: [PATCH 50/53] media: verisilicon: Fixes clock list for rk3588 av1
+ decoder
+
+Mainlined RK3588 clock driver manage by itself the dependency between
+aclk/hclk and their root clocks (aclk_vdpu_root/hclk_vdpu_root).
+RK3588 av1 video decoder do not have to take car of it anymore so
+remove them from the list and be compliant with yaml bindings description.
+
+Fixes: 4cd96399ccb1 ("4cd96399ccb10ca40c3add4a8e32685b395f03d9")
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+---
+ drivers/media/platform/verisilicon/rockchip_vpu_hw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+index 816ffa905..f97527670 100644
+--- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
++++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+@@ -648,7 +648,7 @@ static const char * const rockchip_vpu_clk_names[] = {
+ };
+ 
+ static const char * const rk3588_vpu981_vpu_clk_names[] = {
+-	"aclk", "hclk", "aclk_vdpu_root", "hclk_vdpu_root"
++	"aclk", "hclk",
+ };
+ 
+ /* VDPU1/VEPU1 */
+-- 
+2.39.2
+
