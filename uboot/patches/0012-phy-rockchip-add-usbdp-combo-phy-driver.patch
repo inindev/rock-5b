@@ -1,7 +1,7 @@
-From ed139b61651373ed5892ddab258f96383f089319 Mon Sep 17 00:00:00 2001
+From 773ba542ba43f608307dc5eb7a0318568ab56801 Mon Sep 17 00:00:00 2001
 From: Frank Wang <frank.wang@rock-chips.com>
 Date: Tue, 30 Nov 2021 14:57:36 +0800
-Subject: [PATCH 12/27] phy: rockchip: add usbdp combo phy driver
+Subject: [PATCH 12/28] phy: rockchip: add usbdp combo phy driver
 
 This adds a new USBDP combo PHY with Samsung IP block driver.
 The PHY is a combo between USB 3.0 and DisplayPort alt mode.

@@ -1,7 +1,7 @@
-From 1aaa602dec8e73b7be8337fd0b725040ddb9eb75 Mon Sep 17 00:00:00 2001
+From 2d071bbc7074e35a40198d1424b0070d2aa4fdd1 Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Fri, 26 May 2023 14:01:14 +0300
-Subject: [PATCH 11/27] ARM: dts: rockchip: rk3588: sync with Linux
+Subject: [PATCH 11/28] ARM: dts: rockchip: rk3588: sync with Linux
 
 Sync the devicetree with linux-next tag: next-20230525
 

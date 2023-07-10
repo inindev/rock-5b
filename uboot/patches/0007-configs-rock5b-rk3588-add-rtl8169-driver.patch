@@ -1,7 +1,7 @@
-From 59b29323a8041eef446a3ce588c1ac350821f433 Mon Sep 17 00:00:00 2001
+From 241dc3dcf4de2d06e4c2b51f5c3a73d5ced62ab3 Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Tue, 25 Apr 2023 15:46:31 +0300
-Subject: [PATCH 07/27] configs: rock5b-rk3588: add rtl8169 driver
+Subject: [PATCH 07/28] configs: rock5b-rk3588: add rtl8169 driver
 
 Add the rtl8169 driver, which supports the rtl8125b device, which is
 connected on the pciE bus on this board.

@@ -1,7 +1,7 @@
-From f7aa31fd1ed7c77452423fd79bff8b4c54929061 Mon Sep 17 00:00:00 2001
+From 7e61c0445827ad101cf35ca8bdae55067e0e26e1 Mon Sep 17 00:00:00 2001
 From: Venkatesh Yadav Abbarapu <venkatesh.abbarapu@amd.com>
 Date: Mon, 8 May 2023 08:30:15 +0530
-Subject: [PATCH 21/27] usb: dwc3: core: Only handle soft-reset in DCTL
+Subject: [PATCH 21/28] usb: dwc3: core: Only handle soft-reset in DCTL
 
 [ Nguyen/Greg: Ported from Linux kernel commit
 	f4fd84ae0765a ("usb: dwc3: core: Only handle soft-reset in DCTL") ]

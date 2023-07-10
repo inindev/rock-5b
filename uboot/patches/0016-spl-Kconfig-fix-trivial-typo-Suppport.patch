@@ -1,7 +1,7 @@
-From 87d81730ace71c697ed92bfb4276e73cd876789a Mon Sep 17 00:00:00 2001
+From 4d95e3947a015b068fbee44068fb5d934b985124 Mon Sep 17 00:00:00 2001
 From: Eugen Hristev <eugen.hristev@collabora.com>
 Date: Mon, 29 May 2023 17:24:26 +0300
-Subject: [PATCH 16/27] spl: Kconfig: fix trivial typo `Suppport`
+Subject: [PATCH 16/28] spl: Kconfig: fix trivial typo `Suppport`
 
 s/Suppport/Support
 
