@@ -5,13 +5,15 @@ set -e
 # script exit codes:
 #   1: missing utility
 #   5: invalid file hash
-#   7: no screen session
+#   7: use screen session
 #   8: superuser disallowed
 
 config_fixups() {
     local lpath=$1
 
-    # edit config here
+    # enable rockchip sfc
+    echo 'CONFIG_SPI_ROCKCHIP_SFC=m' >> "$lpath/arch/arm64/configs/defconfig"
+
     #echo 6 > "$lpath/.version"
 }
 
@@ -60,9 +62,9 @@ main() {
     if [ '_inc' != "_$1" ]; then
         echo "\n${h1}configuring source tree...${rst}"
         make -C "kernel-$lv/linux-$lv" mrproper
-        cp './config' "kernel-$lv/linux-$lv/.config"
         [ -z "$1" ] || echo "$1" > "kernel-$lv/linux-$lv/.version"
         config_fixups "kernel-$lv/linux-$lv"
+        make -C "kernel-$lv/linux-$lv" ARCH=arm64 defconfig
     fi
 
     echo "\n${h1}beginning compile...${rst}"
@@ -111,5 +113,5 @@ if [ 0 -eq $(id -u) ]; then
 fi
 
 cd "$(dirname "$(realpath "$0")")"
-main $@
+main "$@"
 
