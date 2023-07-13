@@ -1,7 +1,7 @@
-From 0e774500d022d136027d6de8468e7290c2f60343 Mon Sep 17 00:00:00 2001
+From 1a75ed7e9e1f2699c7050477b4449f2148a43cb7 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Fri, 23 Jun 2023 17:15:28 +0200
-Subject: [PATCH 07/53] arm64: dts: rockchip: rock-5a: add vdd_cpu_big
+Subject: [PATCH 07/55] arm64: dts: rockchip: rock-5a: add vdd_cpu_big
  regulators
 
 The RK8602 and RK8603 voltage regulators on the Rock 5A board provide
@@ -16,7 +16,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 56 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
-index 9b5c47b78..616a6bcfd 100644
+index 9b5c47b78eea..616a6bcfd60b 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
 @@ -49,6 +49,22 @@ vcc_1v1_nldo_s3: vcc-1v1-nldo-s3 {

@@ -1,0 +1,76 @@
+From 9c1b3a5320555bcf41fc4e67ef6a3c3ab8fe8a18 Mon Sep 17 00:00:00 2001
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Mon, 10 Jul 2023 19:51:11 +0200
+Subject: [PATCH 36/55] dt-bindings: phy: rockchip: add RK3588 PCIe v3 phy
+
+When the RK3568 PCIe v3 PHY supported has been upstreamed, RK3588
+support was included, but the DT binding does not reflect this.
+This adds the missing bits.
+
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ .../bindings/phy/rockchip,pcie3-phy.yaml      | 33 ++++++++++++++++---
+ 1 file changed, 28 insertions(+), 5 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/phy/rockchip,pcie3-phy.yaml b/Documentation/devicetree/bindings/phy/rockchip,pcie3-phy.yaml
+index 9f2d8d2cc7a5..c4fbffcde6e4 100644
+--- a/Documentation/devicetree/bindings/phy/rockchip,pcie3-phy.yaml
++++ b/Documentation/devicetree/bindings/phy/rockchip,pcie3-phy.yaml
+@@ -13,19 +13,18 @@ properties:
+   compatible:
+     enum:
+       - rockchip,rk3568-pcie3-phy
++      - rockchip,rk3588-pcie3-phy
+ 
+   reg:
+     maxItems: 1
+ 
+   clocks:
+-    minItems: 3
++    minItems: 1
+     maxItems: 3
+ 
+   clock-names:
+-    items:
+-      - const: refclk_m
+-      - const: refclk_n
+-      - const: pclk
++    minItems: 1
++    maxItems: 3
+ 
+   data-lanes:
+     description: which lanes (by position) should be mapped to which
+@@ -61,6 +60,30 @@ required:
+   - rockchip,phy-grf
+   - "#phy-cells"
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          enum:
++            - rockchip,rk3588-pcie3-phy
++    then:
++      properties:
++        clocks:
++          maxItems: 1
++        clock-names:
++          items:
++            - const: pclk
++    else:
++      properties:
++        clocks:
++          minItems: 3
++
++        clock-names:
++          items:
++            - const: refclk_m
++            - const: refclk_n
++            - const: pclk
++
+ additionalProperties: false
+ 
+ examples:
+-- 
+2.39.2
+

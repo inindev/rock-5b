@@ -1,26 +1,32 @@
-From 368c83e2737887bd593f6384d1e901fbf8e5e4fc Mon Sep 17 00:00:00 2001
+From dbff97d7e3f502da73d1f1432417c9fea25bd9a5 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 26 Jun 2023 17:34:27 +0200
-Subject: [PATCH 11/53] arm64: dts: rockchip: rock-5a: add analog audio
+Subject: [PATCH 11/55] arm64: dts: rockchip: rock-5a: add analog audio
 
 Add analog audio support based on the Everest Semi ES8316 codec.
 
+Note, that this currently does not support headphone plug events. The
+Rock 5A uses a different headphone jack with a different logic to detect
+a headphone plug. Unfortunately the detect GPIO is always low.
+Downstream uses an ADC channel instead, but that is currently not
+supported upstream.
+
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- .../boot/dts/rockchip/rk3588s-rock-5a.dts     | 59 +++++++++++++++++++
- 1 file changed, 59 insertions(+)
+ .../boot/dts/rockchip/rk3588s-rock-5a.dts     | 52 +++++++++++++++++++
+ 1 file changed, 52 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
-index 5bad81c5b..a52cf663d 100644
+index 5bad81c5b09d..4c6c87d462e9 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
-@@ -33,6 +33,23 @@ io-led {
- 		};
+@@ -16,6 +16,20 @@ aliases {
+ 		serial2 = &uart2;
  	};
  
-+	sound {
++	analog-sound {
 +		compatible = "audio-graph-card";
-+		label = "Analog";
++		label = "rk3588-es8316";
 +
 +		widgets = "Microphone", "Mic Jack",
 +			  "Headphone", "Headphones";
@@ -30,15 +36,12 @@ index 5bad81c5b..a52cf663d 100644
 +			  "Headphones", "HPOR";
 +
 +		dais = <&i2s0_8ch_p0>;
-+		hp-det-gpio = <&gpio1 RK_PC4 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&hp_detect>;
 +	};
 +
- 	vcc12v_dcin: vcc12v-dcin {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vcc12v_dcin";
-@@ -149,6 +166,42 @@ regulator-state-mem {
+ 	chosen {
+ 		stdout-path = "serial2:1500000n8";
+ 	};
+@@ -149,6 +163,44 @@ regulator-state-mem {
  	};
  };
  
@@ -50,6 +53,8 @@ index 5bad81c5b..a52cf663d 100644
 +		reg = <0x11>;
 +		clocks = <&cru I2S0_8CH_MCLKOUT>;
 +		clock-names = "mclk";
++		assigned-clocks = <&cru I2S0_8CH_MCLKOUT>;
++		assigned-clock-rates = <12288000>;
 +		#sound-dai-cells = <0>;
 +
 +		port {
@@ -81,19 +86,6 @@ index 5bad81c5b..a52cf663d 100644
  &gmac1 {
  	clock_in_out = "output";
  	phy-handle = <&rgmii_phy1>;
-@@ -178,6 +231,12 @@ rgmii_phy1: ethernet-phy@1 {
- };
- 
- &pinctrl {
-+	headphone {
-+		hp_detect: headphone-detect {
-+			rockchip,pins = <1 RK_PC4 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
- 	leds {
- 		io_led: io-led {
- 			rockchip,pins = <3 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
 -- 
 2.39.2
 

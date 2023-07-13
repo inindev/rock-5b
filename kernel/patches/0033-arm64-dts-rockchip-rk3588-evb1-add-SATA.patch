@@ -1,7 +1,7 @@
-From 9b424870d66d2af33f7d5075ab7cd633ed24bba8 Mon Sep 17 00:00:00 2001
+From e0380d06cf14c72e5fd5f4687e53d2f64f34e6ba Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 6 Apr 2023 17:32:02 +0200
-Subject: [PATCH 33/53] arm64: dts: rockchip: rk3588-evb1: add SATA
+Subject: [PATCH 33/55] arm64: dts: rockchip: rk3588-evb1: add SATA
 
 Add support for the SATA0_0 port found on the RK3588 EVB1. The
 second port (SATA0_1) does not work, which matches the downstream
@@ -13,7 +13,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 8 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-index 779f09ff1..6d5b9bf3c 100644
+index 779f09ff1920..6d5b9bf3c067 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
 @@ -836,6 +836,14 @@ regulator-state-mem {

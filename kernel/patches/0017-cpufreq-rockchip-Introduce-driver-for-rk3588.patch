@@ -1,7 +1,7 @@
-From efd3962ae8054ac886b97d93216b09ff98cc8f97 Mon Sep 17 00:00:00 2001
+From 292ab6078d7cbb8526e063f48ea6c2d7f1a72c8c Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 18 Aug 2022 14:21:30 +0200
-Subject: [PATCH 17/53] cpufreq: rockchip: Introduce driver for rk3588
+Subject: [PATCH 17/55] cpufreq: rockchip: Introduce driver for rk3588
 
 This is a heavily modified port from the downstream driver.
 Downstream used it for multiple rockchip generations, while
@@ -23,7 +23,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  create mode 100644 drivers/cpufreq/rockchip-cpufreq.c
 
 diff --git a/drivers/cpufreq/Kconfig.arm b/drivers/cpufreq/Kconfig.arm
-index 123b4bbfc..6fdc2f043 100644
+index 123b4bbfcfee..6fdc2f0430bb 100644
 --- a/drivers/cpufreq/Kconfig.arm
 +++ b/drivers/cpufreq/Kconfig.arm
 @@ -189,6 +189,16 @@ config ARM_RASPBERRYPI_CPUFREQ
@@ -44,7 +44,7 @@ index 123b4bbfc..6fdc2f043 100644
  	bool "Samsung S3C64XX"
  	depends on CPU_S3C6410
 diff --git a/drivers/cpufreq/Makefile b/drivers/cpufreq/Makefile
-index ef8510774..c3f8c9cd5 100644
+index ef8510774913..c3f8c9cd563f 100644
 --- a/drivers/cpufreq/Makefile
 +++ b/drivers/cpufreq/Makefile
 @@ -71,6 +71,7 @@ obj-$(CONFIG_PXA3xx)			+= pxa3xx-cpufreq.o
@@ -56,7 +56,7 @@ index ef8510774..c3f8c9cd5 100644
  obj-$(CONFIG_ARM_S5PV210_CPUFREQ)	+= s5pv210-cpufreq.o
  obj-$(CONFIG_ARM_SA1110_CPUFREQ)	+= sa1110-cpufreq.o
 diff --git a/drivers/cpufreq/cpufreq-dt-platdev.c b/drivers/cpufreq/cpufreq-dt-platdev.c
-index e2b20080d..7bc19a59b 100644
+index e2b20080de3a..7bc19a59be26 100644
 --- a/drivers/cpufreq/cpufreq-dt-platdev.c
 +++ b/drivers/cpufreq/cpufreq-dt-platdev.c
 @@ -159,6 +159,8 @@ static const struct of_device_id blocklist[] __initconst = {
@@ -70,7 +70,7 @@ index e2b20080d..7bc19a59b 100644
  	{ .compatible = "st,stih418", },
 diff --git a/drivers/cpufreq/rockchip-cpufreq.c b/drivers/cpufreq/rockchip-cpufreq.c
 new file mode 100644
-index 000000000..6a60ec05d
+index 000000000000..6a60ec05d652
 --- /dev/null
 +++ b/drivers/cpufreq/rockchip-cpufreq.c
 @@ -0,0 +1,640 @@

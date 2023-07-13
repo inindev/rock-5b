@@ -1,7 +1,7 @@
-From 51865c87c8c92f70213fc7f4beb7c6cbf1294343 Mon Sep 17 00:00:00 2001
+From 20fbe130d545405781fd6d99283d5233b9aa95e7 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Wed, 5 Jul 2023 14:28:54 +0200
-Subject: [PATCH 08/53] arm64: dts: rockchip: rock-5a: add 5V regulator
+Subject: [PATCH 08/55] arm64: dts: rockchip: rock-5a: add 5V regulator
 
 Add GPIO controlled 5V regulator, which is used for supplying
 the fan, on-board USB hub and HDMI.
@@ -12,7 +12,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 20 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
-index 616a6bcfd..87864a991 100644
+index 616a6bcfd60b..87864a991b50 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
 @@ -38,6 +38,20 @@ vcc5v0_sys: vcc5v0-sys {

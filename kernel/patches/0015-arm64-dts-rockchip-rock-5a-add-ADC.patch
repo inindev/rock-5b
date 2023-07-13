@@ -1,7 +1,7 @@
-From 169464953e4e7d0c453e21da69d6dbb84a2e7bd6 Mon Sep 17 00:00:00 2001
+From c5951fe9d1755f284f8eddb11393f03006bd4a24 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 4 Jul 2023 17:44:35 +0200
-Subject: [PATCH 15/53] arm64: dts: rockchip: rock-5a: add ADC
+Subject: [PATCH 15/55] arm64: dts: rockchip: rock-5a: add ADC
 
 Enable ADC support for Rock 5A, which has the following ADC channels:
 
@@ -18,10 +18,10 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 5 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
-index e72bd55aa..194ceefe5 100644
+index 01822dda0b2d..156c93b22382 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
-@@ -293,6 +293,11 @@ rtl8211f_rst: rtl8211f-rst {
+@@ -286,6 +286,11 @@ rtl8211f_rst: rtl8211f-rst {
  	};
  };
  
