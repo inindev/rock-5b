@@ -484,11 +484,11 @@ h1="${blu}==>${rst} ${bld}"
 
 if [ 0 -ne $(id -u) ]; then
     echo 'this script must be run as root'
-    echo "   run: ${bld}${grn}sudo sh make_debian_img.sh${rst}\n"
+    echo "   run: ${bld}${grn}sudo sh $(basename "$0")${rst}\n"
     exit 9
 fi
 
 cd "$(dirname "$(realpath "$0")")"
-check_mount_only $@
-main $@
+check_mount_only "$@"
+main "$@"
 

@@ -10,7 +10,7 @@ main() {\
     local linux='https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.4.2.tar.xz'
     local lxsha='a326ab224176c5b17c73c9ccad85f32e49b6e4e764861d57595727b7ef10062c'
 
-    local lf=$(basename $linux)
+    local lf=$(basename "$linux")
     local lv=$(echo $lf | sed -nE 's/linux-(.*)\.tar\..z/\1/p')
 
     if [ '_clean' = "_$1" ]; then
@@ -59,9 +59,9 @@ main() {\
 
 get_for_next() {
     local filepath=$1
-    local file=$(basename $filepath)
+    local file=$(basename "$filepath")
     local url=https://gitlab.collabora.com/hardware-enablement/rockchip-3588/linux/-/raw/rk3588/arch/arm64/boot/dts/rockchip/$file?inline=false
-    wget -O $filepath $url
+    wget -O "$filepath" "$url"
 }
 
 check_installed() {
@@ -88,5 +88,5 @@ cya='\033[36m'
 h1="${blu}==>${rst} ${bld}"
 
 cd "$(dirname "$(realpath "$0")")"
-main $@
+main "$@"
 
