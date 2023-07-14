@@ -1,7 +1,7 @@
 From 04929dbd783c8c9815f8123731f21d62ab9f14a2 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 11 Jul 2023 19:13:30 +0200
-Subject: [PATCH 21/60] arm64: dts: rockchip: enable SATA on rk3588-evb1
+Subject: [PATCH 21/62] arm64: dts: rockchip: enable SATA on rk3588-evb1
 
 Add support for the SATA0_0 port found on the RK3588 EVB1. The
 second port (SATA0_1) does not work, which matches the downstream

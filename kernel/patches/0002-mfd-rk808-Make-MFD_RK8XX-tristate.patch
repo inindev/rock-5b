@@ -1,7 +1,7 @@
 From 5ee6a85ebaaca6628b0921d6157b41663fc0f73a Mon Sep 17 00:00:00 2001
 From: Geert Uytterhoeven <geert+renesas@glider.be>
 Date: Tue, 4 Jul 2023 15:07:48 +0200
-Subject: [PATCH 02/60] mfd: rk808: Make MFD_RK8XX tristate
+Subject: [PATCH 02/62] mfd: rk808: Make MFD_RK8XX tristate
 
 There is no reason for MFD_RK8XX to be bool, all drivers that depend on
 it, or that select it, are tristate.

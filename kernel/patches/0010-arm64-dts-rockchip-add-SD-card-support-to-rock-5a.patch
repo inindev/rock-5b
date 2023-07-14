@@ -1,7 +1,7 @@
 From 83d2a5a5912b9bff738fd8f8cbb222ba6da3b32c Mon Sep 17 00:00:00 2001
 From: Lucas Tanure <lucas.tanure@collabora.com>
 Date: Mon, 10 Jul 2023 18:52:21 +0200
-Subject: [PATCH 10/60] arm64: dts: rockchip: add SD card support to rock-5a
+Subject: [PATCH 10/62] arm64: dts: rockchip: add SD card support to rock-5a
 
 Add sdmmc support for Rock Pi 5A board.
 

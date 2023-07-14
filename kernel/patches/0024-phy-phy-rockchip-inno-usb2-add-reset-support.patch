@@ -1,7 +1,7 @@
 From 7026ff8b6445d8c7fbc3e5ccbc33f51fb7c5b8ed Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 3 Apr 2023 20:23:14 +0200
-Subject: [PATCH 24/60] phy: phy-rockchip-inno-usb2: add reset support
+Subject: [PATCH 24/62] phy: phy-rockchip-inno-usb2: add reset support
 
 Add reset handling support, which is needed for proper
 operation with RK3588.

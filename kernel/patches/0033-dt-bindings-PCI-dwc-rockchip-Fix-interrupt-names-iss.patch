@@ -1,7 +1,7 @@
 From 47a541e39862ce97b9a99ae27538c86ab919c801 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Wed, 19 Apr 2023 14:57:14 +0200
-Subject: [PATCH 33/60] dt-bindings: PCI: dwc: rockchip: Fix interrupt-names
+Subject: [PATCH 33/62] dt-bindings: PCI: dwc: rockchip: Fix interrupt-names
  issue
 
 The RK356x (and RK3588) have 5 ganged interrupts. For example the

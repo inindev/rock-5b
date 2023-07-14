@@ -1,7 +1,7 @@
-From 9478d091ccbfc34bc04c513df7569ceb4d1b8208 Mon Sep 17 00:00:00 2001
+From f3c07bff262bb3dca5813d9389b97328f590dc5e Mon Sep 17 00:00:00 2001
 From: John Clark <inindev@gmail.com>
 Date: Sat, 24 Jun 2023 14:15:05 +0000
-Subject: [PATCH 59/60] xtx spi nor support
+Subject: [PATCH 61/62] xtx spi nor support
 
 Signed-off-by: John Clark <inindev@gmail.com>
 ---

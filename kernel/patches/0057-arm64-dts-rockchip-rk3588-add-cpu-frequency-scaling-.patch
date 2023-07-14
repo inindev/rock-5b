@@ -1,7 +1,7 @@
-From 59d564e78cb6f59b9cf70409d3d42fd96b992fdf Mon Sep 17 00:00:00 2001
+From 4f68565ee0a5b8a50bee6b7204b8be820b35fddd Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 4 Apr 2023 17:30:46 +0200
-Subject: [PATCH 55/60] arm64: dts: rockchip: rk3588: add cpu frequency scaling
+Subject: [PATCH 57/62] arm64: dts: rockchip: rk3588: add cpu frequency scaling
  support
 
 Add required bits for CPU frequency scaling to the Rockchip 3588

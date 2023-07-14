@@ -1,7 +1,7 @@
 From 5108c58a95d807abd4e33de778a0d3e88b7a2dda Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 17 Apr 2023 20:03:08 +0200
-Subject: [PATCH 35/60] arm64: dts: rockchip: rk3588: add PCIe2 support
+Subject: [PATCH 35/62] arm64: dts: rockchip: rk3588: add PCIe2 support
 
 Add all three PCIe2 IP blocks to the RK3588 DT. Note, that RK3588
 also has two PCIe3 IP blocks, that will be handled separately.

@@ -1,7 +1,7 @@
 From c515be02d5e5db4fe2f913aa0e62256d212bd5eb Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 12 Jun 2023 19:13:36 +0200
-Subject: [PATCH 19/60] arm64: dts: rockchip: add combo PHYs to rk3588
+Subject: [PATCH 19/62] arm64: dts: rockchip: add combo PHYs to rk3588
 
 Add all 3 combo PHYs that can be found in RK3588.
 They are used for SATA, PCIe or USB3.

@@ -1,7 +1,7 @@
 From 8601aa6f5f6e18c55929d7f2cfc9e61659ddab53 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 12 Jan 2023 19:20:37 +0100
-Subject: [PATCH 29/60] arm64: dts: rockchip: rk3588: add USB2 support
+Subject: [PATCH 29/62] arm64: dts: rockchip: rk3588: add USB2 support
 
 This adds USB2 (EHCI & OHCI) ports including the related PHYs
 and GRF modules to the rk3588(s) device tree.

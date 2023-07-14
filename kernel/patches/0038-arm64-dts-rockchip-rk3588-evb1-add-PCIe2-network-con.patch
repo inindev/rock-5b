@@ -1,7 +1,7 @@
-From d10e158cbf629a0d107e7a5c536ad7aaa8ce75ff Mon Sep 17 00:00:00 2001
+From 4d6a9bbb4e21206ee9ca6db519be2615c372f1a7 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 17 Apr 2023 21:13:03 +0200
-Subject: [PATCH 38/60] arm64: dts: rockchip: rk3588-evb1: add PCIe2 network
+Subject: [PATCH 38/62] arm64: dts: rockchip: rk3588-evb1: add PCIe2 network
  controller
 
 The RK3588 EVB1 has a second network card, which is connected
@@ -9,19 +9,18 @@ via PCIe2. This adds support for that.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- .../boot/dts/rockchip/rk3588-evb1-v10.dts     | 37 +++++++++++++++++++
- 1 file changed, 37 insertions(+)
+ .../boot/dts/rockchip/rk3588-evb1-v10.dts     | 43 +++++++++++++++++++
+ 1 file changed, 43 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-index 378d285a92be..cffc10a00cbd 100644
+index 378d285a92be..2c7e3c9a88f5 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-@@ -81,12 +81,36 @@ vcc5v0_usb: vcc5v0-usb-regulator {
- 		regulator-max-microvolt = <5000000>;
- 		vin-supply = <&vcc5v0_usbdcin>;
+@@ -29,6 +29,26 @@ backlight: backlight {
+ 		pwms = <&pwm2 0 25000 0>;
  	};
-+
-+	pcie20_avdd0v85: pcie20-avdd0v85 {
+ 
++	pcie20_avdd0v85: pcie20-avdd0v85-regulator {
 +		compatible = "regulator-fixed";
 +		regulator-name = "pcie20_avdd0v85";
 +		regulator-boot-on;
@@ -31,7 +30,7 @@ index 378d285a92be..cffc10a00cbd 100644
 +		vin-supply = <&avdd_0v85_s0>;
 +	};
 +
-+	pcie20_avdd1v8: pcie20-avdd1v8 {
++	pcie20_avdd1v8: pcie20-avdd1v8-regulator {
 +		compatible = "regulator-fixed";
 +		regulator-name = "pcie20_avdd1v8";
 +		regulator-boot-on;
@@ -40,9 +39,11 @@ index 378d285a92be..cffc10a00cbd 100644
 +		regulator-max-microvolt = <1800000>;
 +		vin-supply = <&avcc_1v8_s0>;
 +	};
- };
- 
- &combphy0_ps {
++
+ 	vcc12v_dcin: vcc12v-dcin-regulator {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc12v_dcin";
+@@ -87,6 +107,10 @@ &combphy0_ps {
  	status = "okay";
  };
  
@@ -60,7 +61,7 @@ index 378d285a92be..cffc10a00cbd 100644
 +&pcie2x1l1 {
 +	reset-gpios = <&gpio4 RK_PA2 GPIO_ACTIVE_HIGH>;
 +	pinctrl-names = "default";
-+	pinctrl-0 = <&rtl8111_isolate>;
++	pinctrl-0 = <&pcie2_1_rst>, <&rtl8111_isolate>;
 +	status = "okay";
 +};
 +
@@ -74,6 +75,19 @@ index 378d285a92be..cffc10a00cbd 100644
  	rtl8211f {
  		rtl8211f_rst: rtl8211f-rst {
  			rockchip,pins = <4 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
+@@ -177,6 +214,12 @@ hym8563_int: hym8563-int {
+ 		};
+ 	};
+ 
++	pcie2 {
++		pcie2_1_rst: pcie2-1-rst {
++			rockchip,pins = <4 RK_PA2 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
+ 	usb {
+ 		vcc5v0_host_en: vcc5v0-host-en {
+ 			rockchip,pins = <4 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
 -- 
 2.40.1
 

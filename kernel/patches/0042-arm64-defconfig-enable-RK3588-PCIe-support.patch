@@ -1,7 +1,7 @@
-From 6fdcefd7be3f4e886fbf2c9639ec212367544a1d Mon Sep 17 00:00:00 2001
+From 4975cd7fad5f1a7f4e7f4c528e419b7987e781c0 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 23 Mar 2023 12:27:19 +0000
-Subject: [PATCH 40/60] arm64: defconfig: enable RK3588 PCIe support
+Subject: [PATCH 42/62] arm64: defconfig: enable RK3588 PCIe support
 
 Add support for RK3588 PCIe, which is used for ethernet by
 many boards. Note, that this involves two different PHY

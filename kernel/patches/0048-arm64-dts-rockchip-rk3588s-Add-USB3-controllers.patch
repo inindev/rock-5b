@@ -1,7 +1,7 @@
-From b44049a72e223d8e0554d471e4e6e8c37588ef68 Mon Sep 17 00:00:00 2001
+From 33de0cb3226d978b2a504e4a36a7291357dcc906 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 25 Apr 2023 18:17:19 +0200
-Subject: [PATCH 46/60] arm64: dts: rockchip: rk3588s: Add USB3 controllers
+Subject: [PATCH 48/62] arm64: dts: rockchip: rk3588s: Add USB3 controllers
 
 Add all USB3 controllers.
 
@@ -12,7 +12,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  2 files changed, 87 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588.dtsi b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
-index d028ecdf7f24..2d127a50d4f0 100644
+index cd2c80bf7cd9..423d4e28419a 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
 @@ -7,6 +7,34 @@
