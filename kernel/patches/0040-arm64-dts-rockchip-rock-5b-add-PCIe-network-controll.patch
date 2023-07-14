@@ -64,7 +64,7 @@ index 6be759903411..41d7887abcdc 100644
  
 +	pcie2 {
 +		pcie2_2_rst: pcie2-2-rst {
-+			rockchip,pins = <4 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
++			rockchip,pins = <3 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
 +		};
 +	};
 +
