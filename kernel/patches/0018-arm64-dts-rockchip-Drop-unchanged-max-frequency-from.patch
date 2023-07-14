@@ -1,0 +1,122 @@
+From c838d89db8208ba6e8c6207fe69f483ce22f85eb Mon Sep 17 00:00:00 2001
+From: Jagan Teki <jagan@edgeble.ai>
+Date: Wed, 21 Jun 2023 12:15:07 +0530
+Subject: [PATCH 18/60] arm64: dts: rockchip: Drop unchanged max-frequency from
+ rk3588 boards
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+200MHz is the default rk3588 emmc max-frequency added in dtsi, so why
+the board DT files are adding the same value explicitly?
+
+Drop that unchanged property value.
+
+Signed-off-by: Jagan Teki <jagan@edgeble.ai>
+Link: https://lore.kernel.org/r/20230621064507.479891-1-jagan@edgeble.ai
+Signed-off-by: Heiko Stuebner <heiko@sntech.de>
+---
+ arch/arm64/boot/dts/rockchip/rk3588-edgeble-neu6a.dtsi   | 1 -
+ arch/arm64/boot/dts/rockchip/rk3588-edgeble-neu6b.dtsi   | 1 -
+ arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts         | 1 -
+ arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts          | 1 -
+ arch/arm64/boot/dts/rockchip/rk3588s-indiedroid-nova.dts | 2 --
+ arch/arm64/boot/dts/rockchip/rk3588s-khadas-edge2.dts    | 1 -
+ arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts         | 1 -
+ 7 files changed, 8 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-edgeble-neu6a.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-edgeble-neu6a.dtsi
+index 38e1a1e25f33..727580aaa105 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-edgeble-neu6a.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-edgeble-neu6a.dtsi
+@@ -25,7 +25,6 @@ &sdhci {
+ 	no-sdio;
+ 	no-sd;
+ 	non-removable;
+-	max-frequency = <200000000>;
+ 	mmc-hs400-1_8v;
+ 	mmc-hs400-enhanced-strobe;
+ 	status = "okay";
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-edgeble-neu6b.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-edgeble-neu6b.dtsi
+index 1c5bcf1280b4..4a87ead15b3f 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-edgeble-neu6b.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-edgeble-neu6b.dtsi
+@@ -25,7 +25,6 @@ &sdhci {
+ 	no-sdio;
+ 	no-sd;
+ 	non-removable;
+-	max-frequency = <200000000>;
+ 	mmc-hs400-1_8v;
+ 	mmc-hs400-enhanced-strobe;
+ 	status = "okay";
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+index 4b2d857ee219..f06b2ddcfcb6 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+@@ -149,7 +149,6 @@ &sdhci {
+ 	no-sdio;
+ 	no-sd;
+ 	non-removable;
+-	max-frequency = <200000000>;
+ 	mmc-hs400-1_8v;
+ 	mmc-hs400-enhanced-strobe;
+ 	status = "okay";
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
+index cea49f89f458..9cea262998b4 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
+@@ -217,7 +217,6 @@ &sdhci {
+ 	no-sdio;
+ 	no-sd;
+ 	non-removable;
+-	max-frequency = <200000000>;
+ 	mmc-hs400-1_8v;
+ 	mmc-hs400-enhanced-strobe;
+ 	status = "okay";
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-indiedroid-nova.dts b/arch/arm64/boot/dts/rockchip/rk3588s-indiedroid-nova.dts
+index 4d9ed2a02736..f0ce502e9b95 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-indiedroid-nova.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-indiedroid-nova.dts
+@@ -401,7 +401,6 @@ &sdhci {
+ 	no-sd;
+ 	no-sdio;
+ 	non-removable;
+-	max-frequency = <200000000>;
+ 	vmmc-supply = <&vcc_3v3_s0>;
+ 	vqmmc-supply = <&vcc_1v8_s3>;
+ 	status = "okay";
+@@ -429,7 +428,6 @@ &sdmmc {
+ 	cap-mmc-highspeed;
+ 	cap-sd-highspeed;
+ 	disable-wp;
+-	max-frequency = <200000000>;
+ 	no-sdio;
+ 	no-mmc;
+ 	sd-uhs-sdr104;
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-khadas-edge2.dts b/arch/arm64/boot/dts/rockchip/rk3588s-khadas-edge2.dts
+index 93b4a0c4ed0f..82478a452533 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-khadas-edge2.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-khadas-edge2.dts
+@@ -25,7 +25,6 @@ &sdhci {
+ 	no-sdio;
+ 	no-sd;
+ 	non-removable;
+-	max-frequency = <200000000>;
+ 	mmc-hs400-1_8v;
+ 	mmc-hs400-enhanced-strobe;
+ 	status = "okay";
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
+index 6389cc4f9f9f..a6dff117b459 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
+@@ -310,7 +310,6 @@ &sdhci {
+ 	no-sdio;
+ 	no-sd;
+ 	non-removable;
+-	max-frequency = <200000000>;
+ 	mmc-hs400-1_8v;
+ 	mmc-hs400-enhanced-strobe;
+ 	status = "okay";
+-- 
+2.40.1
+

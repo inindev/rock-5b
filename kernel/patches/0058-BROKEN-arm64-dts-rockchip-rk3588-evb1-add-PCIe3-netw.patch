@@ -1,0 +1,61 @@
+From c44d474197c3c10c826a6ca8b11b9bdc4bc68ac8 Mon Sep 17 00:00:00 2001
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Tue, 11 Jul 2023 17:20:47 +0200
+Subject: [PATCH 58/60] [BROKEN] arm64: dts: rockchip: rk3588-evb1: add PCIe3
+ network controller
+
+Enable PCIe3 support.
+
+NOTE: This is currently broken, because the PCIe3 PHY driver is
+missing bifurcation configuration support. The PHY has 4 lanes,
+which are shared by PCIe3x4 and PCIe3x2, so bifurcation is quite
+critical.
+
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ .../boot/dts/rockchip/rk3588-evb1-v10.dts     | 22 +++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+index e74a63784ffa..3fce30d1c25e 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+@@ -39,6 +39,17 @@ vcc12v_dcin: vcc12v-dcin-regulator {
+ 		regulator-max-microvolt = <12000000>;
+ 	};
+ 
++	vcc3v3_pcie30: vcc3v3-pcie30-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc3v3_pcie30";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		enable-active-high;
++		gpios = <&gpio3 RK_PC3 GPIO_ACTIVE_HIGH>;
++		startup-delay-us = <5000>;
++		vin-supply = <&vcc12v_dcin>;
++	};
++
+ 	vcc5v0_host: vcc5v0-host-regulator {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc5v0_host";
+@@ -265,6 +276,17 @@ &pcie2x1l1 {
+ 	status = "okay";
+ };
+ 
++&pcie30phy {
++	//rockchip,pcie30-phymode = <PHY_MODE_PCIE_AGGREGATION>; // FIXME //
++	status = "okay";
++};
++
++&pcie3x4 {
++	reset-gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
++	vpcie3v3-supply = <&vcc3v3_pcie30>;
++	status = "okay";
++};
++
+ &pinctrl {
+ 	rtl8111 {
+ 		rtl8111_isolate: rtl8111-isolate {
+-- 
+2.40.1
+
