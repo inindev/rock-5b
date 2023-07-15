@@ -10,7 +10,7 @@ main() {
     local atf_file='../rkbin/rk3588_bl31_v1.34.elf'
     local tpl_file='../rkbin/rk3588_ddr_lp4_2112MHz_lp5_2736MHz_v1.08.bin'
 
-    if [ '_clean' = "_$1" ]; then
+    if is_param 'clean' "$@"; then
         rm -f *.img *.itb
         if [ -d u-boot ]; then
             rm -f u-boot/simple-bin.fit.*
@@ -43,13 +43,15 @@ main() {
 
     # outputs: idbloader.img, u-boot.itb
     rm -f idbloader.img u-boot.itb
-    if [ '_inc' != "_$1" ]; then
+    if ! is_param 'inc' "$@"; then
         make -C u-boot distclean
         make -C u-boot rock5b-rk3588_defconfig
     fi
     make -C u-boot -j$(nproc) BL31=$atf_file ROCKCHIP_TPL=$tpl_file
     ln -sfv u-boot/idbloader.img
     ln -sfv u-boot/u-boot.itb
+
+    is_param 'cp' "$@" && cp_to_debian
 
     echo "\n${cya}idbloader and u-boot binaries are now ready${rst}"
     echo "\n${cya}copy images to media:${rst}"
@@ -64,6 +66,16 @@ main() {
     echo
 }
 
+cp_to_debian() {
+    local deb_dist=$(cat "../debian/make_debian_img.sh" | sed -n 's/\s*local deb_dist=.\([[:alpha:]]\+\)./\1/p')
+    [ -z "$deb_dist" ] && return
+    local cdir="../debian/cache.$deb_dist"
+    echo '\ncopying to debian cache...'
+    sudo mkdir -p "$cdir"
+    sudo cp -v './idbloader.img' "$cdir"
+    sudo cp -v './u-boot.itb' "$cdir"
+}
+
 check_installed() {
     local todo
     for item in "$@"; do
@@ -75,6 +87,18 @@ check_installed() {
         echo "   run: ${bld}${grn}sudo apt update && sudo apt -y install$todo${rst}\n"
         exit 1
     fi
+}
+
+is_param() {
+    local match
+    for item in "$@"; do
+        if [ -z "$match" ]; then
+            match="$item"
+        elif [ "$match" = "$item" ]; then
+            return
+        fi
+    done
+    false
 }
 
 rst='\033[m'
