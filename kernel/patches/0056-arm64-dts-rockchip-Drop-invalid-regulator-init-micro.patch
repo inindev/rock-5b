@@ -1,7 +1,7 @@
-From 2579abb579eb344c1fe3d645d6fee2d7eaeabf31 Mon Sep 17 00:00:00 2001
+From 3e1253815d1f3dc004443626f4c6f22ce20c3622 Mon Sep 17 00:00:00 2001
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Date: Fri, 7 Jul 2023 19:22:17 +0300
-Subject: [PATCH 55/62] arm64: dts: rockchip: Drop invalid
+Subject: [PATCH 56/63] arm64: dts: rockchip: Drop invalid
  regulator-init-microvolt property
 
 The 'regulator-init-microvolt' property is not currently supported by
@@ -473,7 +473,7 @@ index 917f5b2b8aab..e05ab11981f5 100644
  				regulator-min-microvolt = <500000>;
  				regulator-max-microvolt = <1350000>;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
-index ba84ad51a338..30580eb2f1d3 100644
+index ddb0c0dea900..ddefeacb5c09 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
 @@ -418,7 +418,6 @@ vdd_vdenc_s0: vdd_vdenc_mem_s0: dcdc-reg4 {

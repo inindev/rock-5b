@@ -1,7 +1,7 @@
-From 33de0cb3226d978b2a504e4a36a7291357dcc906 Mon Sep 17 00:00:00 2001
+From 3897d78aea28d5062daeb5c4258c6e224529c826 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 25 Apr 2023 18:17:19 +0200
-Subject: [PATCH 48/62] arm64: dts: rockchip: rk3588s: Add USB3 controllers
+Subject: [PATCH 49/63] arm64: dts: rockchip: rk3588s: Add USB3 controllers
 
 Add all USB3 controllers.
 

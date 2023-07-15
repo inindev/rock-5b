@@ -1,7 +1,7 @@
 From 7c86f98347b89de73fe499066cdd63fb3952ef4b Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 10 Jul 2023 18:52:25 +0200
-Subject: [PATCH 14/62] arm64: dts: rockchip: add vdd_npu_s0 regulator to
+Subject: [PATCH 14/63] arm64: dts: rockchip: add vdd_npu_s0 regulator to
  rock-5a
 
 Add the NPU regulator.

@@ -1,7 +1,7 @@
-From 6eb88ea9274b7c498be3267e976e4a18c856f831 Mon Sep 17 00:00:00 2001
+From bea3a10aa902e8d2a6f1768bf76721e539d990d3 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 25 May 2023 19:45:02 +0200
-Subject: [PATCH 58/62] arm64: dts: rockchip: rk3588-evb1: enable tsadc
+Subject: [PATCH 59/63] arm64: dts: rockchip: rk3588-evb1: enable tsadc
 
 Enable the thermal ADC for the RK3588 EVB1.
 

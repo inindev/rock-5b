@@ -1,7 +1,7 @@
-From f9ebbba8fd31cc0221d3c2cf562d4e37bef92272 Mon Sep 17 00:00:00 2001
+From 976912672b5dba668ba60593f475895c91b663ef Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 10 Jul 2023 19:54:03 +0200
-Subject: [PATCH 37/62] arm64: dts: rockchip: rk3588: add PCIe3 support
+Subject: [PATCH 38/63] arm64: dts: rockchip: rk3588: add PCIe3 support
 
 Add both PCIe3 controllers together with the shared PHY.
 

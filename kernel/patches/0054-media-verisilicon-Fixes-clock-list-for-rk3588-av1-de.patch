@@ -1,7 +1,7 @@
-From 6be9f864e08849f4a51f64366da74f09f8ff5f16 Mon Sep 17 00:00:00 2001
+From cc86921f2482911ce042fece9d037988470a24a3 Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Mon, 12 Jun 2023 10:11:24 +0200
-Subject: [PATCH 53/62] media: verisilicon: Fixes clock list for rk3588 av1
+Subject: [PATCH 54/63] media: verisilicon: Fixes clock list for rk3588 av1
  decoder
 
 Mainlined RK3588 clock driver manage by itself the dependency between

@@ -1,7 +1,7 @@
 From ec4c1047c3cba07a97333e0217077baa554869ce Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 10 Jul 2023 18:52:17 +0200
-Subject: [PATCH 06/62] dt-bindings: eeprom: at24: add Belling BL24C16A
+Subject: [PATCH 06/63] dt-bindings: eeprom: at24: add Belling BL24C16A
 
 Add binding for Belling BL24C16A, which is compatible with Atmel 24C16.
 

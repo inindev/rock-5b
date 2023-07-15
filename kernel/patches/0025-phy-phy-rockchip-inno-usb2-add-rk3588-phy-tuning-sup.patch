@@ -1,7 +1,7 @@
 From 9439219122a72efc135545535eb4dba44594917b Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 3 Apr 2023 20:24:06 +0200
-Subject: [PATCH 25/62] phy: phy-rockchip-inno-usb2: add rk3588 phy tuning
+Subject: [PATCH 25/63] phy: phy-rockchip-inno-usb2: add rk3588 phy tuning
  support
 
 On RK3588 some registers need to be tweaked to support waking up from

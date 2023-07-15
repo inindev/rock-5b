@@ -1,7 +1,7 @@
-From 5dda62e7dcc6844f4c50156a859d755a639cc671 Mon Sep 17 00:00:00 2001
+From 3b328768c38a9ad6f037d7c6e8b02e0c5817a479 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 10 Jul 2023 19:51:11 +0200
-Subject: [PATCH 36/62] dt-bindings: phy: rockchip: add RK3588 PCIe v3 phy
+Subject: [PATCH 37/63] dt-bindings: phy: rockchip: add RK3588 PCIe v3 phy
 
 When the RK3568 PCIe v3 PHY supported has been upstreamed, RK3588
 support was included, but the DT binding does not reflect this.
