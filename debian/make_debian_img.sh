@@ -47,7 +47,7 @@ main() {
         fi
     fi
 
-    check_installed 'debootstrap' 'u-boot-tools' 'wget' 'xz-utils'
+    check_installed 'debootstrap' 'wget' 'xz-utils'
 
     print_hdr "downloading files"
     local cache="cache.$deb_dist"
