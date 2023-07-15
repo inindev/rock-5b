@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Copyright (C) 2023, John Clark <inindev@gmail.com>
+
 set -e
 
 EXTL_MENU_ENABLE='auto'   # true, false, auto
@@ -59,9 +61,9 @@ gen_menu_item() {
 }
 
 get_root_dev() {
-    local rootdev="root=$(findmnt -fsno SOURCE '/')"
+    local rootdev="$(findmnt -fsno source '/')"
     if [ -z "${rootdev}" ]; then
-        rootdev="$(cat /proc/cmdline | sed -re 's/.*(root=[^[:space:]]*).*/\1/')"
+        rootdev="$(cat /proc/cmdline | sed -re 's/.*root=([^[:space:]]*).*/\1/')"
     fi
     echo "${rootdev}"
 }
@@ -73,7 +75,7 @@ main() {
     local config="$(gen_menu_header ${kver_count})\n\n"
 
     local num=0
-    local prms="$(get_root_dev) ${EXLT_CMD_LINE}"
+    local prms="root=$(get_root_dev) ${EXLT_CMD_LINE}"
     for kver in ${kvers}; do
         local entry="$(gen_menu_item "${num}" "${kver}" "${prms}")"
         num="$((num+1))"
@@ -90,5 +92,5 @@ if [ 0 -ne $(id -u) ]; then
     exit 9
 fi
 
-main $@
+main "$@"
 
