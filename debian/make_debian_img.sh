@@ -7,6 +7,7 @@ set -e
 #   2: download failure
 #   3: image mount failure
 #   4: missing file
+#   5: invalid file hash
 #   9: superuser required
 
 main() {
@@ -194,7 +195,7 @@ make_image_file() {
     local filename="$1"
     rm -f "$filename"*
     local size="$(echo "$filename" | sed -rn 's/.*mmc_([[:digit:]]+[m|g])\.img$/\1/p')"
-    truncate -s $size "$filename"
+    truncate -s "$size" "$filename"
 }
 
 parition_media() {
@@ -438,10 +439,10 @@ script_rc_local() {
 
 is_param() {
     local match
-    for item in $@; do
-        if [ -z $match ]; then
-            match=$item
-        elif [ $match = $item ]; then
+    for item in "$@"; do
+        if [ -z "$match" ]; then
+            match="$item"
+        elif [ "$match" = "$item" ]; then
             return
         fi
     done
