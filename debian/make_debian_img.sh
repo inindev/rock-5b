@@ -21,7 +21,7 @@ main() {
     local disable_ipv6=true
     local extra_pkgs='curl, pciutils, sudo, unzip, wget, xxd, xz-utils, zip, zstd'
 
-    if is_param 'clean' $@; then
+    if is_param 'clean' "$@"; then
         rm -rf cache*/var
         rm -f "$media"*
         rm -rf rootfs
@@ -38,7 +38,7 @@ main() {
     fi
 
     # no compression if disabled or block media
-    local compress=$(is_param 'nocomp' $@ || [ -b "$media" ] && echo false || echo true)
+    local compress=$(is_param 'nocomp' "$@" || [ -b "$media" ] && echo false || echo true)
 
     if $compress && [ -f "$media.xz" ]; then
         read -p "file $media.xz exists, overwrite? <y/N> " yn
@@ -99,7 +99,7 @@ main() {
     print_hdr "installing root filesystem from debian.org"
     mkdir "$mountpt/etc"
     echo 'link_in_boot = 1' > "$mountpt/etc/kernel-img.conf"
-    echo 'do_symlink = No' >> "$mountpt/etc/kernel-img.conf"
+    echo 'do_symlinks = 0' >> "$mountpt/etc/kernel-img.conf"
     local pkgs="initramfs-tools, dbus, dhcpcd5, libpam-systemd, openssh-server, systemd-timesyncd"
     pkgs="$pkgs, $extra_pkgs"
     debootstrap --arch arm64 --include "$pkgs" --exclude "isc-dhcp-client" "$deb_dist" "$mountpt" 'https://deb.debian.org/debian/'
@@ -108,7 +108,7 @@ main() {
     umount "$mountpt/var/lib/apt/lists"
 
     print_hdr "configuring files"
-    local mdev="$(findmnt -no SOURCE "$mountpt")"
+    local mdev="$(findmnt -no source "$mountpt")"
     local uuid="$(blkid -o value -s UUID "$mdev")"
     echo "$(file_fstab $uuid)\n" > "$mountpt/etc/fstab"
     echo "$(file_apt_sources $deb_dist)\n" > "$mountpt/etc/apt/sources.list"
@@ -147,7 +147,7 @@ main() {
     sed -i '/alias.l.=/s/^#*\s*//' "$mountpt/root/.bashrc"
 
     # motd (off by default)
-    is_param 'motd' $@ && [ -f '../etc/motd' ] && cp -f '../etc/motd' "$mountpt/etc"
+    is_param 'motd' "$@" && [ -f '../etc/motd' ] && cp -f '../etc/motd' "$mountpt/etc"
 
     print_hdr "installing firmware"
     mkdir -p "$mountpt/lib/firmware"
@@ -427,7 +427,7 @@ script_rc_local() {
 	    uuid="\$(cat /proc/sys/kernel/random/uuid)"
 	    echo "changing rootfs uuid: \$uuid"
 	    tune2fs -U "\$uuid" "\$rp"
-	    sed -i "s|\$(findmnt -fsno SOURCE '/')|UUID=\$uuid|" /etc/fstab
+	    sed -i "s|\$(findmnt -fsno source '/')|UUID=\$uuid|" /etc/fstab
 	    /boot/mk_extlinux.sh
 
 	    # setup for expand fs
