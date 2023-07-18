@@ -25,7 +25,7 @@ main() {
         exit 0
     fi
 
-    check_installed 'bison' 'flex' 'libssl-dev' 'make' 'python3-dev' 'python3-pyelftools' 'python3-setuptools' 'swig'
+    check_installed 'bc' 'bison' 'flex' 'libssl-dev' 'make' 'python3-dev' 'python3-pyelftools' 'python3-setuptools' 'swig'
 
     if [ ! -d u-boot ]; then
         git clone https://github.com/u-boot/u-boot.git
