@@ -6,7 +6,8 @@ set -e
 #   1: missing utility
 
 main() {
-    local utag='v2023.07'
+    local utag='v2023.07.02'
+    local branch='2023.07'
     local atf_file='../rkbin/rk3588_bl31_v1.34.elf'
     local tpl_file='../rkbin/rk3588_ddr_lp4_2112MHz_lp5_2736MHz_v1.08.bin'
 
@@ -17,7 +18,7 @@ main() {
             make -C u-boot distclean
             git -C u-boot clean -f
             git -C u-boot checkout master
-            git -C u-boot branch -D $utag 2>/dev/null || true
+            git -C u-boot branch -D "$branch" 2>/dev/null || true
             git -C u-boot pull --ff-only
         fi
         echo '\nclean complete\n'
@@ -31,14 +32,14 @@ main() {
         git -C u-boot fetch --tags
     fi
 
-    if ! git -C u-boot branch | grep -q $utag; then
-        git -C u-boot checkout -b $utag $utag
+    if ! git -C u-boot branch | grep -q "$branch"; then
+        git -C u-boot checkout -b "$branch" "$utag"
 
         for patch in patches/*.patch; do
             git -C u-boot am "../$patch"
         done
-    elif [ "_$utag" != "_$(git -C u-boot branch --show-current)" ]; then
-        git -C u-boot checkout $utag
+    elif [ "$branch" != "$(git -C u-boot branch --show-current)" ]; then
+        git -C u-boot checkout "$branch"
     fi
 
     # outputs: idbloader.img, u-boot.itb
@@ -47,7 +48,7 @@ main() {
         make -C u-boot distclean
         make -C u-boot rock5b-rk3588_defconfig
     fi
-    make -C u-boot -j$(nproc) BL31=$atf_file ROCKCHIP_TPL=$tpl_file
+    make -C u-boot -j$(nproc) BL31="$atf_file" ROCKCHIP_TPL="$tpl_file"
     ln -sfv u-boot/idbloader.img
     ln -sfv u-boot/u-boot.itb
 
