@@ -6,7 +6,7 @@ set -e
 
 EXTL_MENU_ENABLE='auto'   # true, false, auto
 EXTL_MENU_ITEMS=2         # max kernels in menu
-EXTL_MENU_TIMEOUT=4       # timeout in seconds
+EXTL_MENU_TIMEOUT=3       # timeout in seconds
 EXLT_CMD_LINE='ro rootwait ipv6.disable=1'
 
 
