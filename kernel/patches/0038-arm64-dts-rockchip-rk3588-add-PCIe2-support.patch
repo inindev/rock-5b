@@ -1,24 +1,26 @@
-From 6d15cf863844b99decdaa5854d533d42b2224d26 Mon Sep 17 00:00:00 2001
+From 67412b2424c6225f0baa7d5b04ec7108d77dde2a Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 17 Apr 2023 20:03:08 +0200
-Subject: [PATCH 36/63] arm64: dts: rockchip: rk3588: add PCIe2 support
+Subject: [PATCH 38/65] arm64: dts: rockchip: rk3588: add PCIe2 support
 
 Add all three PCIe2 IP blocks to the RK3588 DT. Note, that RK3588
 also has two PCIe3 IP blocks, that will be handled separately.
 
 Co-developed-by: Kever Yang <kever.yang@rock-chips.com>
 Signed-off-by: Kever Yang <kever.yang@rock-chips.com>
+Tested-by: Jagan Teki <jagan@edgeble.ai> # edgeble-neu6a, 6b
+Reviewed-by: Jagan Teki <jagan@edgeble.ai>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588.dtsi  |  54 +++++++++++
- arch/arm64/boot/dts/rockchip/rk3588s.dtsi | 108 ++++++++++++++++++++++
- 2 files changed, 162 insertions(+)
+ arch/arm64/boot/dts/rockchip/rk3588.dtsi  |  51 +++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588s.dtsi | 102 ++++++++++++++++++++++
+ 2 files changed, 153 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588.dtsi b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
-index 6be9bf81c09c..4d66ca6c2e4c 100644
+index 6be9bf81c09c..88d702575db2 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
-@@ -80,6 +80,60 @@ i2s10_8ch: i2s@fde00000 {
+@@ -80,6 +80,57 @@ i2s10_8ch: i2s@fde00000 {
  		status = "disabled";
  	};
  
@@ -47,9 +49,6 @@ index 6be9bf81c09c..4d66ca6c2e4c 100644
 +				<0 0 0 3 &pcie2x1l0_intc 2>,
 +				<0 0 0 4 &pcie2x1l0_intc 3>;
 +		linux,pci-domain = <2>;
-+		num-ib-windows = <8>;
-+		num-ob-windows = <8>;
-+		num-viewport = <4>;
 +		max-link-speed = <2>;
 +		msi-map = <0x2000 &its0 0x2000 0x1000>;
 +		num-lanes = <1>;
@@ -80,10 +79,10 @@ index 6be9bf81c09c..4d66ca6c2e4c 100644
  		compatible = "rockchip,rk3588-gmac", "snps,dwmac-4.20a";
  		reg = <0x0 0xfe1b0000 0x0 0x10000>;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-index c9f9dd2472f5..27d711d114d6 100644
+index c9f9dd2472f5..b9b509257aaa 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-@@ -1227,6 +1227,114 @@ qos_vop_m1: qos@fdf82200 {
+@@ -1227,6 +1227,108 @@ qos_vop_m1: qos@fdf82200 {
  		reg = <0x0 0xfdf82200 0x0 0x20>;
  	};
  
@@ -112,9 +111,6 @@ index c9f9dd2472f5..27d711d114d6 100644
 +				<0 0 0 3 &pcie2x1l1_intc 2>,
 +				<0 0 0 4 &pcie2x1l1_intc 3>;
 +		linux,pci-domain = <3>;
-+		num-ib-windows = <8>;
-+		num-ob-windows = <8>;
-+		num-viewport = <4>;
 +		max-link-speed = <2>;
 +		msi-map = <0x3000 &its0 0x3000 0x1000>;
 +		num-lanes = <1>;
@@ -166,9 +162,6 @@ index c9f9dd2472f5..27d711d114d6 100644
 +				<0 0 0 3 &pcie2x1l2_intc 2>,
 +				<0 0 0 4 &pcie2x1l2_intc 3>;
 +		linux,pci-domain = <4>;
-+		num-ib-windows = <8>;
-+		num-ob-windows = <8>;
-+		num-viewport = <4>;
 +		max-link-speed = <2>;
 +		msi-map = <0x4000 &its0 0x4000 0x1000>;
 +		num-lanes = <1>;

@@ -1,0 +1,53 @@
+From e7fee7c1d104d57c9c7150b703900cd31c69dac0 Mon Sep 17 00:00:00 2001
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Mon, 17 Jul 2023 17:07:48 +0200
+Subject: [PATCH 36/65] dt-bindings: PCI: dwc: rockchip: Use generic binding
+
+Use the generic binding for Rockchip. This should either be
+ignored/dropped or squashed into the previous commit.
+
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml | 3 +--
+ Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml     | 6 +++++-
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml b/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
+index 7836b9a5547c..ad9954f7fe02 100644
+--- a/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
++++ b/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
+@@ -17,8 +17,7 @@ description: |+
+   snps,dw-pcie.yaml.
+ 
+ allOf:
+-  - $ref: /schemas/pci/pci-bus.yaml#
+-  - $ref: /schemas/pci/snps,dw-pcie-common.yaml#
++  - $ref: /schemas/pci/snps,dw-pcie.yaml#
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml b/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
+index abc1bcef13ec..95d343c75485 100644
+--- a/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
++++ b/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
+@@ -196,12 +196,16 @@ properties:
+             Status register (the event is supposed to be unmasked in the
+             Link Control register).
+           const: bw_mg
++        - description:
++            Combined Legacy A/B/C/D interrupt signal. See "^int(a|b|c|d)$" for
++            details.
++          const: legacy
+         - description:
+             Vendor-specific IRQ names. Consider using the generic names above
+             for new bindings.
+           oneOf:
+             - description: See native "app" IRQ for details
+-              enum: [ intr ]
++              enum: [ intr, sys, pmc, msg, err ]
+ 
+ additionalProperties: true
+ 
+-- 
+2.40.1
+

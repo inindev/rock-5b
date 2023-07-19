@@ -1,7 +1,7 @@
-From 05182cd56a2e909f778305c3f0116d0599066cd1 Mon Sep 17 00:00:00 2001
+From 1d726ea8dc642576b5eb5d2c0bb56d36497d6e42 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 25 Apr 2023 17:38:57 +0200
-Subject: [PATCH 44/63] dt-bindings: phy: add rockchip usbdp combo phy document
+Subject: [PATCH 47/65] dt-bindings: phy: add rockchip usbdp combo phy document
 
 Add device tree binding document for Rockchip USBDP Combo PHY
 with Samsung IP block.

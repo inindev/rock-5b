@@ -1,21 +1,21 @@
-From 3c48e47702d6e14cf0bd14dfcef8563afa0a27f8 Mon Sep 17 00:00:00 2001
+From d78c9dc4f75a9a184ffddb5a6d16bf8568b28e6b Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 25 Apr 2023 17:49:04 +0200
-Subject: [PATCH 48/63] arm64: dts: rockchip: rk3588s: Add USBDP phy nodes
+Subject: [PATCH 50/65] arm64: dts: rockchip: rk3588s: Add USBDP phy nodes
 
 Add both USB3-Displayport PHYs from RK3588.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588.dtsi  | 63 +++++++++++++++++++
- arch/arm64/boot/dts/rockchip/rk3588s.dtsi | 74 +++++++++++++++++++++++
- 2 files changed, 137 insertions(+)
+ arch/arm64/boot/dts/rockchip/rk3588.dtsi  | 62 +++++++++++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588s.dtsi | 73 +++++++++++++++++++++++
+ 2 files changed, 135 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588.dtsi b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
-index af6f52afbaff..cd2c80bf7cd9 100644
+index 8f210f002fac..b18fb5dc793e 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
-@@ -17,6 +17,38 @@ pipe_phy1_grf: syscon@fd5c0000 {
+@@ -17,6 +17,37 @@ pipe_phy1_grf: syscon@fd5c0000 {
  		reg = <0x0 0xfd5c0000 0x0 0x100>;
  	};
  
@@ -41,7 +41,6 @@ index af6f52afbaff..cd2c80bf7cd9 100644
 +			clock-names = "phyclk";
 +			clock-output-names = "usb480m_phy1";
 +			#clock-cells = <0>;
-+			rockchip,usbctrl-grf = <&usb_grf>;
 +			status = "disabled";
 +
 +			u2phy1_otg: otg-port {
@@ -54,7 +53,7 @@ index af6f52afbaff..cd2c80bf7cd9 100644
  	i2s8_8ch: i2s@fddc8000 {
  		compatible = "rockchip,rk3588-i2s-tdm";
  		reg = <0x0 0xfddc8000 0x0 0x1000>;
-@@ -321,6 +353,37 @@ sata-port@0 {
+@@ -310,6 +341,37 @@ sata-port@0 {
  		};
  	};
  
@@ -93,10 +92,10 @@ index af6f52afbaff..cd2c80bf7cd9 100644
  		compatible = "rockchip,rk3588-naneng-combphy";
  		reg = <0x0 0xfee10000 0x0 0x100>;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-index 27d711d114d6..2fd011aff2ae 100644
+index 416581dd3bb5..24689e62c1d9 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-@@ -463,6 +463,38 @@ pipe_phy2_grf: syscon@fd5c4000 {
+@@ -492,6 +492,37 @@ pipe_phy2_grf: syscon@fd5c4000 {
  		reg = <0x0 0xfd5c4000 0x0 0x100>;
  	};
  
@@ -122,7 +121,6 @@ index 27d711d114d6..2fd011aff2ae 100644
 +			clock-names = "phyclk";
 +			clock-output-names = "usb480m_phy0";
 +			#clock-cells = <0>;
-+			rockchip,usbctrl-grf = <&usb_grf>;
 +			status = "disabled";
 +
 +			u2phy0_otg: otg-port {
@@ -135,7 +133,7 @@ index 27d711d114d6..2fd011aff2ae 100644
  	usb2phy2_grf: syscon@fd5d8000 {
  		compatible = "rockchip,rk3588-usb2phy-grf", "syscon", "simple-mfd";
  		reg = <0x0 0xfd5d8000 0x0 0x4000>;
-@@ -488,6 +520,17 @@ u2phy2_host: host-port {
+@@ -517,6 +548,17 @@ u2phy2_host: host-port {
  		};
  	};
  
@@ -153,7 +151,7 @@ index 27d711d114d6..2fd011aff2ae 100644
  	usb2phy3_grf: syscon@fd5dc000 {
  		compatible = "rockchip,rk3588-usb2phy-grf", "syscon", "simple-mfd";
  		reg = <0x0 0xfd5dc000 0x0 0x4000>;
-@@ -2203,6 +2246,37 @@ dmac2: dma-controller@fed10000 {
+@@ -2226,6 +2268,37 @@ dmac2: dma-controller@fed10000 {
  		#dma-cells = <1>;
  	};
  

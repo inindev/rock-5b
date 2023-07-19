@@ -1,7 +1,7 @@
 From ae5e8c10b896e9e0cf950ea9ff0aa9a2cb32e2be Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 12 Jan 2023 19:15:52 +0100
-Subject: [PATCH 23/63] phy: phy-rockchip-inno-usb2: add rk3588 support
+Subject: [PATCH 23/65] phy: phy-rockchip-inno-usb2: add rk3588 support
 
 Add basic support for the USB2 PHY found in the Rockchip RK3588.
 

@@ -1,7 +1,7 @@
-From 9e89f492960a106062ab47552e8e91867f09ca4d Mon Sep 17 00:00:00 2001
+From 998f8d0db7eca25ce0484ff8890b2907028ad290 Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Mon, 12 Jun 2023 14:57:58 +0200
-Subject: [PATCH 55/63] dt-bindings: media: rockchip: Add resets property into
+Subject: [PATCH 57/65] dt-bindings: media: rockchip: Add resets property into
  decoder node
 
 RK3588 AV1 decoder hardware block have resets lines and driver code

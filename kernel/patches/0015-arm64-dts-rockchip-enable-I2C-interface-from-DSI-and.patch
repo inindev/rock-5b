@@ -1,7 +1,7 @@
 From 57a14df7668f26ccbcdf86ed517b8841126c7bdd Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 10 Jul 2023 18:52:26 +0200
-Subject: [PATCH 15/63] arm64: dts: rockchip: enable I2C interface from DSI and
+Subject: [PATCH 15/65] arm64: dts: rockchip: enable I2C interface from DSI and
  CSI connectors on rock-5a
 
 I2C3 is routed to the Camera connector and I2C5 is routed to the LCD

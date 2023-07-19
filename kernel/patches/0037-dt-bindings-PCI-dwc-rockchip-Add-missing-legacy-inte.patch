@@ -1,7 +1,7 @@
-From fe69f11d823c1f3b3c143f6b5a28ff1007081727 Mon Sep 17 00:00:00 2001
+From 80166535ee7e399dc16bb923b6c37ed766dfae72 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Wed, 19 Apr 2023 18:27:12 +0200
-Subject: [PATCH 35/63] dt-bindings: PCI: dwc: rockchip: Add missing
+Subject: [PATCH 37/65] dt-bindings: PCI: dwc: rockchip: Add missing
  legacy-interrupt-controller
 
 Rockchip RK356x and RK3588 handle legacy interrupts via a ganged
@@ -17,10 +17,10 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 30 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml b/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
-index 9b5968091686..26a2e60172d0 100644
+index ad9954f7fe02..1ae8dcfa072c 100644
 --- a/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
 +++ b/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
-@@ -72,6 +72,28 @@ properties:
+@@ -93,6 +93,28 @@ properties:
        - const: legacy
        - const: err
  
@@ -49,7 +49,7 @@ index 9b5968091686..26a2e60172d0 100644
    msi-map: true
  
    num-lanes: true
-@@ -159,6 +181,14 @@ examples:
+@@ -180,6 +202,14 @@ examples:
              reset-names = "pipe";
              #address-cells = <3>;
              #size-cells = <2>;

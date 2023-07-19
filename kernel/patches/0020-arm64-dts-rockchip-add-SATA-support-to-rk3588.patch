@@ -1,7 +1,7 @@
 From 202c46141cafa1100d8b4fa019d0c3a5fdcc79c6 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 12 Jun 2023 19:13:37 +0200
-Subject: [PATCH 20/63] arm64: dts: rockchip: add SATA support to rk3588
+Subject: [PATCH 20/65] arm64: dts: rockchip: add SATA support to rk3588
 
 Add all three SATA IP blocks to the RK3588 DT.
 

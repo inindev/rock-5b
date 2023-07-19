@@ -1,7 +1,7 @@
 From 3a0403a81ff401c3767bd36bbcc4ccc118327a36 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Fri, 23 Jun 2023 16:27:38 +0200
-Subject: [PATCH 01/63] irqchip/gic-v3: Enable Rockchip 3588001 erratum
+Subject: [PATCH 01/65] irqchip/gic-v3: Enable Rockchip 3588001 erratum
  workaround for RK3588S
 
 Commit a8707f553884 ("irqchip/gic-v3: Add Rockchip 3588001 erratum

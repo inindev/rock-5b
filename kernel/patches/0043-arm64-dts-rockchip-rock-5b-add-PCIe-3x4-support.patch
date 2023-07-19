@@ -1,7 +1,7 @@
-From 2a4b885a3069a4e910e813d7a490a4af0a5f0c6a Mon Sep 17 00:00:00 2001
+From 72ec5f3a720b860f62d43a82924e75ea5e3cacb0 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Fri, 14 Jul 2023 19:19:29 +0200
-Subject: [PATCH 42/63] arm64: dts: rockchip: rock-5b: add PCIe 3x4 support
+Subject: [PATCH 43/65] arm64: dts: rockchip: rock-5b: add PCIe 3x4 support
 
 The Radxa Rock 5B has PCIe 3x4 routed to its M.2 M-key connector
 on the board's back.

@@ -1,7 +1,7 @@
 From a7293a1e8bfe8e5d0cf8532a2f431313e9c44172 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 3 Apr 2023 21:49:58 +0200
-Subject: [PATCH 26/63] phy: phy-rockchip-inno-usb2: simplify phy clock
+Subject: [PATCH 26/65] phy: phy-rockchip-inno-usb2: simplify phy clock
  handling
 
 Simplify phyclk handling by using devm_clk_get_optional_enabled to

@@ -1,7 +1,7 @@
-From 7eac8b567471564e00be69e19239cea239d3882a Mon Sep 17 00:00:00 2001
+From 8cfa75c270d1edd8411bf6b2a173b2222a6658e4 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Sat, 15 Jul 2023 00:39:28 +0200
-Subject: [PATCH 34/63] dt-bindings: PCI: dwc: rockchip: Fix interrupt-names
+Subject: [PATCH 35/65] dt-bindings: PCI: dwc: rockchip: Fix interrupt-names
  issue
 
 The RK356x (and RK3588) have 5 ganged interrupts. For example the
@@ -22,11 +22,11 @@ which are overwritten by this binding.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- .../bindings/pci/rockchip-dw-pcie.yaml        | 21 ++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+ .../bindings/pci/rockchip-dw-pcie.yaml        | 43 ++++++++++++++++++-
+ 1 file changed, 42 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml b/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
-index a4f61ced5e88..9b5968091686 100644
+index a4f61ced5e88..7836b9a5547c 100644
 --- a/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
 +++ b/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
 @@ -17,7 +17,8 @@ description: |+
@@ -39,12 +39,34 @@ index a4f61ced5e88..9b5968091686 100644
  
  properties:
    compatible:
-@@ -60,6 +61,17 @@ properties:
+@@ -60,6 +61,39 @@ properties:
        - const: aux
        - const: pipe
  
 +  interrupts:
-+    maxItems: 5
++    items:
++      - description:
++          Combined system interrupt, which is used to signal the following
++          interrupts - phy_link_up, dll_link_up, link_req_rst_not, hp_pme,
++          hp, hp_msi, link_auto_bw, link_auto_bw_msi, bw_mgt, bw_mgt_msi,
++          edma_wr, edma_rd, dpa_sub_upd, rbar_update, link_eq_req, ep_elbi_app
++      - description:
++          Combined PM interrupt, which is used to signal the following
++          interrupts - linkst_in_l1sub, linkst_in_l1, linkst_in_l2,
++          linkst_in_l0s, linkst_out_l1sub, linkst_out_l1, linkst_out_l2,
++          linkst_out_l0s, pm_dstate_update
++      - description:
++          Combined message interrupt, which is used to signal the following
++          interrupts - ven_msg, unlock_msg, ltr_msg, cfg_pme, cfg_pme_msi,
++          pm_pme, pm_to_ack, pm_turnoff, obff_idle, obff_obff, obff_cpu_active
++      - description:
++          Combined legacy interrupt, which is used to signal the following
++          interrupts - inta, intb, intc, intd
++      - description:
++          Combined error interrupt, which is used to signal the following
++          interrupts - aer_rc_err, aer_rc_err_msi, rx_cpl_timeout,
++          tx_cpl_timeout, cor_err_sent, nf_err_sent, f_err_sent, cor_err_rx,
++          nf_err_rx, f_err_rx, radm_qoverflow
 +
 +  interrupt-names:
 +    items:
@@ -57,7 +79,7 @@ index a4f61ced5e88..9b5968091686 100644
    msi-map: true
  
    num-lanes: true
-@@ -108,6 +120,7 @@ unevaluatedProperties: false
+@@ -108,6 +142,7 @@ unevaluatedProperties: false
  
  examples:
    - |
@@ -65,7 +87,7 @@ index a4f61ced5e88..9b5968091686 100644
  
      bus {
          #address-cells = <2>;
-@@ -127,6 +140,12 @@ examples:
+@@ -127,6 +162,12 @@ examples:
                            "aclk_dbi", "pclk",
                            "aux";
              device_type = "pci";

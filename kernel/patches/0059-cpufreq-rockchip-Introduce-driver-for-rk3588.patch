@@ -1,7 +1,7 @@
-From 21bf3f20851055205ed0969ef626b31a00e5a5c1 Mon Sep 17 00:00:00 2001
+From 6366907a9edd1516fbb3c9392c974a1f0779c218 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 18 Aug 2022 14:21:30 +0200
-Subject: [PATCH 57/63] cpufreq: rockchip: Introduce driver for rk3588
+Subject: [PATCH 59/65] cpufreq: rockchip: Introduce driver for rk3588
 
 This is a heavily modified port from the downstream driver.
 Downstream used it for multiple rockchip generations, while

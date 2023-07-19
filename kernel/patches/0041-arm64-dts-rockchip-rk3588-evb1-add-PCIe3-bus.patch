@@ -1,7 +1,7 @@
-From 5b64c2afbcf5cb99dc94f42ed06a80d4e7be4ff7 Mon Sep 17 00:00:00 2001
+From a32960824f10bab122fa0f4cdadce8a2f6a6286c Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 11 Jul 2023 17:20:47 +0200
-Subject: [PATCH 40/63] arm64: dts: rockchip: rk3588-evb1: add PCIe3 bus
+Subject: [PATCH 41/65] arm64: dts: rockchip: rk3588-evb1: add PCIe3 bus
 
 Enable PCIe3 support, which is exposed via a PCIe3 connector.
 

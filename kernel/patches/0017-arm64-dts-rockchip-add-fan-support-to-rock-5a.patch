@@ -1,7 +1,7 @@
 From c30049a3ca8d246b15a6d3543bf49cf1cf039f71 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 10 Jul 2023 18:52:28 +0200
-Subject: [PATCH 17/63] arm64: dts: rockchip: add fan support to rock-5a
+Subject: [PATCH 17/65] arm64: dts: rockchip: add fan support to rock-5a
 
 Add the necessary DT changes for the Rock 5A board to enable support for
 the PWM controlled heat sink fan.
