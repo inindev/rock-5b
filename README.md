@@ -1,9 +1,9 @@
 # rock-5b
 #### *Debian ARM64 Linux for the Radxa Rock 5 Model B*
 
-This Debian ARM64 Linux image is built directly from official packages using the Debian [Debootstrap](https://wiki.debian.org/Debootstrap) utility, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L105
+This Debian ARM64 Linux image is built directly from official packages using the Debian [Debootstrap](https://wiki.debian.org/Debootstrap) utility, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L123
 
-Most patches are directly available from the Debian repos using the built-in ```apt``` package manager, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L369
+Most patches are directly available from the Debian repos using the built-in ```apt``` package manager, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L362
 * Note: The kernel in this bundle is custom and will not get updates from debian.
 
 <br/>
@@ -42,7 +42,7 @@ brw-rw---- 1 root disk 8, 0 Jul 15 10:33 /dev/sda
 sudo sh -c 'xzcat rock-5b_bookworm-6.5-rc1.img.xz > /dev/sdX && sync'
 ```
 
-#### when the micro sd has finished imaging, eject and use it to boot the odroid m1 to finish setup
+#### when the micro sd has finished imaging, eject it and boot the rock 5b to finish setup
 
 <br/>
 
