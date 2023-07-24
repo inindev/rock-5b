@@ -35,6 +35,7 @@ main() {
     if ! git -C u-boot branch | grep -q "$branch"; then
         git -C u-boot checkout -b "$branch" "$utag"
 
+        local patch
         for patch in patches/*.patch; do
             git -C u-boot am "../$patch"
         done
@@ -78,7 +79,7 @@ cp_to_debian() {
 }
 
 check_installed() {
-    local todo
+    local item todo
     for item in "$@"; do
         dpkg -l "$item" 2>/dev/null | grep -q "ii  $item" || todo="$todo $item"
     done
@@ -91,15 +92,15 @@ check_installed() {
 }
 
 is_param() {
-    local match
+    local item match
     for item in "$@"; do
         if [ -z "$match" ]; then
             match="$item"
         elif [ "$match" = "$item" ]; then
-            return
+            return 0
         fi
     done
-    false
+    return 1
 }
 
 rst='\033[m'
