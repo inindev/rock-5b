@@ -1,7 +1,7 @@
-From b8cfa0b40785f7a297377bfa5638e4941b1b7199 Mon Sep 17 00:00:00 2001
+From 7e335caff26a0ac055f4f7ed7cbc7f9973118801 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Wed, 12 Jul 2023 15:21:03 +0200
-Subject: [PATCH 32/65] arm64: dts: rockchip: rk3588s-rock5a: add USB2
+Subject: [PATCH 32/72] arm64: dts: rockchip: rk3588s-rock5a: add USB2
 
 Enable USB2 (EHCI and OCHI mode) support for the Radxa ROCK 5 Model A.
 This adds USB support for the on-board WLAN/BT chip, the two USB2
@@ -18,7 +18,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 78 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
-index a6dff117b459..66eab281c2c9 100644
+index a6dff117b..66eab281c 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
 @@ -64,6 +64,20 @@ vcc12v_dcin: vcc12v-dcin-regulator {

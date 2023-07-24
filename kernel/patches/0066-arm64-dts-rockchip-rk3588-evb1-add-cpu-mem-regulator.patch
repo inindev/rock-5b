@@ -1,7 +1,7 @@
-From 76c712f0f1fe707d03132f2c404812516b11adf0 Mon Sep 17 00:00:00 2001
+From d8a63b53a3cbf40d90f2c3976b026be0f3529edc Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 25 May 2023 19:48:49 +0200
-Subject: [PATCH 62/65] arm64: dts: rockchip: rk3588-evb1: add cpu mem
+Subject: [PATCH 66/72] arm64: dts: rockchip: rk3588-evb1: add cpu mem
  regulator info
 
 Add the second supply regulator for the CPU cores, which is used
@@ -13,7 +13,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 8 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-index d5deb67854be..cfcd02b139b1 100644
+index 952742096..692496c70 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
 @@ -159,34 +159,42 @@ &combphy2_psu {

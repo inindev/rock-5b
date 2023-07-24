@@ -1,7 +1,7 @@
-From 71250317529a1477c24c0e0f1f85265ace329660 Mon Sep 17 00:00:00 2001
+From 2b04a212ac14b88ca32f61037b37bea20d985eb9 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 30 Mar 2023 15:44:36 +0200
-Subject: [PATCH 31/65] arm64: dts: rockchip: rk3588-rock5b: add USB2
+Subject: [PATCH 31/72] arm64: dts: rockchip: rk3588-rock5b: add USB2
 
 Enable USB2 (EHCI and OCHI mode) support for the Radxa ROCK 5 Model B.
 This adds USB support on the M.2 Key E, both USB2 ports and USB2 mode
@@ -16,7 +16,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 55 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
-index 9cea262998b4..6be759903411 100644
+index 9cea26299..6be759903 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
 @@ -43,6 +43,20 @@ fan: pwm-fan {

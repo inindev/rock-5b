@@ -1,7 +1,7 @@
-From c515be02d5e5db4fe2f913aa0e62256d212bd5eb Mon Sep 17 00:00:00 2001
+From aa43737392010bfcea20545abfccab86660d131d Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 12 Jun 2023 19:13:36 +0200
-Subject: [PATCH 19/65] arm64: dts: rockchip: add combo PHYs to rk3588
+Subject: [PATCH 19/72] arm64: dts: rockchip: add combo PHYs to rk3588
 
 Add all 3 combo PHYs that can be found in RK3588.
 They are used for SATA, PCIe or USB3.
@@ -15,7 +15,7 @@ Signed-off-by: Heiko Stuebner <heiko@sntech.de>
  2 files changed, 63 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588.dtsi b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
-index 8be75556af8f..5a5fe3acf3e9 100644
+index 8be75556a..5a5fe3acf 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
 @@ -7,6 +7,11 @@
@@ -52,7 +52,7 @@ index 8be75556af8f..5a5fe3acf3e9 100644
 +	};
  };
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-index 1576f9bfd6de..fce1ebe42423 100644
+index 1576f9bfd..fce1ebe42 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 @@ -407,6 +407,16 @@ php_grf: syscon@fd5b0000 {

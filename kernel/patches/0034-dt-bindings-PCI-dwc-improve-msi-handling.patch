@@ -1,7 +1,7 @@
-From d2f0598c0ac4dcc5655d0b9610896dd6ff5f76d7 Mon Sep 17 00:00:00 2001
+From 340b3a70861af058ddc3a00405a3d1d202211c50 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Sat, 15 Jul 2023 00:37:44 +0200
-Subject: [PATCH 34/65] dt-bindings: PCI: dwc: improve msi handling
+Subject: [PATCH 34/72] dt-bindings: PCI: dwc: improve msi handling
 
 Allow missing "msi" interrupt, iff the node has a "msi-map" property.
 
@@ -11,7 +11,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml b/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
-index 1a83f0f65f19..abc1bcef13ec 100644
+index 1a83f0f65..abc1bcef1 100644
 --- a/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
 +++ b/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
 @@ -25,6 +25,15 @@ select:

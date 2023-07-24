@@ -1,7 +1,7 @@
-From 655b6f4ba6c7081d191f3b1f00d61576167e1b76 Mon Sep 17 00:00:00 2001
+From 425a73422a87e1c69981a46a2c51e7082e8d34b1 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 10 Jul 2023 18:52:16 +0200
-Subject: [PATCH 05/65] dt-bindings: vendor-prefixes: Add prefix for belling
+Subject: [PATCH 05/72] dt-bindings: vendor-prefixes: Add prefix for belling
 
 Add a vendor prefix entry for belling (https://www.belling.com.cn)
 
@@ -14,7 +14,7 @@ Signed-off-by: Heiko Stuebner <heiko@sntech.de>
  1 file changed, 2 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index af60bf1a6664..c80a866477e4 100644
+index af60bf1a6..c80a86647 100644
 --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
 +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
 @@ -190,6 +190,8 @@ patternProperties:

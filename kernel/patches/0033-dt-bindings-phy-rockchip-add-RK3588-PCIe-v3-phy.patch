@@ -1,7 +1,7 @@
-From df4a5de60799e8ad7ce57223f91f37a807c48f76 Mon Sep 17 00:00:00 2001
+From eb282532ec0ee5a2078ea859206040d2c8903f95 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 10 Jul 2023 19:51:11 +0200
-Subject: [PATCH 33/65] dt-bindings: phy: rockchip: add RK3588 PCIe v3 phy
+Subject: [PATCH 33/72] dt-bindings: phy: rockchip: add RK3588 PCIe v3 phy
 
 When the RK3568 PCIe v3 PHY supported has been upstreamed, RK3588
 support was included, but the DT binding does not reflect this.
@@ -14,7 +14,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 28 insertions(+), 5 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/phy/rockchip,pcie3-phy.yaml b/Documentation/devicetree/bindings/phy/rockchip,pcie3-phy.yaml
-index 9f2d8d2cc7a5..c4fbffcde6e4 100644
+index 9f2d8d2cc..c4fbffcde 100644
 --- a/Documentation/devicetree/bindings/phy/rockchip,pcie3-phy.yaml
 +++ b/Documentation/devicetree/bindings/phy/rockchip,pcie3-phy.yaml
 @@ -13,19 +13,18 @@ properties:

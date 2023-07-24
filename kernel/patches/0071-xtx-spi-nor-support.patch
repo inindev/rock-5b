@@ -1,7 +1,7 @@
-From 7667db9c7b536bd07d68347418e8869633cb7d10 Mon Sep 17 00:00:00 2001
+From ca7d25a783be4817a7ba7b8f70a450f301466b4f Mon Sep 17 00:00:00 2001
 From: John Clark <inindev@gmail.com>
 Date: Sat, 24 Jun 2023 14:15:05 +0000
-Subject: [PATCH 64/65] xtx spi nor support
+Subject: [PATCH 71/72] xtx spi nor support
 
 Signed-off-by: John Clark <inindev@gmail.com>
 ---
@@ -13,7 +13,7 @@ Signed-off-by: John Clark <inindev@gmail.com>
  create mode 100644 drivers/mtd/spi-nor/xtx.c
 
 diff --git a/drivers/mtd/spi-nor/Makefile b/drivers/mtd/spi-nor/Makefile
-index e347b435a038..8992c592a896 100644
+index e347b435a..8992c592a 100644
 --- a/drivers/mtd/spi-nor/Makefile
 +++ b/drivers/mtd/spi-nor/Makefile
 @@ -17,6 +17,7 @@ spi-nor-objs			+= sst.o
@@ -25,7 +25,7 @@ index e347b435a038..8992c592a896 100644
  obj-$(CONFIG_MTD_SPI_NOR)	+= spi-nor.o
  
 diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-index 5f29fac8669a..8e737ce9bee7 100644
+index 5f29fac86..8e737ce9b 100644
 --- a/drivers/mtd/spi-nor/core.c
 +++ b/drivers/mtd/spi-nor/core.c
 @@ -2014,6 +2014,7 @@ static const struct spi_nor_manufacturer *manufacturers[] = {
@@ -37,7 +37,7 @@ index 5f29fac8669a..8e737ce9bee7 100644
  
  static const struct flash_info spi_nor_generic_flash = {
 diff --git a/drivers/mtd/spi-nor/core.h b/drivers/mtd/spi-nor/core.h
-index 4fb5ff09c63a..099a47cceba0 100644
+index 4fb5ff09c..099a47cce 100644
 --- a/drivers/mtd/spi-nor/core.h
 +++ b/drivers/mtd/spi-nor/core.h
 @@ -644,6 +644,7 @@ extern const struct spi_nor_manufacturer spi_nor_sst;
@@ -50,7 +50,7 @@ index 4fb5ff09c63a..099a47cceba0 100644
  
 diff --git a/drivers/mtd/spi-nor/xtx.c b/drivers/mtd/spi-nor/xtx.c
 new file mode 100644
-index 000000000000..f19d867d7e4e
+index 000000000..f19d867d7
 --- /dev/null
 +++ b/drivers/mtd/spi-nor/xtx.c
 @@ -0,0 +1,24 @@

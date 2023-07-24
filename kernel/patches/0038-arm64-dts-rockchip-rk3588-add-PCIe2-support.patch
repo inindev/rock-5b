@@ -1,7 +1,7 @@
-From 67412b2424c6225f0baa7d5b04ec7108d77dde2a Mon Sep 17 00:00:00 2001
+From 89dd44ae36e478ec19389b7c9d4ea5b8ab023af7 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 17 Apr 2023 20:03:08 +0200
-Subject: [PATCH 38/65] arm64: dts: rockchip: rk3588: add PCIe2 support
+Subject: [PATCH 38/72] arm64: dts: rockchip: rk3588: add PCIe2 support
 
 Add all three PCIe2 IP blocks to the RK3588 DT. Note, that RK3588
 also has two PCIe3 IP blocks, that will be handled separately.
@@ -17,7 +17,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  2 files changed, 153 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588.dtsi b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
-index 6be9bf81c09c..88d702575db2 100644
+index 6be9bf81c..88d702575 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
 @@ -80,6 +80,57 @@ i2s10_8ch: i2s@fde00000 {
@@ -79,7 +79,7 @@ index 6be9bf81c09c..88d702575db2 100644
  		compatible = "rockchip,rk3588-gmac", "snps,dwmac-4.20a";
  		reg = <0x0 0xfe1b0000 0x0 0x10000>;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-index c9f9dd2472f5..b9b509257aaa 100644
+index c9f9dd247..b9b509257 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 @@ -1227,6 +1227,108 @@ qos_vop_m1: qos@fdf82200 {

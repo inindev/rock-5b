@@ -1,7 +1,7 @@
-From 630b8027a60e7c70b59b1d1258ca421cda8eab98 Mon Sep 17 00:00:00 2001
+From 14745d99932778540d6038b5ba9b78bb83077dd9 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 30 May 2023 18:49:48 +0200
-Subject: [PATCH 48/65] dt-bindings: soc: rockchip: add rk3588 USB3 syscon
+Subject: [PATCH 52/72] dt-bindings: soc: rockchip: add rk3588 USB3 syscon
 
 RK3588 USB3 support requires the GRF for USB, USBDP PHY and VO.
 
@@ -11,7 +11,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 22 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-index e4fa6a07b4fa..ce1fd5b0d669 100644
+index e4fa6a07b..ce1fd5b0d 100644
 --- a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
 +++ b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
 @@ -28,6 +28,9 @@ properties:

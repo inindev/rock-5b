@@ -1,7 +1,7 @@
-From 8cfa75c270d1edd8411bf6b2a173b2222a6658e4 Mon Sep 17 00:00:00 2001
+From 4e5c3acaf665fcb71862c09d943f66fe2829d980 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Sat, 15 Jul 2023 00:39:28 +0200
-Subject: [PATCH 35/65] dt-bindings: PCI: dwc: rockchip: Fix interrupt-names
+Subject: [PATCH 35/72] dt-bindings: PCI: dwc: rockchip: Fix interrupt-names
  issue
 
 The RK356x (and RK3588) have 5 ganged interrupts. For example the
@@ -26,7 +26,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 42 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml b/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
-index a4f61ced5e88..7836b9a5547c 100644
+index a4f61ced5..7836b9a55 100644
 --- a/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
 +++ b/Documentation/devicetree/bindings/pci/rockchip-dw-pcie.yaml
 @@ -17,7 +17,8 @@ description: |+

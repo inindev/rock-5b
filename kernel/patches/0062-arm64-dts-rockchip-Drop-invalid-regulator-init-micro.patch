@@ -1,7 +1,7 @@
-From 71ff67bc32199a1b7cb2283f40ae75c61d22d537 Mon Sep 17 00:00:00 2001
+From f2aa680d31a8d32221014b64d68dc1ea8efac15c Mon Sep 17 00:00:00 2001
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Date: Fri, 7 Jul 2023 19:22:17 +0300
-Subject: [PATCH 58/65] arm64: dts: rockchip: Drop invalid
+Subject: [PATCH 62/72] arm64: dts: rockchip: Drop invalid
  regulator-init-microvolt property
 
 The 'regulator-init-microvolt' property is not currently supported by
@@ -41,7 +41,7 @@ Signed-off-by: Heiko Stuebner <heiko@sntech.de>
  19 files changed, 46 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3308-roc-cc.dts b/arch/arm64/boot/dts/rockchip/rk3308-roc-cc.dts
-index 7ea48167747c..9232357f4fec 100644
+index 7ea481677..9232357f4 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3308-roc-cc.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3308-roc-cc.dts
 @@ -106,7 +106,6 @@ vdd_core: vdd-core {
@@ -53,7 +53,7 @@ index 7ea48167747c..9232357f4fec 100644
  		regulator-always-on;
  		regulator-boot-on;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3308-rock-pi-s.dts b/arch/arm64/boot/dts/rockchip/rk3308-rock-pi-s.dts
-index a71f249ed384..e9810d2f0407 100644
+index a71f249ed..e9810d2f0 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3308-rock-pi-s.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3308-rock-pi-s.dts
 @@ -105,7 +105,6 @@ vdd_core: vdd-core {
@@ -65,7 +65,7 @@ index a71f249ed384..e9810d2f0407 100644
  		regulator-always-on;
  		regulator-boot-on;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3399-nanopi4.dtsi b/arch/arm64/boot/dts/rockchip/rk3399-nanopi4.dtsi
-index b6e082f1f6d9..7c5f441a2219 100644
+index b6e082f1f..7c5f441a2 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3399-nanopi4.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3399-nanopi4.dtsi
 @@ -375,7 +375,6 @@ regulator-state-mem {
@@ -77,7 +77,7 @@ index b6e082f1f6d9..7c5f441a2219 100644
  				regulator-max-microvolt = <3300000>;
  				regulator-name = "vcc_sdio";
 diff --git a/arch/arm64/boot/dts/rockchip/rk3566-anbernic-rgxx3.dtsi b/arch/arm64/boot/dts/rockchip/rk3566-anbernic-rgxx3.dtsi
-index a2c31d53b45b..8cbf3d9a4f22 100644
+index a2c31d53b..8cbf3d9a4 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3566-anbernic-rgxx3.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3566-anbernic-rgxx3.dtsi
 @@ -356,7 +356,6 @@ vdd_logic: DCDC_REG1 {
@@ -105,7 +105,7 @@ index a2c31d53b45b..8cbf3d9a4f22 100644
  		regulator-ramp-delay = <2300>;
  		vin-supply = <&vcc_sys>;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3566-lubancat-1.dts b/arch/arm64/boot/dts/rockchip/rk3566-lubancat-1.dts
-index ff936b713579..1c6d83b47cd2 100644
+index ff936b713..1c6d83b47 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3566-lubancat-1.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3566-lubancat-1.dts
 @@ -218,7 +218,6 @@ vdd_logic: DCDC_REG1 {
@@ -133,7 +133,7 @@ index ff936b713579..1c6d83b47cd2 100644
  				regulator-initial-mode = <0x2>;
  
 diff --git a/arch/arm64/boot/dts/rockchip/rk3566-pinenote.dtsi b/arch/arm64/boot/dts/rockchip/rk3566-pinenote.dtsi
-index 8d61f824c12d..d899087bf0b5 100644
+index 8d61f824c..d899087bf 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3566-pinenote.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3566-pinenote.dtsi
 @@ -264,7 +264,6 @@ vdd_logic: DCDC_REG1 {
@@ -153,7 +153,7 @@ index 8d61f824c12d..d899087bf0b5 100644
  				regulator-initial-mode = <0x2>;
  
 diff --git a/arch/arm64/boot/dts/rockchip/rk3566-quartz64-a.dts b/arch/arm64/boot/dts/rockchip/rk3566-quartz64-a.dts
-index 25a8c781f4e7..854d02b46e6f 100644
+index 25a8c781f..854d02b46 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3566-quartz64-a.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3566-quartz64-a.dts
 @@ -366,7 +366,6 @@ vdd_logic: DCDC_REG1 {
@@ -173,7 +173,7 @@ index 25a8c781f4e7..854d02b46e6f 100644
  				regulator-initial-mode = <0x2>;
  				regulator-name = "vdd_gpu";
 diff --git a/arch/arm64/boot/dts/rockchip/rk3566-quartz64-b.dts b/arch/arm64/boot/dts/rockchip/rk3566-quartz64-b.dts
-index b276eb0810c7..2d92713be2a0 100644
+index b276eb081..2d92713be 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3566-quartz64-b.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3566-quartz64-b.dts
 @@ -277,7 +277,6 @@ vdd_log: DCDC_REG1 {
@@ -193,7 +193,7 @@ index b276eb0810c7..2d92713be2a0 100644
  
  				regulator-state-mem {
 diff --git a/arch/arm64/boot/dts/rockchip/rk3566-roc-pc.dts b/arch/arm64/boot/dts/rockchip/rk3566-roc-pc.dts
-index 42889c5900bd..938092fce186 100644
+index 42889c590..938092fce 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3566-roc-pc.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3566-roc-pc.dts
 @@ -278,7 +278,6 @@ vdd_log: DCDC_REG1 {
@@ -213,7 +213,7 @@ index 42889c5900bd..938092fce186 100644
  
  				regulator-state-mem {
 diff --git a/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi b/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi
-index 31aa2b8efe39..63bae36b8f7e 100644
+index 31aa2b8ef..63bae36b8 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi
 @@ -234,7 +234,6 @@ vdd_logic: DCDC_REG1 {
@@ -241,7 +241,7 @@ index 31aa2b8efe39..63bae36b8f7e 100644
  				regulator-name = "vdd_npu";
  				regulator-state-mem {
 diff --git a/arch/arm64/boot/dts/rockchip/rk3568-bpi-r2-pro.dts b/arch/arm64/boot/dts/rockchip/rk3568-bpi-r2-pro.dts
-index ff0bf24cc1a2..f9127ddfbb7d 100644
+index ff0bf24cc..f9127ddfb 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3568-bpi-r2-pro.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3568-bpi-r2-pro.dts
 @@ -308,7 +308,6 @@ vdd_logic: DCDC_REG1 {
@@ -269,7 +269,7 @@ index ff0bf24cc1a2..f9127ddfbb7d 100644
  				regulator-min-microvolt = <500000>;
  				regulator-max-microvolt = <1350000>;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3568-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3568-evb1-v10.dts
-index 674792567fa6..19f8fc369b13 100644
+index 674792567..19f8fc369 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3568-evb1-v10.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3568-evb1-v10.dts
 @@ -293,7 +293,6 @@ vdd_logic: DCDC_REG1 {
@@ -297,7 +297,7 @@ index 674792567fa6..19f8fc369b13 100644
  				regulator-min-microvolt = <500000>;
  				regulator-max-microvolt = <1350000>;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3568-fastrhino-r66s.dtsi b/arch/arm64/boot/dts/rockchip/rk3568-fastrhino-r66s.dtsi
-index 25e205632a68..89e84e3a9262 100644
+index 25e205632..89e84e3a9 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3568-fastrhino-r66s.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3568-fastrhino-r66s.dtsi
 @@ -173,7 +173,6 @@ vdd_logic: DCDC_REG1 {
@@ -333,7 +333,7 @@ index 25e205632a68..89e84e3a9262 100644
  				regulator-max-microvolt = <1800000>;
  
 diff --git a/arch/arm64/boot/dts/rockchip/rk3568-lubancat-2.dts b/arch/arm64/boot/dts/rockchip/rk3568-lubancat-2.dts
-index e653b067aa5d..a8a4cc190eb3 100644
+index e653b067a..a8a4cc190 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3568-lubancat-2.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3568-lubancat-2.dts
 @@ -243,7 +243,6 @@ vdd_logic: DCDC_REG1 {
@@ -361,7 +361,7 @@ index e653b067aa5d..a8a4cc190eb3 100644
  				regulator-initial-mode = <0x2>;
  
 diff --git a/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dtsi b/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dtsi
-index 58ba328ea782..93189f830640 100644
+index 58ba328ea..93189f830 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dtsi
 @@ -232,7 +232,6 @@ vdd_logic: DCDC_REG1 {
@@ -389,7 +389,7 @@ index 58ba328ea782..93189f830640 100644
  				regulator-min-microvolt = <500000>;
  				regulator-max-microvolt = <1350000>;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts b/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts
-index 59ecf868dbd0..a337f547caf5 100644
+index 59ecf868d..a337f547c 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts
 @@ -291,7 +291,6 @@ vdd_logic: DCDC_REG1 {
@@ -417,7 +417,7 @@ index 59ecf868dbd0..a337f547caf5 100644
  				regulator-min-microvolt = <500000>;
  				regulator-max-microvolt = <1350000>;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3568-radxa-cm3i.dtsi b/arch/arm64/boot/dts/rockchip/rk3568-radxa-cm3i.dtsi
-index c50fbdd48680..45b03dcbbad4 100644
+index c50fbdd48..45b03dcbb 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3568-radxa-cm3i.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3568-radxa-cm3i.dtsi
 @@ -163,7 +163,6 @@ vdd_logic: DCDC_REG1 {
@@ -445,7 +445,7 @@ index c50fbdd48680..45b03dcbbad4 100644
  				regulator-min-microvolt = <500000>;
  				regulator-max-microvolt = <1350000>;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3568-rock-3a.dts b/arch/arm64/boot/dts/rockchip/rk3568-rock-3a.dts
-index 917f5b2b8aab..e05ab11981f5 100644
+index 917f5b2b8..e05ab1198 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3568-rock-3a.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3568-rock-3a.dts
 @@ -350,7 +350,6 @@ vdd_logic: DCDC_REG1 {
@@ -473,10 +473,10 @@ index 917f5b2b8aab..e05ab11981f5 100644
  				regulator-min-microvolt = <500000>;
  				regulator-max-microvolt = <1350000>;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
-index ddb0c0dea900..ddefeacb5c09 100644
+index 6268c9be6..bffcfdcb8 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
-@@ -418,7 +418,6 @@ vdd_vdenc_s0: vdd_vdenc_mem_s0: dcdc-reg4 {
+@@ -457,7 +457,6 @@ vdd_vdenc_s0: vdd_vdenc_mem_s0: dcdc-reg4 {
  				regulator-boot-on;
  				regulator-min-microvolt = <550000>;
  				regulator-max-microvolt = <950000>;

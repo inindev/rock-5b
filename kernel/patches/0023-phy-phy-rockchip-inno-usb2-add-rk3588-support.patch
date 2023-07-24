@@ -1,7 +1,7 @@
-From ae5e8c10b896e9e0cf950ea9ff0aa9a2cb32e2be Mon Sep 17 00:00:00 2001
+From ab00e5b4135c25fdf2fcd1a27884e4733436fc45 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 12 Jan 2023 19:15:52 +0100
-Subject: [PATCH 23/65] phy: phy-rockchip-inno-usb2: add rk3588 support
+Subject: [PATCH 23/72] phy: phy-rockchip-inno-usb2: add rk3588 support
 
 Add basic support for the USB2 PHY found in the Rockchip RK3588.
 
@@ -13,7 +13,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 211 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
-index a0bc10aa7961..2c4683c67a8e 100644
+index a0bc10aa7..2c4683c67 100644
 --- a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
 +++ b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
 @@ -116,6 +116,12 @@ struct rockchip_chg_det_reg {

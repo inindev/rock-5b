@@ -1,7 +1,7 @@
-From d78c9dc4f75a9a184ffddb5a6d16bf8568b28e6b Mon Sep 17 00:00:00 2001
+From 5dd31b5ad6901ddb1f1a93f8da3a0126aa11e64e Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 25 Apr 2023 17:49:04 +0200
-Subject: [PATCH 50/65] arm64: dts: rockchip: rk3588s: Add USBDP phy nodes
+Subject: [PATCH 54/72] arm64: dts: rockchip: rk3588s: Add USBDP phy nodes
 
 Add both USB3-Displayport PHYs from RK3588.
 
@@ -12,7 +12,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  2 files changed, 135 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588.dtsi b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
-index 8f210f002fac..b18fb5dc793e 100644
+index 8f210f002..b18fb5dc7 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
 @@ -17,6 +17,37 @@ pipe_phy1_grf: syscon@fd5c0000 {
@@ -92,10 +92,10 @@ index 8f210f002fac..b18fb5dc793e 100644
  		compatible = "rockchip,rk3588-naneng-combphy";
  		reg = <0x0 0xfee10000 0x0 0x100>;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-index 416581dd3bb5..24689e62c1d9 100644
+index 5cda58ea5..74f28bccd 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-@@ -492,6 +492,37 @@ pipe_phy2_grf: syscon@fd5c4000 {
+@@ -484,6 +484,37 @@ pipe_phy2_grf: syscon@fd5c4000 {
  		reg = <0x0 0xfd5c4000 0x0 0x100>;
  	};
  
@@ -133,7 +133,7 @@ index 416581dd3bb5..24689e62c1d9 100644
  	usb2phy2_grf: syscon@fd5d8000 {
  		compatible = "rockchip,rk3588-usb2phy-grf", "syscon", "simple-mfd";
  		reg = <0x0 0xfd5d8000 0x0 0x4000>;
-@@ -517,6 +548,17 @@ u2phy2_host: host-port {
+@@ -509,6 +540,17 @@ u2phy2_host: host-port {
  		};
  	};
  
@@ -151,7 +151,7 @@ index 416581dd3bb5..24689e62c1d9 100644
  	usb2phy3_grf: syscon@fd5dc000 {
  		compatible = "rockchip,rk3588-usb2phy-grf", "syscon", "simple-mfd";
  		reg = <0x0 0xfd5dc000 0x0 0x4000>;
-@@ -2226,6 +2268,37 @@ dmac2: dma-controller@fed10000 {
+@@ -2218,6 +2260,37 @@ dmac2: dma-controller@fed10000 {
  		#dma-cells = <1>;
  	};
  

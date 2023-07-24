@@ -1,7 +1,7 @@
-From 8ca15dea566e6ba108066af6a49cd82d10cc5d1f Mon Sep 17 00:00:00 2001
+From 36795d6089d2a2f3af3ba7899b19c227149de98e Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Wed, 2 Nov 2022 14:31:56 +0100
-Subject: [PATCH 55/65] arm64: dts: rockchip: rk3588is: Add AV1 decoder node
+Subject: [PATCH 59/72] arm64: dts: rockchip: rk3588is: Add AV1 decoder node
 
 Add node for AV1 video decoder.
 
@@ -12,10 +12,10 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 14 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-index fd0430228149..dbcd4700d1cd 100644
+index 5f8910ec9..a90ec13f5 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-@@ -2436,6 +2436,20 @@ gpio4: gpio@fec50000 {
+@@ -2420,6 +2420,20 @@ gpio4: gpio@fec50000 {
  			#interrupt-cells = <2>;
  		};
  	};

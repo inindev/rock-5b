@@ -1,7 +1,7 @@
-From ea91ca622c4a3cb4e7f4f85e222166a35843a42d Mon Sep 17 00:00:00 2001
+From bbd813b546c1aedfc9b25843b415905d68dd59a8 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 12 Jan 2023 19:23:27 +0100
-Subject: [PATCH 30/65] arm64: dts: rockchip: rk3588-evb1: add USB2
+Subject: [PATCH 30/72] arm64: dts: rockchip: rk3588-evb1: add USB2
 
 Enable USB2 (EHCI and OCHI mode) support for the Rockchip RK3588 EVB1.
 
@@ -11,7 +11,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 74 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-index eeab8f0478a5..378d285a92be 100644
+index eeab8f047..378d285a9 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
 @@ -38,6 +38,20 @@ vcc12v_dcin: vcc12v-dcin-regulator {
