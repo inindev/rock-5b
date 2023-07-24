@@ -29,7 +29,7 @@ else
     echo "changing rootfs uuid: $uuid"
     tune2fs -U "$uuid" "$rp"
     sed -i "s|$(findmnt -fsno source '/')|UUID=$uuid|" '/etc/fstab'
-    /boot/mk_extlinux.sh
+    /boot/mk_extlinux
 
     # setup for expand fs
     chmod 774 "$this"

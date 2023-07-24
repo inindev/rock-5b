@@ -55,28 +55,19 @@ main() {
 
     print_hdr "downloading files"
     local cache="cache.$deb_dist"
+
     # linux firmware
     local lfw=$(download "$cache" 'https://mirrors.edge.kernel.org/pub/linux/kernel/firmware/linux-firmware-20230210.tar.xz')
     local lfwsha='6e3d9e8d52cffc4ec0dbe8533a8445328e0524a20f159a5b61c2706f983ce38a'
+    [ "$lfwsha" = $(sha256sum "$lfw" | cut -c1-64) ] || { echo "invalid hash for $lfw"; exit 5; }
+
     # u-boot
     local uboot_spl=$(download "$cache" 'https://github.com/inindev/rock-5b/releases/download/v12.0-6.5-rc1/idbloader.img')
+    [ -f "$uboot_spl" ] || { echo "unable to fetch $uboot_spl"; exit 4; }
     local uboot_itb=$(download "$cache" 'https://github.com/inindev/rock-5b/releases/download/v12.0-6.5-rc1/u-boot.itb')
+    [ -f "$uboot_itb" ] || { echo "unable to fetch: $uboot_itb"; exit 4; }
 
-    if [ "$lfwsha" != $(sha256sum "$lfw" | cut -c1-64) ]; then
-        echo "invalid hash for linux firmware: $lfw"
-        exit 5
-    fi
-
-    if [ ! -f "$uboot_spl" ]; then
-        echo "unable to fetch uboot binary: $uboot_spl"
-        exit 4
-    fi
-
-    if [ ! -f "$uboot_itb" ]; then
-        echo "unable to fetch uboot binary: $uboot_itb"
-        exit 4
-    fi
-
+    # setup media
     if [ ! -b "$media" ]; then
         print_hdr "creating image file"
         make_image_file "$media"
@@ -88,6 +79,7 @@ main() {
     print_hdr "formatting media"
     format_media "$media"
 
+    print_hdr "mounting media"
     mount_media "$media"
 
     print_hdr "configuring files"
@@ -101,12 +93,18 @@ main() {
     echo "$(file_fstab $uuid)\n" > "$mountpt/etc/fstab"
 
     # setup extlinux boot
-    install -Dm 754 'files/dtb_copy' "$mountpt/etc/kernel/postinst.d/dtb_copy"
+    install -Dm 754 'files/dtb_cp' "$mountpt/etc/kernel/postinst.d/dtb_cp"
     install -Dm 754 'files/dtb_rm' "$mountpt/etc/kernel/postrm.d/dtb_rm"
-    install -Dm 754 'files/mk_extlinux.sh' "$mountpt/boot/mk_extlinux.sh"
-    $disable_ipv6 || sed -i 's/ ipv6.disable=1//' "$mountpt/boot/mk_extlinux.sh"
-    ln -svf '../../../boot/mk_extlinux.sh' "$mountpt/etc/kernel/postinst.d/update_extlinux"
-    ln -svf '../../../boot/mk_extlinux.sh' "$mountpt/etc/kernel/postrm.d/update_extlinux"
+    install -Dm 754 'files/mk_extlinux' "$mountpt/boot/mk_extlinux"
+    $disable_ipv6 || sed -i 's/ ipv6.disable=1//' "$mountpt/boot/mk_extlinux"
+    ln -svf '../../../boot/mk_extlinux' "$mountpt/etc/kernel/postinst.d/update_extlinux"
+    ln -svf '../../../boot/mk_extlinux' "$mountpt/etc/kernel/postrm.d/update_extlinux"
+
+    print_hdr "installing firmware"
+    mkdir -p "$mountpt/usr/lib/firmware"
+    local lfwn=$(basename "$lfw")
+    local lfwbn="${lfwn%%.*}"
+    tar -C "$mountpt/usr/lib/firmware" --strip-components=1 --wildcards -xavf "$lfw" "$lfwbn/microchip/mscc*" "$lfwbn/nvidia/tegra???" "$lfwbn/r8a779x*" "$lfwbn/rockchip" "$lfwbn/rtl_bt" "$lfwbn/rtl_nic"
 
     # install debian linux from deb packages (debootstrap)
     print_hdr "installing root filesystem from debian.org"
@@ -125,19 +123,9 @@ main() {
     umount "$mountpt/var/cache"
     umount "$mountpt/var/lib/apt/lists"
 
-    print_hdr "installing firmware"
-    mkdir -p "$mountpt/lib/firmware"
-    local lfwn=$(basename "$lfw")
-    local lfwbn="${lfwn%%.*}"
-    tar -C "$mountpt/lib/firmware" --strip-components=1 --wildcards -xavf "$lfw" "$lfwbn/microchip/mscc*" "$lfwbn/nvidia/tegra???" "$lfwbn/r8a779x*" "$lfwbn/rockchip" "$lfwbn/rtl_bt" "$lfwbn/rtl_nic"
-
     # apt sources & default locale
     echo "$(file_apt_sources $deb_dist)\n" > "$mountpt/etc/apt/sources.list"
     echo "$(file_locale_cfg)\n" > "$mountpt/etc/default/locale"
-
-    # hostname
-    echo $hostname > "$mountpt/etc/hostname"
-    sed -i "s/127.0.0.1\tlocalhost/127.0.0.1\tlocalhost\n127.0.1.1\t$hostname/" "$mountpt/etc/hosts"
 
     # wpa supplicant
     rm -rf "$mountpt/etc/systemd/system/multi-user.target.wants/wpa_supplicant.service"
@@ -153,6 +141,10 @@ main() {
     # motd (off by default)
     is_param 'motd' "$@" && [ -f '../etc/motd' ] && cp -f '../etc/motd' "$mountpt/etc"
 
+    # hostname
+    echo $hostname > "$mountpt/etc/hostname"
+    sed -i "s/127.0.0.1\tlocalhost/127.0.0.1\tlocalhost\n127.0.1.1\t$hostname/" "$mountpt/etc/hosts"
+
     print_hdr "creating user account"
     chroot "$mountpt" /usr/sbin/useradd -m "$acct_uid" -s '/bin/bash'
     chroot "$mountpt" /bin/sh -c "/usr/bin/echo $acct_uid:$acct_pass | /usr/sbin/chpasswd -c YESCRYPT"
@@ -160,7 +152,7 @@ main() {
     (umask 377 && echo "$acct_uid ALL=(ALL) NOPASSWD: ALL" > "$mountpt/etc/sudoers.d/$acct_uid")
 
     print_hdr "installing rootfs expansion script to /etc/rc.local"
-    install -m 754 'files/rc.local' "$mountpt/etc"
+    install -Dm 754 'files/rc.local' "$mountpt/etc/rc.local"
 
     # disable sshd until after keys are regenerated on first boot
     rm -f "$mountpt/etc/systemd/system/sshd.service"
@@ -271,8 +263,7 @@ mount_media() {
 }
 
 check_mount_only() {
-    local img
-    local flag=false
+    local item img flag=false
     for item in "$@"; do
         case "$item" in
             mount) flag=true ;;
@@ -292,7 +283,7 @@ check_mount_only() {
     fi
 
     if [ "$img" = *.xz ]; then
-        tmp=$(basename "$img" .xz)
+        local tmp=$(basename "$img" .xz)
         if [ -f "$tmp" ]; then
             echo "compressed file ${bld}$img${rst} was specified but uncompressed file ${bld}$tmp${rst} exists..."
             echo -n "mount ${bld}$tmp${rst}"
@@ -344,8 +335,8 @@ file_fstab() {
     local uuid="$1"
 
     cat <<-EOF
-	# if editing the device name for the root entry, it is necessary to
-	# regenerate the extlinux.conf file by running /boot/mk_extlinux.sh
+	# if editing the device name for the root entry, it is necessary
+	# to regenerate the extlinux.conf file by running /boot/mk_extlinux
 
 	# <device>					<mount>	<type>	<options>		<dump> <pass>
 	UUID=$uuid	/	ext4	errors=remount-ro	0      1
@@ -413,20 +404,20 @@ download() {
 }
 
 is_param() {
-    local match
+    local item match
     for item in "$@"; do
         if [ -z "$match" ]; then
             match="$item"
         elif [ "$match" = "$item" ]; then
-            return
+            return 0
         fi
     done
-    false
+    return 1
 }
 
 # check if debian package is installed
 check_installed() {
-    local todo
+    local item todo
     for item in "$@"; do
         dpkg -l "$item" 2>/dev/null | grep -q "ii  $item" || todo="$todo $item"
     done
