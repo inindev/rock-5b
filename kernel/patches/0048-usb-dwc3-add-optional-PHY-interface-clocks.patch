@@ -1,7 +1,7 @@
-From b406fbf9d7e96d26e838b27196c0315f580eebcd Mon Sep 17 00:00:00 2001
+From 648a987d974f254a257d7de3ffa5bf9375b78b7f Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 20 Jul 2023 18:59:37 +0200
-Subject: [PATCH 47/72] usb: dwc3: add optional PHY interface clocks
+Subject: [PATCH 48/79] usb: dwc3: add optional PHY interface clocks
 
 On Rockchip RK3588 one of the DWC3 cores is integrated weirdly and
 requires two extra clocks to be enabled. Without these extra clocks
@@ -14,7 +14,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  2 files changed, 30 insertions(+)
 
 diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
-index f6689b731..0618fcc4d 100644
+index 9c6bf05..fc60d5f 100644
 --- a/drivers/usb/dwc3/core.c
 +++ b/drivers/usb/dwc3/core.c
 @@ -817,8 +817,20 @@ static int dwc3_clk_enable(struct dwc3 *dwc)
@@ -47,7 +47,7 @@ index f6689b731..0618fcc4d 100644
  	clk_disable_unprepare(dwc->susp_clk);
  	clk_disable_unprepare(dwc->ref_clk);
  	clk_disable_unprepare(dwc->bus_clk);
-@@ -1764,6 +1778,18 @@ static int dwc3_get_clocks(struct dwc3 *dwc)
+@@ -1748,6 +1762,18 @@ static int dwc3_get_clocks(struct dwc3 *dwc)
  		}
  	}
  
@@ -67,10 +67,10 @@ index f6689b731..0618fcc4d 100644
  }
  
 diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
-index 8b1295e4d..fa49a8702 100644
+index a69ac67..f5e6ae6 100644
 --- a/drivers/usb/dwc3/core.h
 +++ b/drivers/usb/dwc3/core.h
-@@ -994,6 +994,8 @@ struct dwc3_scratchpad_array {
+@@ -991,6 +991,8 @@ struct dwc3_scratchpad_array {
   * @bus_clk: clock for accessing the registers
   * @ref_clk: reference clock
   * @susp_clk: clock used when the SS phy is in low power (S3) state
@@ -79,7 +79,7 @@ index 8b1295e4d..fa49a8702 100644
   * @reset: reset control
   * @regs: base address for our registers
   * @regs_size: address space size
-@@ -1159,6 +1161,8 @@ struct dwc3 {
+@@ -1156,6 +1158,8 @@ struct dwc3 {
  	struct clk		*bus_clk;
  	struct clk		*ref_clk;
  	struct clk		*susp_clk;

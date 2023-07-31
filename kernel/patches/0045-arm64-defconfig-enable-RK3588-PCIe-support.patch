@@ -1,7 +1,7 @@
-From 28a930b0717c6f5431cbc7cb3d993f925d5d62ee Mon Sep 17 00:00:00 2001
+From baace52224f9a7750c5e2f2376b4a2260ea61168 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 23 Mar 2023 12:27:19 +0000
-Subject: [PATCH 45/72] arm64: defconfig: enable RK3588 PCIe support
+Subject: [PATCH 45/79] arm64: defconfig: enable RK3588 PCIe support
 
 Add support for RK3588 PCIe, which is used for ethernet by
 many boards. Note, that this involves two different PHY
@@ -14,7 +14,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index 0777bcae9..73b812e11 100644
+index d84f6d4..022d002 100644
 --- a/arch/arm64/configs/defconfig
 +++ b/arch/arm64/configs/defconfig
 @@ -221,6 +221,7 @@ CONFIG_PCIE_ALTERA=y
@@ -25,14 +25,11 @@ index 0777bcae9..73b812e11 100644
  CONFIG_PCIE_ROCKCHIP_HOST=m
  CONFIG_PCIE_MEDIATEK_GEN3=m
  CONFIG_PCIE_BRCMSTB=m
-@@ -1385,10 +1386,12 @@ CONFIG_PHY_RCAR_GEN3_PCIE=y
- CONFIG_PHY_RCAR_GEN3_USB2=y
- CONFIG_PHY_RCAR_GEN3_USB3=m
- CONFIG_PHY_ROCKCHIP_EMMC=y
-+CONFIG_PHY_ROCKCHIP_NANENG_COMBO_PHY=y
+@@ -1388,7 +1389,9 @@ CONFIG_PHY_ROCKCHIP_EMMC=y
  CONFIG_PHY_ROCKCHIP_INNO_HDMI=m
  CONFIG_PHY_ROCKCHIP_INNO_USB2=y
  CONFIG_PHY_ROCKCHIP_INNO_DSIDPHY=m
++CONFIG_PHY_ROCKCHIP_NANENG_COMBO_PHY=y
  CONFIG_PHY_ROCKCHIP_PCIE=m
 +CONFIG_PHY_ROCKCHIP_SNPS_PCIE3=m
  CONFIG_PHY_ROCKCHIP_TYPEC=y

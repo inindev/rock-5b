@@ -1,7 +1,7 @@
-From b1da73b841ae7e4921f25b50cc20fa90aa1d2ebc Mon Sep 17 00:00:00 2001
+From be0f76d98cf8e47c0a5d9fbc574cf2811d09edeb Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Mon, 12 Jun 2023 10:11:24 +0200
-Subject: [PATCH 60/72] media: verisilicon: Fixes clock list for rk3588 av1
+Subject: [PATCH 60/79] media: verisilicon: Fixes clock list for rk3588 av1
  decoder
 
 Mainlined RK3588 clock driver manage by itself the dependency between
@@ -16,7 +16,7 @@ Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-index 816ffa905..f97527670 100644
+index 816ffa9..f975276 100644
 --- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
 +++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
 @@ -648,7 +648,7 @@ static const char * const rockchip_vpu_clk_names[] = {

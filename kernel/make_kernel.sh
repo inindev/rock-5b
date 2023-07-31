@@ -18,8 +18,8 @@ config_fixups() {
 }
 
 main() {
-    local linux='https://git.kernel.org/torvalds/t/linux-6.5-rc3.tar.gz'
-    local lxsha='6b186941095235c65f6ad55ffcb534e343348cc791bd1cc72a06f8aa761678e3'
+    local linux='https://git.kernel.org/torvalds/t/linux-6.5-rc4.tar.gz'
+    local lxsha='25a5e26fa729914c221b1c0ae72f281169d9ff8bf1d07e85aa2cb52103d07a18'
 
     local lf="$(basename "$linux")"
     local lv="$(echo "$lf" | sed -nE 's/linux-(.*)\.tar\..z/\1/p')"

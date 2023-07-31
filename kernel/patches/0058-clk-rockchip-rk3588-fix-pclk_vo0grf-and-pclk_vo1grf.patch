@@ -1,7 +1,7 @@
-From e42ba795832e0aea313f4ed77c0e7e5d20ea7552 Mon Sep 17 00:00:00 2001
+From f53dcf9bb0021ad2d6850a038509536f0bd8a7fb Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 13 Jun 2023 16:45:05 +0200
-Subject: [PATCH 57/72] clk: rockchip: rk3588: fix pclk_vo0grf and pclk_vo1grf
+Subject: [PATCH 58/79] clk: rockchip: rk3588: fix pclk_vo0grf and pclk_vo1grf
 
 Currently pclk_vo1grf is not exposed, but it should be referenced
 from the vo1_grf syscon, which needs it enabled. That syscon will
@@ -20,7 +20,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  2 files changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/clk/rockchip/clk-rk3588.c b/drivers/clk/rockchip/clk-rk3588.c
-index 6994165e0..c6b605d6d 100644
+index 6994165..c6b605d 100644
 --- a/drivers/clk/rockchip/clk-rk3588.c
 +++ b/drivers/clk/rockchip/clk-rk3588.c
 @@ -1851,8 +1851,6 @@ static struct rockchip_clk_branch rk3588_clk_branches[] __initdata = {
@@ -60,7 +60,7 @@ index 6994165e0..c6b605d6d 100644
  
  static void __init rk3588_clk_init(struct device_node *np)
 diff --git a/include/dt-bindings/clock/rockchip,rk3588-cru.h b/include/dt-bindings/clock/rockchip,rk3588-cru.h
-index b5616bca7..864a321ab 100644
+index b5616bc..864a321 100644
 --- a/include/dt-bindings/clock/rockchip,rk3588-cru.h
 +++ b/include/dt-bindings/clock/rockchip,rk3588-cru.h
 @@ -733,8 +733,9 @@

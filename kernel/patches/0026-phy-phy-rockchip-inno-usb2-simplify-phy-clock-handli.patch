@@ -1,7 +1,7 @@
-From cc80111ba454efb3a4e758a47bff7ee68a30860f Mon Sep 17 00:00:00 2001
+From 77b378cd138cd4751dd4a60cf18c06dfa3980c71 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 3 Apr 2023 21:49:58 +0200
-Subject: [PATCH 26/72] phy: phy-rockchip-inno-usb2: simplify phy clock
+Subject: [PATCH 26/79] phy: phy-rockchip-inno-usb2: simplify phy clock
  handling
 
 Simplify phyclk handling by using devm_clk_get_optional_enabled to
@@ -14,7 +14,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 6 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
-index aa8c55609..1cf84869e 100644
+index aa8c556..1cf8486 100644
 --- a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
 +++ b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
 @@ -1390,24 +1390,22 @@ static int rockchip_usb2phy_probe(struct platform_device *pdev)

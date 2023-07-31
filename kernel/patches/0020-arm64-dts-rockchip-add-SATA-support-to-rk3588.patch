@@ -1,7 +1,7 @@
-From ceb0ccc4228445151de4fe2876aecf5406a07c8e Mon Sep 17 00:00:00 2001
+From 11d855e415d80b8d820231b3d97bb0f8f94aa1a4 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 12 Jun 2023 19:13:37 +0200
-Subject: [PATCH 20/72] arm64: dts: rockchip: add SATA support to rk3588
+Subject: [PATCH 20/79] arm64: dts: rockchip: add SATA support to rk3588
 
 Add all three SATA IP blocks to the RK3588 DT.
 
@@ -14,7 +14,7 @@ Signed-off-by: Heiko Stuebner <heiko@sntech.de>
  2 files changed, 71 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588.dtsi b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
-index 5a5fe3acf..6be9bf81c 100644
+index 5a5fe3a..6be9bf8 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
 @@ -129,6 +129,29 @@ gmac0_mtl_tx_setup: tx-queues-config {
@@ -48,7 +48,7 @@ index 5a5fe3acf..6be9bf81c 100644
  		compatible = "rockchip,rk3588-naneng-combphy";
  		reg = <0x0 0xfee10000 0x0 0x100>;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-index fce1ebe42..8243e52bc 100644
+index fce1ebe..8243e52 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 @@ -8,6 +8,8 @@

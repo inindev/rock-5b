@@ -1,7 +1,7 @@
-From 1e44dfea174ae56e05332841231f9516921b83aa Mon Sep 17 00:00:00 2001
+From c848b9b3d41f75929598cdf53fdcc92c8bbfc1df Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 11 Jul 2023 17:20:47 +0200
-Subject: [PATCH 41/72] arm64: dts: rockchip: rk3588-evb1: add PCIe3 bus
+Subject: [PATCH 41/79] arm64: dts: rockchip: rk3588-evb1: add PCIe3 bus
 
 Enable PCIe3 support, which is exposed via a PCIe3 connector.
 
@@ -11,7 +11,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 55 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-index 2c7e3c9a8..caf8b70d3 100644
+index 2c7e3c9..caf8b70 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
 @@ -49,6 +49,26 @@ pcie20_avdd1v8: pcie20-avdd1v8-regulator {

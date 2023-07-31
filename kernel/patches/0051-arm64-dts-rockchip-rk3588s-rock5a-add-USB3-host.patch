@@ -1,7 +1,7 @@
-From 3a4e13fdc2aab14764dd58d8367bf4570cd4f842 Mon Sep 17 00:00:00 2001
+From d9b202493702388cb4186058de6a559b6b36b9f9 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Fri, 21 Jul 2023 15:19:37 +0200
-Subject: [PATCH 50/72] arm64: dts: rockchip: rk3588s-rock5a: add USB3 host
+Subject: [PATCH 51/79] arm64: dts: rockchip: rk3588s-rock5a: add USB3 host
 
 Enable USB3 host controller for the Radxa ROCK 5 Model A. This adds
 USB3 for the lower USB3 port (the one closer to the PCB).
@@ -15,7 +15,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 8 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
-index 66eab281c..f0e3a0975 100644
+index 66eab28..f0e3a09 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
 @@ -113,6 +113,10 @@ vcc_1v1_nldo_s3: vcc-1v1-nldo-s3-regulator {

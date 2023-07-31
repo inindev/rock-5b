@@ -1,8 +1,7 @@
-From 17073ca3b45e4da09a08ccdd30d1ad9073edeb4b Mon Sep 17 00:00:00 2001
+From 8a0ee6d17c93bff65e4cc918269bcddc0aaf4eac Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Fri, 21 Jul 2023 16:59:40 +0200
-Subject: [PATCH 70/72] [BROKEN] arm64: dts: rockchip: rk3588-evb1: add analog
- audio
+Subject: [PATCH 77/79] arm64: dts: rockchip: rk3588-evb1: add analog audio
 
 Add support for the EVB1 analog audio to its devicetree.
 
@@ -14,14 +13,14 @@ es8328 1-0011: simple-card: set_sysclk error
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- .../boot/dts/rockchip/rk3588-evb1-v10.dts     | 96 +++++++++++++++++++
- 1 file changed, 96 insertions(+)
+ .../boot/dts/rockchip/rk3588-evb1-v10.dts     | 95 +++++++++++++++++++
+ 1 file changed, 95 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-index 238fa62eb..790ca1e9c 100644
+index a3badf6..bc29e7e 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-@@ -57,6 +57,65 @@ escape-key {
+@@ -57,6 +57,65 @@ button-escape {
  		};
  	};
  
@@ -87,7 +86,7 @@ index 238fa62eb..790ca1e9c 100644
  	backlight: backlight {
  		compatible = "pwm-backlight";
  		power-supply = <&vcc12v_dcin>;
-@@ -324,6 +383,29 @@ hym8563: rtc@51 {
+@@ -324,6 +383,28 @@ hym8563: rtc@51 {
  	};
  };
  
@@ -98,7 +97,6 @@ index 238fa62eb..790ca1e9c 100644
 +		compatible = "everest,es8388";
 +		reg = <0x11>;
 +		clocks = <&cru I2S0_8CH_MCLKOUT>;
-+		clock-names = "mclk";
 +		assigned-clocks = <&cru I2S0_8CH_MCLKOUT>;
 +		assigned-clock-rates = <12288000>;
 +		#sound-dai-cells = <0>;
@@ -117,7 +115,7 @@ index 238fa62eb..790ca1e9c 100644
  &mdio0 {
  	rgmii_phy: ethernet-phy@1 {
  		/* RTL8211F */
-@@ -364,6 +446,20 @@ &pcie3x4 {
+@@ -364,6 +445,20 @@ &pcie3x4 {
  };
  
  &pinctrl {

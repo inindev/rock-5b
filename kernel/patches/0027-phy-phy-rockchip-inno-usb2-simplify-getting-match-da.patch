@@ -1,7 +1,7 @@
-From cf3d466f835f3da2a5b8b63c4227fb0c18f93f43 Mon Sep 17 00:00:00 2001
+From d022973185531364ec07dee3452f64d8f321914f Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 3 Apr 2023 22:01:14 +0200
-Subject: [PATCH 27/72] phy: phy-rockchip-inno-usb2: simplify getting match
+Subject: [PATCH 27/79] phy: phy-rockchip-inno-usb2: simplify getting match
  data
 
 Simplify the code by directly getting the match data via
@@ -13,7 +13,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 4 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
-index 1cf84869e..f5c30f117 100644
+index 1cf8486..f5c30f1 100644
 --- a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
 +++ b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
 @@ -1305,7 +1305,6 @@ static int rockchip_usb2phy_probe(struct platform_device *pdev)

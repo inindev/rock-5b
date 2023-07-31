@@ -1,7 +1,7 @@
-From 3612094a777fc14f2c59fb85ca472835e69cfb78 Mon Sep 17 00:00:00 2001
+From e9d090ae7884fef8749e1e2a5ddbc14c0ac52ad1 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Fri, 14 Jul 2023 19:19:29 +0200
-Subject: [PATCH 43/72] arm64: dts: rockchip: rock-5b: add PCIe for M.2 M-key
+Subject: [PATCH 43/79] arm64: dts: rockchip: rock-5b: add PCIe for M.2 M-key
 
 The Radxa Rock 5B has PCIe 3x4 routed to its M.2 M-key connector
 on the board's back.
@@ -12,14 +12,14 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 35 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
-index 359da383b..ddb0c0dea 100644
+index 359da38..ccffaab 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
 @@ -52,6 +52,19 @@ vcc3v3_pcie2x1l2: vcc3v3-pcie2x1l2-regulator {
  		vin-supply = <&vcc_3v3_s3>;
  	};
  
-+	vcc3v3_pcie30: vcc3v3-pcie30 {
++	vcc3v3_pcie30: vcc3v3-pcie30-regulator {
 +		compatible = "regulator-fixed";
 +		regulator-name = "vcc3v3_pcie30";
 +		regulator-min-microvolt = <3300000>;
