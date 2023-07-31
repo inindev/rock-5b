@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Copyright (C) 2023, John Clark <inindev@gmail.com>
+
 set -e
 
 # script exit codes:
@@ -7,14 +9,15 @@ set -e
 #   5: invalid file hash
 
 main() {
-    local linux='https://git.kernel.org/torvalds/t/linux-6.5-rc1.tar.gz'
-    local lxsha='367a426799b63e5d6f09ad488c15149f3f8c40153c017115c5ec6cb2eb86b3ea'
+    local linux='https://git.kernel.org/torvalds/t/linux-6.5-rc4.tar.gz'
+    local lxsha='25a5e26fa729914c221b1c0ae72f281169d9ff8bf1d07e85aa2cb52103d07a18'
 
     local lf="$(basename "$linux")"
-    local lv="$(echo $lf | sed -nE 's/linux-(.*)\.tar\..z/\1/p')"
+    local lv="$(echo "$lf" | sed -nE 's/linux-(.*)\.tar\..z/\1/p')"
 
-    if [ '_clean' = "_$1" ]; then
-        rm -f *.dt*
+    if is_param 'clean' "$@"; then
+        rm -f *.dtb *-top.dts
+        find . -maxdepth 1 -type l -delete
         rm -rf "linux-$lv"
         echo '\nclean complete\n'
         exit 0
@@ -22,24 +25,25 @@ main() {
 
     check_installed 'device-tree-compiler' 'gcc' 'wget' 'xz-utils'
 
-    [ -f $lf ] || wget "$linux"
+    [ -f "$lf" ] || wget "$linux"
 
     if [ "_$lxsha" != "_$(sha256sum "$lf" | cut -c1-64)" ]; then
         echo "invalid hash for linux source file: $lf"
         exit 5
     fi
 
-    local rkpath=linux-$lv/arch/arm64/boot/dts/rockchip
-    local rkfl='rk3588-rock-5b.dts rk3588.dtsi rk3588s.dtsi rk3588-pinctrl.dtsi rockchip-pinconf.dtsi'
-    if [ ! -d "linux-$lv" ]; then
+    local rkpath="linux-$lv/arch/arm64/boot/dts/rockchip"
+    if ! [ -d "linux-$lv" ]; then
         tar xavf "$lf" "linux-$lv/include/dt-bindings" "linux-$lv/include/uapi" "$rkpath"
 
-        for rkf in $rkfl; do
-            get_dts "$rkpath/$rkf"
+        local patch patches="$(find patches -maxdepth 1 -name '*.patch' 2>/dev/null || true)"
+        for patch in $patches; do
+            patch -p1 -d "linux-$lv" -i "../$patch"
         done
     fi
 
-    if [ "_links" = "_$1" ]; then
+    if is_param 'links' "$@"; then
+        local rkf rkfl='rk3588-rock-5b.dts rk3588.dtsi rk3588s.dtsi rk3588-pinctrl.dtsi rockchip-pinconf.dtsi'
         for rkf in $rkfl; do
             ln -sfv "$rkpath/$rkf"
         done
@@ -48,24 +52,41 @@ main() {
     fi
 
     # build
-    local dt=rk3588-rock-5b
-    gcc -I "linux-$lv/include" -E -nostdinc -undef -D__DTS__ -x assembler-with-cpp -o "${dt}-top.dts" "$rkpath/${dt}.dts"
-
+    local dt dts='rk3588-rock-5b'
     local fldtc='-Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg'
-    dtc -I dts -O dtb -b 0 ${fldtc} -o ${dt}.dtb ${dt}-top.dts
-
-    echo "\n${cya}device tree ready: ${dt}.dtb${rst}\n"
+    for dt in $dts; do
+        gcc -I "linux-$lv/include" -E -nostdinc -undef -D__DTS__ -x assembler-with-cpp -o "${dt}-top.dts" "$rkpath/${dt}.dts"
+        dtc -I dts -O dtb -b 0 ${fldtc} -o "${dt}.dtb" "${dt}-top.dts"
+        is_param 'cp' "$@" && cp_to_debian "${dt}.dtb"
+        echo "\n${cya}device tree ready: ${dt}.dtb${rst}\n"
+    done
 }
 
-get_dts() {
-    local filepath="$1"
-    local file=$(basename "$filepath")
-    local url="https://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-misc.git/plain/arch/arm64/boot/dts/rockchip/$file?h=rk3588"
-    wget -O "$filepath" "$url"
+cp_to_debian() {
+    local target="$1"
+    local deb_dist=$(cat "../debian/make_debian_img.sh" | sed -n 's/\s*local deb_dist=.\([[:alpha:]]\+\)./\1/p')
+    [ -z "$deb_dist" ] && return
+    local cdir="../debian/cache.$deb_dist"
+    echo '\ncopying to debian cache...'
+    sudo mkdir -p "$cdir"
+    sudo cp -v "$target" "$cdir"
 }
 
+is_param() {
+    local item match
+    for item in "$@"; do
+        if [ -z "$match" ]; then
+            match="$item"
+        elif [ "$match" = "$item" ]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+# check if debian package is installed
 check_installed() {
-    local todo
+    local item todo
     for item in "$@"; do
         dpkg -l "$item" 2>/dev/null | grep -q "ii  $item" || todo="$todo $item"
     done
@@ -75,6 +96,11 @@ check_installed() {
         echo "   run: ${bld}${grn}sudo apt update && sudo apt -y install$todo${rst}\n"
         exit 1
     fi
+}
+
+print_hdr() {
+    local msg="$1"
+    echo "\n${h1}$msg...${rst}"
 }
 
 rst='\033[m'
