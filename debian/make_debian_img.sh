@@ -20,7 +20,6 @@ main() {
     local hostname='rock5b-arm64'
     local acct_uid='debian'
     local acct_pass='debian'
-    local disable_ipv6=true
     local extra_pkgs='curl, pciutils, sudo, unzip, wget, xxd, xz-utils, zip, zstd'
 
     if is_param 'clean' "$@"; then
@@ -96,7 +95,6 @@ main() {
     install -Dm 754 'files/dtb_cp' "$mountpt/etc/kernel/postinst.d/dtb_cp"
     install -Dm 754 'files/dtb_rm' "$mountpt/etc/kernel/postrm.d/dtb_rm"
     install -Dm 754 'files/mk_extlinux' "$mountpt/boot/mk_extlinux"
-    $disable_ipv6 || sed -i 's/ ipv6.disable=1//' "$mountpt/boot/mk_extlinux"
     ln -svf '../../../boot/mk_extlinux' "$mountpt/etc/kernel/postinst.d/update_extlinux"
     ln -svf '../../../boot/mk_extlinux' "$mountpt/etc/kernel/postrm.d/update_extlinux"
 
@@ -450,7 +448,7 @@ if [ 0 -ne $(id -u) ]; then
     exit 9
 fi
 
-cd "$(dirname "$(readlink -f "$0")")"
+cd "$(dirname "$(realpath "$0")")"
 check_mount_only "$@"
 main "$@"
 
