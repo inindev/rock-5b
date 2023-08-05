@@ -6,15 +6,19 @@ set -e
 #   1: missing utility
 
 main() {
-    local utag='v2023.07.02'
-    local branch='2023.07'
+    local utag='v2023.10-rc2'
     local atf_file='../rkbin/rk3588_bl31_v1.34.elf'
     local tpl_file='../rkbin/rk3588_ddr_lp4_2112MHz_lp5_2736MHz_v1.08.bin'
+
+    # branch name is yyyy.mm[-rc]
+    local branch="$(echo "$utag" | grep -Po '\d{4}\.\d{2}(.*-rc\d)*')"
+    echo "${bld}branch: $branch${rst}"
 
     if is_param 'clean' "$@"; then
         rm -f *.img *.itb
         if [ -d u-boot ]; then
-            rm -f u-boot/simple-bin.fit.*
+            rm -f 'u-boot/mkimage-in-simple-bin'*
+            rm -f 'u-boot/simple-bin.fit'*
             make -C u-boot distclean
             git -C u-boot clean -f
             git -C u-boot checkout master
@@ -44,14 +48,14 @@ main() {
     fi
 
     # outputs: idbloader.img, u-boot.itb
-    rm -f idbloader.img u-boot.itb
+    rm -f 'idbloader.img' 'u-boot.itb'
     if ! is_param 'inc' "$@"; then
         make -C u-boot distclean
         make -C u-boot rock5b-rk3588_defconfig
     fi
     make -C u-boot -j$(nproc) BL31="$atf_file" ROCKCHIP_TPL="$tpl_file"
-    ln -sfv u-boot/idbloader.img
-    ln -sfv u-boot/u-boot.itb
+    ln -sfv 'u-boot/idbloader.img'
+    ln -sfv 'u-boot/u-boot.itb'
 
     is_param 'cp' "$@" && cp_to_debian
 
@@ -61,10 +65,8 @@ main() {
     echo "  ${cya}sudo dd bs=4K seek=2048 if=u-boot.itb of=/dev/sdX conv=notrunc,fsync${rst}"
     echo
     echo "${blu}optionally, flash to spi (apt install mtd-utils):${rst}"
-    echo
-    echo "  ${blu}flash u-boot to spi:${rst}"
-    echo "    ${blu}sudo flashcp -Av idbloader.img /dev/mtd0${rst}"
-    echo "    ${blu}sudo flashcp -Av u-boot.itb /dev/mtd2${rst}"
+    echo "  ${blu}sudo flashcp -Av idbloader.img /dev/mtd0${rst}"
+    echo "  ${blu}sudo flashcp -Av u-boot.itb /dev/mtd2${rst}"
     echo
 }
 

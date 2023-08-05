@@ -1,0 +1,26 @@
+From c80d51b0c01c7e383d59be22a66f69b1c73b78d8 Mon Sep 17 00:00:00 2001
+From: John Clark <inindev@gmail.com>
+Date: Thu, 3 Aug 2023 23:24:41 +0000
+Subject: [PATCH 10/11] disable M.2 E-key slot (pcie2x1l0 / pcie@fe170000)
+
+Signed-off-by: John Clark <inindev@gmail.com>
+---
+ arch/arm/dts/rk3588-rock-5b.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/dts/rk3588-rock-5b.dts b/arch/arm/dts/rk3588-rock-5b.dts
+index 1d34c0090b..f61f2d58a6 100644
+--- a/arch/arm/dts/rk3588-rock-5b.dts
++++ b/arch/arm/dts/rk3588-rock-5b.dts
+@@ -345,7 +345,7 @@
+ 	vpcie3v3-supply = <&vcc3v3_pcie2x1l0>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pcie2_0_rst>;
+-	status = "okay";
++//	status = "okay";
+ };
+ 
+ &pcie2x1l2 {
+-- 
+2.40.1
+
