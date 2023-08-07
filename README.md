@@ -1,9 +1,10 @@
 # rock-5b
 #### *Debian ARM64 Linux for the Radxa Rock 5 Model B*
 
-This Debian ARM64 Linux image is built directly from official packages using the Debian [Debootstrap](https://wiki.debian.org/Debootstrap) utility, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L123
+This Debian ARM64 Linux image is built directly from official packages using the Debian [Debootstrap](https://wiki.debian.org/Debootstrap) utility, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L119
 
-Most patches are directly available from the Debian repos using the built-in ```apt``` package manager, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L362
+Most patches are directly available from the Debian repos using the built-in ```apt``` package manager, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L351-L358
+
 * Note: The kernel in this bundle is from kernel.org and will not get updates from debian.
 
 <br/>
@@ -15,7 +16,7 @@ Most patches are directly available from the Debian repos using the built-in ```
 
 **1. download image**
 ```
-wget https://github.com/inindev/rock-5b/releases/download/v12.0-6.5-rc1/rock-5b_bookworm-6.5-rc1.img.xz
+wget https://github.com/inindev/rock-5b/releases/download/v13-6.5-rc5/rock-5b_trixie-6.5-rc5.img.xz
 ```
 
 <br/>
@@ -39,7 +40,7 @@ brw-rw---- 1 root disk 8, 0 Jul 15 10:33 /dev/sda
 
 **3. in the case above, substitute 'a' for 'X' in the command below (for /dev/sda)**
 ```
-sudo sh -c 'xzcat rock-5b_bookworm-6.5-rc1.img.xz > /dev/sdX && sync'
+sudo sh -c 'xzcat rock-5b_trixie-6.5-rc5.img.xz > /dev/sdX && sync'
 ```
 
 #### when the micro sd has finished imaging, eject it and boot the rock 5b to finish setup
@@ -99,8 +100,8 @@ sudo nano /etc/hosts
 
 **1. while booted from mmc, download and copy the image file on to the ssd media**
 ```
-wget https://github.com/inindev/rock-5b/releases/download/v12.0-6.5-rc1/rock-5b_bookworm-6.5-rc1.img.xz
-sudo sh -c 'xzcat rock-5b_bookworm-6.5-rc1.img.xz > /dev/nvme0n1 && sync'
+wget https://github.com/inindev/rock-5b/releases/download/v13-6.5-rc5/rock-5b_trixie-6.5-rc5.img.xz
+sudo sh -c 'xzcat rock-5b_trixie-6.5-rc5.img.xz > /dev/nvme0n1 && sync'
 ```
 
 <br/>
