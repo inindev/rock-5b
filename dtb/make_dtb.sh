@@ -36,8 +36,8 @@ main() {
     if ! [ -d "linux-$lv" ]; then
         tar xavf "$lf" "linux-$lv/include/dt-bindings" "linux-$lv/include/uapi" "$rkpath"
 
-        local patch patches="$(find patches -maxdepth 1 -name '*.patch' 2>/dev/null || true)"
-        for patch in $patches; do
+        local patch
+        for patch in patches/*.patch; do
             patch -p1 -d "linux-$lv" -i "../$patch"
         done
     fi
