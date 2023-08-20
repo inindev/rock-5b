@@ -1,7 +1,7 @@
-From 768c090b29413ed47a485ea2f738360ddc492f6a Mon Sep 17 00:00:00 2001
+From e44d1258d3244c5c86401b1bfa147e023599602f Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 18 Jul 2023 18:57:15 +0200
-Subject: [PATCH 49/79] arm64: dts: rockchip: rk3588s: Add USB3 host controller
+Subject: [PATCH 49/81] arm64: dts: rockchip: rk3588s: Add USB3 host controller
 
 RK3588 has three USB3 controllers. This adds the host-only controller,
 which is using the naneng-combphy shared with PCIe and SATA.
@@ -15,7 +15,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 21 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-index b9b5092..5cda58e 100644
+index b9b509257..5cda58ea5 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 @@ -443,6 +443,27 @@ usb_host1_ohci: usb@fc8c0000 {

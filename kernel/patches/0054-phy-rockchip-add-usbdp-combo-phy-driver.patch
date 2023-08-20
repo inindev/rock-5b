@@ -1,7 +1,7 @@
-From 1c61067b2a510572040b1bb54dc12aa773a9f6f7 Mon Sep 17 00:00:00 2001
+From 23a904555555dc6e857dd1db1007a9bffeed791a Mon Sep 17 00:00:00 2001
 From: Frank Wang <frank.wang@rock-chips.com>
 Date: Tue, 25 Apr 2023 15:55:54 +0200
-Subject: [PATCH 54/79] phy: rockchip: add usbdp combo phy driver
+Subject: [PATCH 54/81] phy: rockchip: add usbdp combo phy driver
 
 This adds a new USBDP combo PHY with Samsung IP block driver.
 
@@ -25,7 +25,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  create mode 100644 drivers/phy/rockchip/phy-rockchip-usbdp.c
 
 diff --git a/drivers/phy/rockchip/Kconfig b/drivers/phy/rockchip/Kconfig
-index 94360fc..d21b458 100644
+index 94360fc96..d21b458c1 100644
 --- a/drivers/phy/rockchip/Kconfig
 +++ b/drivers/phy/rockchip/Kconfig
 @@ -107,3 +107,15 @@ config PHY_ROCKCHIP_USB
@@ -45,7 +45,7 @@ index 94360fc..d21b458 100644
 +	  To compile this driver as a module, choose M here: the module
 +	  will be called phy-rockchip-usbdp
 diff --git a/drivers/phy/rockchip/Makefile b/drivers/phy/rockchip/Makefile
-index 7eab129..25d2e13 100644
+index 7eab12923..25d2e1355 100644
 --- a/drivers/phy/rockchip/Makefile
 +++ b/drivers/phy/rockchip/Makefile
 @@ -11,3 +11,4 @@ obj-$(CONFIG_PHY_ROCKCHIP_PCIE)		+= phy-rockchip-pcie.o
@@ -55,7 +55,7 @@ index 7eab129..25d2e13 100644
 +obj-$(CONFIG_PHY_ROCKCHIP_USBDP)	+= phy-rockchip-usbdp.o
 diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
 new file mode 100644
-index 0000000..414081b
+index 000000000..414081b12
 --- /dev/null
 +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
 @@ -0,0 +1,1728 @@

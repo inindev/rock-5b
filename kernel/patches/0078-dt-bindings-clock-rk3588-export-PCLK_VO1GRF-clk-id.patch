@@ -1,0 +1,32 @@
+From ed27c1b962fd14e9c9cf573095ad7ee95b34a2de Mon Sep 17 00:00:00 2001
+From: Elaine Zhang <zhangqing@rock-chips.com>
+Date: Wed, 2 Aug 2023 15:20:37 +0800
+Subject: [PATCH 78/81] dt-bindings: clock: rk3588: export PCLK_VO1GRF clk id
+
+add PCLK_VO1GRF clk id.
+
+Signed-off-by: Elaine Zhang <zhangqing@rock-chips.com>
+Link: https://lore.kernel.org/r/20230802072038.29996-4-zhangqing@rock-chips.com
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ include/dt-bindings/clock/rockchip,rk3588-cru.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/include/dt-bindings/clock/rockchip,rk3588-cru.h b/include/dt-bindings/clock/rockchip,rk3588-cru.h
+index b5616bca7..864a321ab 100644
+--- a/include/dt-bindings/clock/rockchip,rk3588-cru.h
++++ b/include/dt-bindings/clock/rockchip,rk3588-cru.h
+@@ -733,8 +733,9 @@
+ #define ACLK_AV1_PRE			718
+ #define PCLK_AV1_PRE			719
+ #define HCLK_SDIO_PRE			720
++#define PCLK_VO1GRF			721
+ 
+-#define CLK_NR_CLKS			(HCLK_SDIO_PRE + 1)
++#define CLK_NR_CLKS			(PCLK_VO1GRF + 1)
+ 
+ /* scmi-clocks indices */
+ 
+-- 
+2.40.1
+

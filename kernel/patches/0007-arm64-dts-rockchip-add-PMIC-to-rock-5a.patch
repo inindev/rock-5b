@@ -1,7 +1,7 @@
-From 26bce2ee09e282e08f2da7e13debdf6dbe548326 Mon Sep 17 00:00:00 2001
+From 91148b2354c8ddcca446c336ea0bf25496c3a05b Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 10 Jul 2023 18:52:18 +0200
-Subject: [PATCH 07/79] arm64: dts: rockchip: add PMIC to rock-5a
+Subject: [PATCH 07/81] arm64: dts: rockchip: add PMIC to rock-5a
 
 This adds PMIC support for the Radxa ROCK 5A
 
@@ -15,7 +15,7 @@ Signed-off-by: Heiko Stuebner <heiko@sntech.de>
  1 file changed, 366 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
-index 9018255..e772b9a 100644
+index 901825514..e772b9a9b 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
 @@ -18,6 +18,51 @@ aliases {

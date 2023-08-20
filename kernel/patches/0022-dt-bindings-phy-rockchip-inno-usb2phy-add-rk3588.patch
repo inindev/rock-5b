@@ -1,7 +1,7 @@
-From 88a2fa5b5b5c57b81d1250edca32f724663c4df8 Mon Sep 17 00:00:00 2001
+From a9f011c5343740a30cdca1bdb0186ed4ab4238fb Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 30 Mar 2023 16:25:20 +0200
-Subject: [PATCH 22/79] dt-bindings: phy: rockchip,inno-usb2phy: add rk3588
+Subject: [PATCH 22/81] dt-bindings: phy: rockchip,inno-usb2phy: add rk3588
 
 Add compatible for the USB2 phy in the Rockchip RK3588 SoC.
 
@@ -12,7 +12,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 18 insertions(+), 3 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/phy/rockchip,inno-usb2phy.yaml b/Documentation/devicetree/bindings/phy/rockchip,inno-usb2phy.yaml
-index 0d6b8c2..5254413 100644
+index 0d6b8c28b..525441313 100644
 --- a/Documentation/devicetree/bindings/phy/rockchip,inno-usb2phy.yaml
 +++ b/Documentation/devicetree/bindings/phy/rockchip,inno-usb2phy.yaml
 @@ -20,6 +20,7 @@ properties:

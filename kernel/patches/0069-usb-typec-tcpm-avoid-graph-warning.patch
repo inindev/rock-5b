@@ -1,7 +1,7 @@
-From 0a2bbb370d03c5ce6d55bc0f50a759cb1cd3acc2 Mon Sep 17 00:00:00 2001
+From ae7ce393f1b6c05a3198b4b2c6b05b5274ec8499 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Fri, 28 Jul 2023 16:43:16 +0200
-Subject: [PATCH 71/79] usb: typec: tcpm: avoid graph warning
+Subject: [PATCH 69/81] usb: typec: tcpm: avoid graph warning
 
 When using a devicetree as described in commit d56de8c9a17d ("usb:
 typec: tcpm: try to get role switch from tcpc fwnode"), the kernel
@@ -27,10 +27,10 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-index 829d75e..6f505f4 100644
+index cc1d83926..ae0695f08 100644
 --- a/drivers/usb/typec/tcpm/tcpm.c
 +++ b/drivers/usb/typec/tcpm/tcpm.c
-@@ -6615,9 +6615,9 @@ struct tcpm_port *tcpm_register_port(struct device *dev, struct tcpc_dev *tcpc)
+@@ -6622,9 +6622,9 @@ struct tcpm_port *tcpm_register_port(struct device *dev, struct tcpc_dev *tcpc)
  	port->partner_desc.identity = &port->partner_ident;
  	port->port_type = port->typec_caps.type;
  

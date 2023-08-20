@@ -1,41 +1,41 @@
-From 470c118e05103d17fc4846296e1a02f79a8e6db9 Mon Sep 17 00:00:00 2001
+From 0d6100dbe9b2e468863244f84fecb88111918f1f Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 25 May 2023 19:48:49 +0200
-Subject: [PATCH 66/79] arm64: dts: rockchip: rk3588-evb1: add cpu mem
- regulator info
+Date: Mon, 24 Jul 2023 15:07:49 +0200
+Subject: [PATCH 66/81] arm64: dts: rockchip: rock5b: add cpu mem regulator
+ info
 
 Add the second supply regulator for the CPU cores, which is used
 for supplying the memory interface.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 8 ++++++++
+ arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts | 8 ++++++++
  1 file changed, 8 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-index aa484be..931bdc2 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-@@ -159,34 +159,42 @@ &combphy2_psu {
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
+index 40b6996ae..574b8fc53 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
+@@ -128,34 +128,42 @@ &combphy2_psu {
  
  &cpu_b0 {
  	cpu-supply = <&vdd_cpu_big0_s0>;
-+	mem-supply = <&vdd_cpu_big0_mem_s0>;
++	mem-supply = <&vdd_cpu_big0_s0>;
  };
  
  &cpu_b1 {
  	cpu-supply = <&vdd_cpu_big0_s0>;
-+	mem-supply = <&vdd_cpu_big0_mem_s0>;
++	mem-supply = <&vdd_cpu_big0_s0>;
  };
  
  &cpu_b2 {
  	cpu-supply = <&vdd_cpu_big1_s0>;
-+	mem-supply = <&vdd_cpu_big1_mem_s0>;
++	mem-supply = <&vdd_cpu_big1_s0>;
  };
  
  &cpu_b3 {
  	cpu-supply = <&vdd_cpu_big1_s0>;
-+	mem-supply = <&vdd_cpu_big1_mem_s0>;
++	mem-supply = <&vdd_cpu_big1_s0>;
  };
  
  &cpu_l0 {
@@ -58,7 +58,7 @@ index aa484be..931bdc2 100644
 +	mem-supply = <&vdd_cpu_lit_mem_s0>;
  };
  
- &gmac0 {
+ &i2c0 {
 -- 
 2.40.1
 

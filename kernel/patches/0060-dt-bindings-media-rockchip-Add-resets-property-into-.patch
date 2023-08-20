@@ -1,7 +1,7 @@
-From 029482d352c41bc9ea43c749ad6db8e22ef7f3bb Mon Sep 17 00:00:00 2001
+From 1294e70c10c62d2d51f5e50bf5c81459c7d8a2c1 Mon Sep 17 00:00:00 2001
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Date: Mon, 12 Jun 2023 14:57:58 +0200
-Subject: [PATCH 61/79] dt-bindings: media: rockchip: Add resets property into
+Subject: [PATCH 60/81] dt-bindings: media: rockchip: Add resets property into
  decoder node
 
 RK3588 AV1 decoder hardware block have resets lines and driver code
@@ -14,7 +14,7 @@ Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/media/rockchip-vpu.yaml b/Documentation/devicetree/bindings/media/rockchip-vpu.yaml
-index 772ec32..52c7c84 100644
+index 772ec3283..52c7c8404 100644
 --- a/Documentation/devicetree/bindings/media/rockchip-vpu.yaml
 +++ b/Documentation/devicetree/bindings/media/rockchip-vpu.yaml
 @@ -68,6 +68,9 @@ properties:

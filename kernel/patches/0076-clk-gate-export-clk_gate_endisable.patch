@@ -1,0 +1,51 @@
+From 4270d7830f734a556cca8ed7c4b0f64e8028aa6b Mon Sep 17 00:00:00 2001
+From: Elaine Zhang <zhangqing@rock-chips.com>
+Date: Wed, 2 Aug 2023 15:20:35 +0800
+Subject: [PATCH 76/81] clk: gate: export clk_gate_endisable
+
+make clk_gate_endisable not static, export API for other use.
+
+Signed-off-by: Elaine Zhang <zhangqing@rock-chips.com>
+Link: https://lore.kernel.org/r/20230802072038.29996-2-zhangqing@rock-chips.com
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/clk/clk-gate.c       | 3 ++-
+ include/linux/clk-provider.h | 1 +
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/clk/clk-gate.c b/drivers/clk/clk-gate.c
+index 642838076..5a9d10370 100644
+--- a/drivers/clk/clk-gate.c
++++ b/drivers/clk/clk-gate.c
+@@ -53,7 +53,7 @@ static inline void clk_gate_writel(struct clk_gate *gate, u32 val)
+  *
+  * So, result is always: enable xor set2dis.
+  */
+-static void clk_gate_endisable(struct clk_hw *hw, int enable)
++void clk_gate_endisable(struct clk_hw *hw, int enable)
+ {
+ 	struct clk_gate *gate = to_clk_gate(hw);
+ 	int set = gate->flags & CLK_GATE_SET_TO_DISABLE ? 1 : 0;
+@@ -87,6 +87,7 @@ static void clk_gate_endisable(struct clk_hw *hw, int enable)
+ 	else
+ 		__release(gate->lock);
+ }
++EXPORT_SYMBOL_GPL(clk_gate_endisable);
+ 
+ static int clk_gate_enable(struct clk_hw *hw)
+ {
+diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
+index 0f0cd0190..2d36404c1 100644
+--- a/include/linux/clk-provider.h
++++ b/include/linux/clk-provider.h
+@@ -630,6 +630,7 @@ struct clk *clk_register_gate(struct device *dev, const char *name,
+ void clk_unregister_gate(struct clk *clk);
+ void clk_hw_unregister_gate(struct clk_hw *hw);
+ int clk_gate_is_enabled(struct clk_hw *hw);
++void clk_gate_endisable(struct clk_hw *hw, int enable);
+ 
+ struct clk_div_table {
+ 	unsigned int	val;
+-- 
+2.40.1
+

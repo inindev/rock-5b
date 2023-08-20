@@ -1,7 +1,7 @@
-From cf1d0cb9fd0672b6be0a0c675dec54a6edaefef0 Mon Sep 17 00:00:00 2001
+From 62ec271bc8c306567ab49bbb7f681997afc5f7d1 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 10 Jul 2023 18:52:26 +0200
-Subject: [PATCH 15/79] arm64: dts: rockchip: enable I2C interface from DSI and
+Subject: [PATCH 15/81] arm64: dts: rockchip: enable I2C interface from DSI and
  CSI connectors on rock-5a
 
 I2C3 is routed to the Camera connector and I2C5 is routed to the LCD
@@ -16,7 +16,7 @@ Signed-off-by: Heiko Stuebner <heiko@sntech.de>
  1 file changed, 10 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
-index 505e3c0..956b27a 100644
+index 505e3c0a1..956b27a03 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
 @@ -190,6 +190,16 @@ eeprom: eeprom@50 {

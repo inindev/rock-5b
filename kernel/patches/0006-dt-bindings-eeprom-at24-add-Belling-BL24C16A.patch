@@ -1,7 +1,7 @@
-From f0af2546c7bfeab63617b56b66d5864f2eadcfa0 Mon Sep 17 00:00:00 2001
+From d549f8b4e5a24834a7d7cd63dd4920ca192ee549 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Mon, 10 Jul 2023 18:52:17 +0200
-Subject: [PATCH 06/79] dt-bindings: eeprom: at24: add Belling BL24C16A
+Subject: [PATCH 06/81] dt-bindings: eeprom: at24: add Belling BL24C16A
 
 Add binding for Belling BL24C16A, which is compatible with Atmel 24C16.
 
@@ -14,7 +14,7 @@ Signed-off-by: Heiko Stuebner <heiko@sntech.de>
  1 file changed, 3 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/eeprom/at24.yaml b/Documentation/devicetree/bindings/eeprom/at24.yaml
-index 84af0d5..2ec37c1 100644
+index 84af0d5f5..2ec37c112 100644
 --- a/Documentation/devicetree/bindings/eeprom/at24.yaml
 +++ b/Documentation/devicetree/bindings/eeprom/at24.yaml
 @@ -101,6 +101,9 @@ properties:

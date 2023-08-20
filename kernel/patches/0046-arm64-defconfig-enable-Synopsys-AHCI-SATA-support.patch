@@ -1,7 +1,7 @@
-From e7da4c49d42f8623604281ed3db24ba32f53f57f Mon Sep 17 00:00:00 2001
+From 18fe66156850d434aaf98c2390c4d3cce92aee1a Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 25 Jul 2023 15:47:18 +0200
-Subject: [PATCH 46/79] arm64: defconfig: enable Synopsys AHCI SATA support
+Subject: [PATCH 46/81] arm64: defconfig: enable Synopsys AHCI SATA support
 
 Enable support for the DesignWare AHCI Host Controller. It is used
 by recent Rockchip SoCs.
@@ -12,7 +12,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index 022d002..32c4473 100644
+index 022d0026d..32c44738c 100644
 --- a/arch/arm64/configs/defconfig
 +++ b/arch/arm64/configs/defconfig
 @@ -299,6 +299,7 @@ CONFIG_SATA_AHCI=y

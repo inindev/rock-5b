@@ -1,7 +1,7 @@
-From 648a987d974f254a257d7de3ffa5bf9375b78b7f Mon Sep 17 00:00:00 2001
+From df6ec59ae74d3af97dbacf2d37c9377b6a5c26b4 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 20 Jul 2023 18:59:37 +0200
-Subject: [PATCH 48/79] usb: dwc3: add optional PHY interface clocks
+Subject: [PATCH 48/81] usb: dwc3: add optional PHY interface clocks
 
 On Rockchip RK3588 one of the DWC3 cores is integrated weirdly and
 requires two extra clocks to be enabled. Without these extra clocks
@@ -14,7 +14,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  2 files changed, 30 insertions(+)
 
 diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
-index 9c6bf05..fc60d5f 100644
+index 9c6bf054f..fc60d5f56 100644
 --- a/drivers/usb/dwc3/core.c
 +++ b/drivers/usb/dwc3/core.c
 @@ -817,8 +817,20 @@ static int dwc3_clk_enable(struct dwc3 *dwc)
@@ -67,7 +67,7 @@ index 9c6bf05..fc60d5f 100644
  }
  
 diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
-index a69ac67..f5e6ae6 100644
+index a69ac67d8..f5e6ae6e3 100644
 --- a/drivers/usb/dwc3/core.h
 +++ b/drivers/usb/dwc3/core.h
 @@ -991,6 +991,8 @@ struct dwc3_scratchpad_array {
