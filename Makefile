@@ -2,16 +2,17 @@
 LDIST ?= $(shell cat "debian/make_debian_img.sh" | sed -n 's/\s*local deb_dist=.\([[:alpha:]]\+\)./\1/p')
 
 
-all: uboot dtb debian kernel
+all: screen uboot dtb debian
 	@echo "all binaries ready"
 
-debian: uboot dtb debian/mmc_2g.img
+debian: screen uboot dtb debian/mmc_2g.img kernel
+	sudo sh debian/install_kernel.sh
 	@echo "debian image ready"
 
 dtb: dtb/rk3588-rock-5b.dtb
 	@echo "device tree binaries ready"
 
-kernel: kernel/linux-image-*_arm64.deb
+kernel: screen kernel/linux-image-*_arm64.deb
 	@echo "kernel package is ready"
 
 uboot: uboot/idbloader.img uboot/u-boot.itb
@@ -37,6 +38,11 @@ clean:
 	sh uboot/make_uboot.sh clean
 	@echo "all targets clean"
 
+screen:
+ifeq ($(origin STY), undefined)
+	$(error please start a screen session)
+endif
+
 debian/mmc_2g.img:
 	sudo sh debian/make_debian_img.sh nocomp
 
@@ -44,12 +50,12 @@ dtb/rk3588-rock-5b.dtb:
 	sh dtb/make_dtb.sh cp
 
 kernel/linux-image-*_arm64.deb:
-	@echo need to build kernel
-#	sh kernel/make_kernel.sh
+	sh kernel/make_kernel.sh
 
 uboot/idbloader.img uboot/u-boot.itb:
 	sh uboot/make_uboot.sh cp
 
 
-.PHONY: debian dtb uboot all package-* clean
+.PHONY: debian dtb kernel uboot all package-* clean screen
+
 
