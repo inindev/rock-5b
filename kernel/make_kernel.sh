@@ -18,8 +18,8 @@ config_fixups() {
 }
 
 main() {
-    local linux='https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.5.tar.xz'
-    local lxsha='7a574bbc20802ea76b52ca7faf07267f72045e861b18915c5272a98c27abf884'
+    local linux='https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.5.2.tar.xz'
+    local lxsha='2027e14057d568ad3ddc100dadf4c8853a49b031270478a61d88f6011572650f'
 
     local lf="$(basename "$linux")"
     local lv="$(echo "$lf" | sed -nE 's/linux-(.*)\.tar\..z/\1/p')"
@@ -52,7 +52,7 @@ main() {
 
     if [ ! -d "kernel-$lv/linux-$lv" ]; then
         tar -C "kernel-$lv" -xavf "kernel-$lv/$lf"
-
+exit 1
         for patch in patches/*.patch; do
             patch -p1 -d "kernel-$lv/linux-$lv" -i "../../$patch"
         done
