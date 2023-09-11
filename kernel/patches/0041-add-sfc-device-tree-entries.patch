@@ -1,7 +1,7 @@
-From 449014e07153a0f10ba8c060e0dd121ac46f1a68 Mon Sep 17 00:00:00 2001
+From ec7e253c33dc0b7e2c7448c6affca8d142b7508a Mon Sep 17 00:00:00 2001
 From: John Clark <inindev@gmail.com>
 Date: Sat, 24 Jun 2023 01:10:07 +0000
-Subject: [PATCH 2/2] add sfc device tree entries
+Subject: [PATCH 41/41] add sfc device tree entries
 
 Signed-off-by: John Clark <inindev@gmail.com>
 ---
@@ -10,10 +10,10 @@ Signed-off-by: John Clark <inindev@gmail.com>
  2 files changed, 52 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
-index 8ab6096..7716263 100644
+index b08dfe0..910ec36 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
-@@ -258,6 +258,49 @@
+@@ -457,6 +457,49 @@ &sdmmc {
  	status = "okay";
  };
  
@@ -67,7 +67,7 @@ diff --git a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi b/arch/arm64/boot/dts/roc
 index b1ee517..ac52c10 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-@@ -1915,6 +1915,15 @@
+@@ -1915,6 +1915,15 @@ gmac1_mtl_tx_setup: tx-queues-config {
  		};
  	};
  
