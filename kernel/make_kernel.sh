@@ -18,8 +18,8 @@ config_fixups() {
 }
 
 main() {
-    local linux='https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.5.2.tar.xz'
-    local lxsha='2027e14057d568ad3ddc100dadf4c8853a49b031270478a61d88f6011572650f'
+    local linux='https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.5.5.tar.xz'
+    local lxsha='8cf10379f7df8ea731e09bff3d0827414e4b643dd41dc99d0af339669646ef95'
 
     local lf="$(basename "$linux")"
     local lv="$(echo "$lf" | sed -nE 's/linux-(.*)\.tar\..z/\1/p')"
@@ -73,12 +73,12 @@ main() {
     local bv="$(expr "$(cat "kernel-$lv/linux-$lv/.version" 2>/dev/null || echo 0)" + 1 2>/dev/null)"
     export SOURCE_DATE_EPOCH="$(stat -c %Y "kernel-$lv/linux-$lv/README")"
     export KDEB_CHANGELOG_DIST='stable'
-    export KBUILD_BUILD_TIMESTAMP="$(date -d @$SOURCE_DATE_EPOCH)"
-    export KBUILD_BUILD_HOST='build-host'
-    export KBUILD_BUILD_USER='debian-build'
+    export KBUILD_BUILD_TIMESTAMP="Debian $kv-$bv $(date -d @$SOURCE_DATE_EPOCH +'(%Y-%m-%d)')"
+    export KBUILD_BUILD_HOST='github.com/inindev'
+    export KBUILD_BUILD_USER='linux-kernel'
     export KBUILD_BUILD_VERSION="$bv"
 
-    nice make -C "kernel-$lv/linux-$lv" -j"$(nproc)" bindeb-pkg KBUILD_IMAGE='arch/arm64/boot/Image' LOCALVERSION="-$bv-arm64"
+    nice make -C "kernel-$lv/linux-$lv" -j"$(nproc)" CC='gcc-13' bindeb-pkg KBUILD_IMAGE='arch/arm64/boot/Image' LOCALVERSION="-$bv-arm64"
     echo "\n${cya}kernel package ready${mag}"
     ln -sfv "kernel-$lv/linux-image-$kv-$bv-arm64_$kv-${bv}_arm64.deb"
     echo "${rst}"
