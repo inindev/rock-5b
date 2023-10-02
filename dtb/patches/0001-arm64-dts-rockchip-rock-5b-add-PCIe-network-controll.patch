@@ -1,7 +1,7 @@
-From e32b5714b3c9a40a3e708eefb729d3a1f6eaf414 Mon Sep 17 00:00:00 2001
+From acf507f05ccb104ceabf68a05f49a9912667cd78 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 28 Feb 2023 14:40:59 +0000
-Subject: [PATCH 01/16] arm64: dts: rockchip: rock-5b: add PCIe network
+Subject: [PATCH 01/15] arm64: dts: rockchip: rock-5b: add PCIe network
  controller
 
 Enable the RTL8125 network controller, which is connected via

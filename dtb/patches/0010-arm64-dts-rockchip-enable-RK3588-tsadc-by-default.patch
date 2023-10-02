@@ -1,7 +1,7 @@
-From a36d90c25babafff818bdfe340acfd861342061e Mon Sep 17 00:00:00 2001
+From 338a25e0912bd7dd5575bbc25489cb7e4eec4fc8 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 25 May 2023 19:45:02 +0200
-Subject: [PATCH 10/16] arm64: dts: rockchip: enable RK3588 tsadc by default
+Subject: [PATCH 10/15] arm64: dts: rockchip: enable RK3588 tsadc by default
 
 Enable the thermal ADC for all boards.
 

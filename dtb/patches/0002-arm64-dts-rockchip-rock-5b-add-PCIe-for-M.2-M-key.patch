@@ -1,7 +1,7 @@
-From 6569e483edab27bf8cb164d718be02aa76cc6cbc Mon Sep 17 00:00:00 2001
+From bc63813f2ab70b5173d7eb9c8944063ab0d39430 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Fri, 14 Jul 2023 19:19:29 +0200
-Subject: [PATCH 02/16] arm64: dts: rockchip: rock-5b: add PCIe for M.2 M-key
+Subject: [PATCH 02/15] arm64: dts: rockchip: rock-5b: add PCIe for M.2 M-key
 
 The Radxa Rock 5B has PCIe 3x4 routed to its M.2 M-key connector
 on the board's back.
