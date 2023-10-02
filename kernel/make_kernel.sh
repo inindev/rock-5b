@@ -18,8 +18,8 @@ config_fixups() {
 }
 
 main() {
-    local linux='https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/snapshot/linux-6.6-rc3.tar.gz'
-    local lxsha='0044724ea1991ff1592f5959ea113aa6a9fcd3ac415d5c48e65e592dae864f91'
+    local linux='https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/snapshot/linux-6.6-rc4.tar.gz'
+    local lxsha='f5bfa3cb0d889f136b92b88e31013e34a31fb66d7733d38ea119bdb6e8129f59'
 
     local lf="$(basename "$linux")"
     local lv="$(echo "$lf" | sed -nE 's/linux-(.*)\.tar\..z/\1/p')"
@@ -72,13 +72,13 @@ main() {
     local kv="$(make --no-print-directory -C "kernel-$lv/linux-$lv" kernelversion)"
     local bv="$(expr "$(cat "kernel-$lv/linux-$lv/.version" 2>/dev/null || echo 0)" + 1 2>/dev/null)"
     export SOURCE_DATE_EPOCH="$(stat -c %Y "kernel-$lv/linux-$lv/README")"
-    export KDEB_CHANGELOG_DIST='stable'
-    export KBUILD_BUILD_TIMESTAMP="$(date -d @$SOURCE_DATE_EPOCH)"
-    export KBUILD_BUILD_HOST='build-host'
-    export KBUILD_BUILD_USER='debian-build'
+    export KDEB_CHANGELOG_DIST='testing'
+    export KBUILD_BUILD_TIMESTAMP="Debian $kv-$bv $(date -d @$SOURCE_DATE_EPOCH +'(%Y-%m-%d)')"
+    export KBUILD_BUILD_HOST='github.com/inindev'
+    export KBUILD_BUILD_USER='linux-kernel'
     export KBUILD_BUILD_VERSION="$bv"
 
-    nice make -C "kernel-$lv/linux-$lv" -j"$(nproc)" bindeb-pkg KBUILD_IMAGE='arch/arm64/boot/Image' LOCALVERSION="-$bv-arm64"
+    nice make -C "kernel-$lv/linux-$lv" -j"$(nproc)" CC="$(readlink /usr/bin/gcc)" bindeb-pkg KBUILD_IMAGE='arch/arm64/boot/Image' LOCALVERSION="-$bv-arm64"
     echo "\n${cya}kernel package ready${mag}"
     ln -sfv "kernel-$lv/linux-image-$kv-$bv-arm64_$kv-${bv}_arm64.deb"
     echo "${rst}"

@@ -1,124 +1,22 @@
-From f42d9043334ed9252bd37f436afb9d47aab6a141 Mon Sep 17 00:00:00 2001
-From: John Clark <inindev@gmail.com>
-Date: Mon, 11 Sep 2023 00:05:06 +0000
-Subject: [PATCH 1/2] rk3588.dtsi & rk3588s.dtsi patches from
- kernel/git/sre/linux-misc.git not included in linux 6.6-rc1
+From c610457b6495439418142774d2aa4fc60b0d12b9 Mon Sep 17 00:00:00 2001
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Tue, 4 Apr 2023 17:30:46 +0200
+Subject: [PATCH 09/16] arm64: dts: rockchip: rk3588: add cpu frequency scaling
+ support
 
-Signed-off-by: John Clark <inindev@gmail.com>
+Add required bits for CPU frequency scaling to the Rockchip 3588
+devicetree. This is missing the 2.4 GHz operating point for the
+big cpu clusters, since that does not work well on all SoCs.
+Downstream has a driver for PVTM, which reduces the requested
+frequencies based on (among other things) silicon quality.
+
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588.dtsi  |  82 +++
- arch/arm64/boot/dts/rockchip/rk3588s.dtsi | 583 +++++++++++++++++++++-
- 2 files changed, 664 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/rockchip/rk3588s.dtsi | 452 ++++++++++++++++++++++
+ 1 file changed, 452 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588.dtsi b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
-index 5519c14..900ac03 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
-@@ -7,6 +7,26 @@
- #include "rk3588-pinctrl.dtsi"
- 
- / {
-+	usb_host1_xhci: usb@fc400000 {
-+		compatible = "rockchip,rk3588-dwc3", "snps,dwc3";
-+		reg = <0x0 0xfc400000 0x0 0x400000>;
-+		interrupts = <GIC_SPI 221 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru REF_CLK_USB3OTG1>, <&cru SUSPEND_CLK_USB3OTG1>,
-+			 <&cru ACLK_USB3OTG1>;
-+		clock-names = "ref_clk", "suspend_clk", "bus_clk";
-+		dr_mode = "host";
-+		phys = <&u2phy1_otg>, <&usbdp_phy1_u3>;
-+		phy-names = "usb2-phy", "usb3-phy";
-+		phy_type = "utmi_wide";
-+		power-domains = <&power RK3588_PD_USB>;
-+		resets = <&cru SRST_A_USB3OTG1>;
-+		snps,dis_enblslpm_quirk;
-+		snps,dis-u2-freeclk-exists-quirk;
-+		snps,dis-del-phy-power-chg-quirk;
-+		snps,dis-tx-ipgap-linecheck-quirk;
-+		status = "disabled";
-+	};
-+
- 	pcie30_phy_grf: syscon@fd5b8000 {
- 		compatible = "rockchip,rk3588-pcie3-phy-grf", "syscon";
- 		reg = <0x0 0xfd5b8000 0x0 0x10000>;
-@@ -17,6 +37,37 @@
- 		reg = <0x0 0xfd5c0000 0x0 0x100>;
- 	};
- 
-+	usbdpphy1_grf: syscon@fd5cc000 {
-+		compatible = "rockchip,rk3588-usbdpphy-grf", "syscon";
-+		reg = <0x0 0xfd5cc000 0x0 0x4000>;
-+	};
-+
-+	usb2phy1_grf: syscon@fd5d4000 {
-+		compatible = "rockchip,rk3588-usb2phy-grf", "syscon",
-+			     "simple-mfd";
-+		reg = <0x0 0xfd5d4000 0x0 0x4000>;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+
-+		u2phy1: usb2-phy@4000 {
-+			compatible = "rockchip,rk3588-usb2phy";
-+			reg = <0x4000 0x10>;
-+			interrupts = <GIC_SPI 394 IRQ_TYPE_LEVEL_HIGH 0>;
-+			resets = <&cru SRST_OTGPHY_U3_1>, <&cru SRST_P_USB2PHY_U3_1_GRF0>;
-+			reset-names = "phy", "apb";
-+			clocks = <&cru CLK_USB2PHY_HDPTXRXPHY_REF>;
-+			clock-names = "phyclk";
-+			clock-output-names = "usb480m_phy1";
-+			#clock-cells = <0>;
-+			status = "disabled";
-+
-+			u2phy1_otg: otg-port {
-+				#phy-cells = <0>;
-+				status = "disabled";
-+			};
-+		};
-+	};
-+
- 	i2s8_8ch: i2s@fddc8000 {
- 		compatible = "rockchip,rk3588-i2s-tdm";
- 		reg = <0x0 0xfddc8000 0x0 0x1000>;
-@@ -310,6 +361,37 @@
- 		};
- 	};
- 
-+	usbdp_phy1: phy@fed90000 {
-+		compatible = "rockchip,rk3588-usbdp-phy";
-+		reg = <0x0 0xfed90000 0x0 0x10000>;
-+		rockchip,u2phy-grf = <&usb2phy1_grf>;
-+		rockchip,usb-grf = <&usb_grf>;
-+		rockchip,usbdpphy-grf = <&usbdpphy1_grf>;
-+		rockchip,vo-grf = <&vo0_grf>;
-+		clocks = <&cru CLK_USBDPPHY_MIPIDCPPHY_REF>,
-+			 <&cru CLK_USBDP_PHY1_IMMORTAL>,
-+			 <&cru PCLK_USBDPPHY1>,
-+			 <&u2phy1>;
-+		clock-names = "refclk", "immortal", "pclk", "utmi";
-+		resets = <&cru SRST_USBDP_COMBO_PHY1_INIT>,
-+			 <&cru SRST_USBDP_COMBO_PHY1_CMN>,
-+			 <&cru SRST_USBDP_COMBO_PHY1_LANE>,
-+			 <&cru SRST_USBDP_COMBO_PHY1_PCS>,
-+			 <&cru SRST_P_USBDPPHY1>;
-+		reset-names = "init", "cmn", "lane", "pcs_apb", "pma_apb";
-+		status = "disabled";
-+
-+		usbdp_phy1_dp: dp-port {
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+
-+		usbdp_phy1_u3: usb3-port {
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+	};
-+
- 	combphy1_ps: phy@fee10000 {
- 		compatible = "rockchip,rk3588-naneng-combphy";
- 		reg = <0x0 0xfee10000 0x0 0x100>;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-index 5544f66..b1ee517 100644
+index 155f64e..8dd39fa 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 @@ -10,6 +10,7 @@
@@ -640,62 +538,7 @@ index 5544f66..b1ee517 100644
  	timer {
  		compatible = "arm,armv8-timer";
  		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_HIGH 0>,
-@@ -399,6 +841,28 @@
- 		};
- 	};
- 
-+	usb_host0_xhci: usb@fc000000 {
-+		compatible = "rockchip,rk3588-dwc3", "snps,dwc3";
-+		reg = <0x0 0xfc000000 0x0 0x400000>;
-+		interrupts = <GIC_SPI 220 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru REF_CLK_USB3OTG0>, <&cru SUSPEND_CLK_USB3OTG0>,
-+			 <&cru ACLK_USB3OTG0>;
-+		clock-names = "ref_clk", "suspend_clk", "bus_clk";
-+		dr_mode = "otg";
-+		phys = <&u2phy0_otg>, <&usbdp_phy0_u3>;
-+		phy-names = "usb2-phy", "usb3-phy";
-+		phy_type = "utmi_wide";
-+		power-domains = <&power RK3588_PD_USB>;
-+		resets = <&cru SRST_A_USB3OTG0>;
-+		snps,dis_enblslpm_quirk;
-+		snps,dis-u1-entry-quirk;
-+		snps,dis-u2-entry-quirk;
-+		snps,dis-u2-freeclk-exists-quirk;
-+		snps,dis-del-phy-power-chg-quirk;
-+		snps,dis-tx-ipgap-linecheck-quirk;
-+		status = "disabled";
-+	};
-+
- 	usb_host0_ehci: usb@fc800000 {
- 		compatible = "rockchip,rk3588-ehci", "generic-ehci";
- 		reg = <0x0 0xfc800000 0x0 0x40000>;
-@@ -443,11 +907,42 @@
- 		status = "disabled";
- 	};
- 
-+	usb_host2_xhci: usb@fcd00000 {
-+		compatible = "rockchip,rk3588-dwc3", "snps,dwc3";
-+		reg = <0x0 0xfcd00000 0x0 0x400000>;
-+		interrupts = <GIC_SPI 222 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru REF_CLK_USB3OTG2>, <&cru SUSPEND_CLK_USB3OTG2>,
-+			 <&cru ACLK_USB3OTG2>, <&cru CLK_UTMI_OTG2>,
-+			 <&cru CLK_PIPEPHY2_PIPE_U3_G>;
-+		clock-names = "ref_clk", "suspend_clk", "bus_clk", "utmi", "pipe";
-+		dr_mode = "host";
-+		phys = <&combphy2_psu PHY_TYPE_USB3>;
-+		phy-names = "usb3-phy";
-+		phy_type = "utmi_wide";
-+		resets = <&cru SRST_A_USB3OTG2>;
-+		snps,dis_enblslpm_quirk;
-+		snps,dis-u2-freeclk-exists-quirk;
-+		snps,dis-del-phy-power-chg-quirk;
-+		snps,dis-tx-ipgap-linecheck-quirk;
-+		snps,dis_rxdet_inp3_quirk;
-+		status = "disabled";
-+	};
-+
- 	sys_grf: syscon@fd58c000 {
- 		compatible = "rockchip,rk3588-sys-grf", "syscon";
+@@ -491,6 +933,16 @@
  		reg = <0x0 0xfd58c000 0x0 0x1000>;
  	};
  
@@ -712,129 +555,6 @@ index 5544f66..b1ee517 100644
  	php_grf: syscon@fd5b0000 {
  		compatible = "rockchip,rk3588-php-grf", "syscon";
  		reg = <0x0 0xfd5b0000 0x0 0x1000>;
-@@ -463,6 +958,37 @@
- 		reg = <0x0 0xfd5c4000 0x0 0x100>;
- 	};
- 
-+	usbdpphy0_grf: syscon@fd5c8000 {
-+		compatible = "rockchip,rk3588-usbdpphy-grf", "syscon";
-+		reg = <0x0 0xfd5c8000 0x0 0x4000>;
-+	};
-+
-+	usb2phy0_grf: syscon@fd5d0000 {
-+		compatible = "rockchip,rk3588-usb2phy-grf", "syscon",
-+			     "simple-mfd";
-+		reg = <0x0 0xfd5d0000 0x0 0x4000>;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+
-+		u2phy0: usb2-phy@0 {
-+			compatible = "rockchip,rk3588-usb2phy";
-+			reg = <0x0 0x10>;
-+			interrupts = <GIC_SPI 393 IRQ_TYPE_LEVEL_HIGH 0>;
-+			resets = <&cru SRST_OTGPHY_U3_0>, <&cru SRST_P_USB2PHY_U3_0_GRF0>;
-+			reset-names = "phy", "apb";
-+			clocks = <&cru CLK_USB2PHY_HDPTXRXPHY_REF>;
-+			clock-names = "phyclk";
-+			clock-output-names = "usb480m_phy0";
-+			#clock-cells = <0>;
-+			status = "disabled";
-+
-+			u2phy0_otg: otg-port {
-+				#phy-cells = <0>;
-+				status = "disabled";
-+			};
-+		};
-+	};
-+
- 	usb2phy2_grf: syscon@fd5d8000 {
- 		compatible = "rockchip,rk3588-usb2phy-grf", "syscon", "simple-mfd";
- 		reg = <0x0 0xfd5d8000 0x0 0x4000>;
-@@ -488,6 +1014,17 @@
- 		};
- 	};
- 
-+	vo0_grf: syscon@fd5a6000 {
-+		compatible = "rockchip,rk3588-vo-grf", "syscon";
-+		reg = <0x0 0xfd5a6000 0x0 0x2000>;
-+		clocks = <&cru PCLK_VO0GRF>;
-+	};
-+
-+	usb_grf: syscon@fd5ac000 {
-+		compatible = "rockchip,rk3588-usb-grf", "syscon";
-+		reg = <0x0 0xfd5ac000 0x0 0x4000>;
-+	};
-+
- 	usb2phy3_grf: syscon@fd5dc000 {
- 		compatible = "rockchip,rk3588-usb2phy-grf", "syscon", "simple-mfd";
- 		reg = <0x0 0xfd5dc000 0x0 0x4000>;
-@@ -2062,7 +2599,6 @@
- 		pinctrl-1 = <&tsadc_shut>;
- 		pinctrl-names = "gpio", "otpout";
- 		#thermal-sensor-cells = <1>;
--		status = "disabled";
- 	};
- 
- 	saradc: adc@fec10000 {
-@@ -2197,6 +2733,37 @@
- 		#dma-cells = <1>;
- 	};
- 
-+	usbdp_phy0: phy@fed80000 {
-+		compatible = "rockchip,rk3588-usbdp-phy";
-+		reg = <0x0 0xfed80000 0x0 0x10000>;
-+		rockchip,u2phy-grf = <&usb2phy0_grf>;
-+		rockchip,usb-grf = <&usb_grf>;
-+		rockchip,usbdpphy-grf = <&usbdpphy0_grf>;
-+		rockchip,vo-grf = <&vo0_grf>;
-+		clocks = <&cru CLK_USBDPPHY_MIPIDCPPHY_REF>,
-+			 <&cru CLK_USBDP_PHY0_IMMORTAL>,
-+			 <&cru PCLK_USBDPPHY0>,
-+			 <&u2phy0>;
-+		clock-names = "refclk", "immortal", "pclk", "utmi";
-+		resets = <&cru SRST_USBDP_COMBO_PHY0_INIT>,
-+			 <&cru SRST_USBDP_COMBO_PHY0_CMN>,
-+			 <&cru SRST_USBDP_COMBO_PHY0_LANE>,
-+			 <&cru SRST_USBDP_COMBO_PHY0_PCS>,
-+			 <&cru SRST_P_USBDPPHY0>;
-+		reset-names = "init", "cmn", "lane", "pcs_apb", "pma_apb";
-+		status = "disabled";
-+
-+		usbdp_phy0_dp: dp-port {
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+
-+		usbdp_phy0_u3: usb3-port {
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+	};
-+
- 	combphy0_ps: phy@fee00000 {
- 		compatible = "rockchip,rk3588-naneng-combphy";
- 		reg = <0x0 0xfee00000 0x0 0x100>;
-@@ -2304,6 +2871,20 @@
- 			#interrupt-cells = <2>;
- 		};
- 	};
-+
-+	av1d: av1d@fdc70000 {
-+		compatible = "rockchip,rk3588-av1-vpu";
-+		reg = <0x0 0xfdc70000 0x0 0x800>;
-+		interrupts = <GIC_SPI 108 IRQ_TYPE_LEVEL_HIGH 0>;
-+		interrupt-names = "vdpu";
-+		clocks = <&cru ACLK_AV1>, <&cru PCLK_AV1>;
-+		clock-names = "aclk", "hclk";
-+		assigned-clocks = <&cru ACLK_AV1>, <&cru PCLK_AV1>;
-+		assigned-clock-rates = <400000000>, <400000000>;
-+		resets = <&cru SRST_A_AV1>, <&cru SRST_P_AV1>, <&cru SRST_A_AV1_BIU>, <&cru SRST_P_AV1_BIU>;
-+		power-domains = <&power RK3588_PD_AV1>;
-+		status = "okay";
-+	};
- };
- 
- #include "rk3588s-pinctrl.dtsi"
 -- 
 2.40.1
 
