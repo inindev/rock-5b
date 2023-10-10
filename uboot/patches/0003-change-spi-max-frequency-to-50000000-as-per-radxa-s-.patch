@@ -1,7 +1,7 @@
-From c60547424206c444a5daa6cbae216b7877b3ca82 Mon Sep 17 00:00:00 2001
+From edbae159255efd67316e233a83b87f27f7a79f94 Mon Sep 17 00:00:00 2001
 From: John Clark <inindev@gmail.com>
 Date: Fri, 4 Aug 2023 09:53:16 +0000
-Subject: [PATCH 09/11] change spi-max-frequency to 50000000 as per radxa's dts
+Subject: [PATCH 3/5] change spi-max-frequency to 50000000 as per radxa's dts
  https://github.com/radxa/kernel/blob/stable-5.10-rock5/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
 
 Signed-off-by: John Clark <inindev@gmail.com>
@@ -10,10 +10,10 @@ Signed-off-by: John Clark <inindev@gmail.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm/dts/rk3588-rock-5b-u-boot.dtsi b/arch/arm/dts/rk3588-rock-5b-u-boot.dtsi
-index 6791ce28f8..2daaa5a74e 100644
+index 573da02735..23d34a9028 100644
 --- a/arch/arm/dts/rk3588-rock-5b-u-boot.dtsi
 +++ b/arch/arm/dts/rk3588-rock-5b-u-boot.dtsi
-@@ -38,7 +38,7 @@
+@@ -32,7 +32,7 @@
  		bootph-pre-ram;
  		compatible = "jedec,spi-nor";
  		reg = <0>;
@@ -23,5 +23,5 @@ index 6791ce28f8..2daaa5a74e 100644
  		spi-tx-bus-width = <1>;
  	};
 -- 
-2.40.1
+2.42.0
 
