@@ -37,8 +37,8 @@ main() {
 
     check_installed 'screen' 'build-essential' 'python3' 'flex' 'bison' 'pahole' 'debhelper'  'bc' 'rsync' 'libncurses-dev' 'libelf-dev' 'libssl-dev' 'lz4' 'zstd'
 
-    if [ -z $STY ]; then
-        echo 'reminder: run from a screen session, this can take a while...'
+    if [ -z $STY ] && [ -z $TMUX ]; then
+        echo 'reminder: run from a screen or a tmux session, this can take a while...'
         exit 7
     fi
 
