@@ -78,7 +78,7 @@ main() {
     export KBUILD_BUILD_USER='linux-kernel'
     export KBUILD_BUILD_VERSION="$bv"
 
-    nice make -C "kernel-$lv/linux-$lv" -j"$(nproc)" CC='gcc-13' bindeb-pkg KBUILD_IMAGE='arch/arm64/boot/Image' LOCALVERSION="-$bv-arm64"
+    nice make -C "kernel-$lv/linux-$lv" -j"$(nproc)" CC="$(readlink /usr/bin/gcc)" bindeb-pkg KBUILD_IMAGE='arch/arm64/boot/Image' LOCALVERSION="-$bv-arm64"
     echo "\n${cya}kernel package ready${mag}"
     ln -sfv "kernel-$lv/linux-image-$kv-$bv-arm64_$kv-${bv}_arm64.deb"
     echo "${rst}"
