@@ -1,0 +1,83 @@
+From 4c69d818e3b660eacb6f792e025d01fb95db6b9f Mon Sep 17 00:00:00 2001
+From: John Clark <inindev@gmail.com>
+Date: Sat, 24 Jun 2023 14:15:05 +0000
+Subject: [PATCH 36/37] xtx spi nor support
+
+Signed-off-by: John Clark <inindev@gmail.com>
+---
+ drivers/mtd/spi-nor/Makefile |  1 +
+ drivers/mtd/spi-nor/core.c   |  1 +
+ drivers/mtd/spi-nor/core.h   |  1 +
+ drivers/mtd/spi-nor/xtx.c    | 24 ++++++++++++++++++++++++
+ 4 files changed, 27 insertions(+)
+ create mode 100644 drivers/mtd/spi-nor/xtx.c
+
+diff --git a/drivers/mtd/spi-nor/Makefile b/drivers/mtd/spi-nor/Makefile
+index e347b435a..8992c592a 100644
+--- a/drivers/mtd/spi-nor/Makefile
++++ b/drivers/mtd/spi-nor/Makefile
+@@ -17,6 +17,7 @@ spi-nor-objs			+= sst.o
+ spi-nor-objs			+= winbond.o
+ spi-nor-objs			+= xilinx.o
+ spi-nor-objs			+= xmc.o
++spi-nor-objs			+= xtx.o
+ spi-nor-$(CONFIG_DEBUG_FS)	+= debugfs.o
+ obj-$(CONFIG_MTD_SPI_NOR)	+= spi-nor.o
+ 
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index 1b0c6770c..0cd1b57ec 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -2015,6 +2015,7 @@ static const struct spi_nor_manufacturer *manufacturers[] = {
+ 	&spi_nor_winbond,
+ 	&spi_nor_xilinx,
+ 	&spi_nor_xmc,
++	&spi_nor_xtx,
+ };
+ 
+ static const struct flash_info spi_nor_generic_flash = {
+diff --git a/drivers/mtd/spi-nor/core.h b/drivers/mtd/spi-nor/core.h
+index 9217379b9..28b902564 100644
+--- a/drivers/mtd/spi-nor/core.h
++++ b/drivers/mtd/spi-nor/core.h
+@@ -647,6 +647,7 @@ extern const struct spi_nor_manufacturer spi_nor_sst;
+ extern const struct spi_nor_manufacturer spi_nor_winbond;
+ extern const struct spi_nor_manufacturer spi_nor_xilinx;
+ extern const struct spi_nor_manufacturer spi_nor_xmc;
++extern const struct spi_nor_manufacturer spi_nor_xtx;
+ 
+ extern const struct attribute_group *spi_nor_sysfs_groups[];
+ 
+diff --git a/drivers/mtd/spi-nor/xtx.c b/drivers/mtd/spi-nor/xtx.c
+new file mode 100644
+index 000000000..f19d867d7
+--- /dev/null
++++ b/drivers/mtd/spi-nor/xtx.c
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2023, John Clark <inindev@gmail.com>
++ */
++
++#include <linux/mtd/spi-nor.h>
++
++#include "core.h"
++
++static const struct flash_info xtx_nor_parts[] = {
++	/* XTX Technology Limited */
++	{ "xt25f128a", INFO(0x207018, 0, 64 * 1024, 256)
++		NO_SFDP_FLAGS(SECT_4K | SPI_NOR_DUAL_READ |
++			      SPI_NOR_QUAD_READ) },
++	{ "xt25f128b", INFO(0x0B4018, 0, 64 * 1024, 256)
++		NO_SFDP_FLAGS(SECT_4K | SPI_NOR_DUAL_READ |
++			      SPI_NOR_QUAD_READ) },
++};
++
++const struct spi_nor_manufacturer spi_nor_xtx = {
++	.name = "xtx",
++	.parts = xtx_nor_parts,
++	.nparts = ARRAY_SIZE(xtx_nor_parts),
++};
+-- 
+2.42.0
+
