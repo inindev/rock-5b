@@ -11,15 +11,21 @@ set -e
 config_fixups() {
     local lpath=$1
 
-    # enable rockchip sfc
-    echo 'CONFIG_SPI_ROCKCHIP_SFC=m' >> "$lpath/arch/arm64/configs/defconfig"
+    # enable wireless
+    echo 'CONFIG_BRCMFMAC_USB=y'  >> "$lpath/arch/arm64/configs/defconfig"
+    echo 'CONFIG_BRCMFMAC_PCIE=y' >> "$lpath/arch/arm64/configs/defconfig"
+    echo 'CONFIG_RTW89=y'         >> "$lpath/arch/arm64/configs/defconfig"
+    echo 'CONFIG_RTW89_8851BE=y'  >> "$lpath/arch/arm64/configs/defconfig"
+    echo 'CONFIG_RTW89_8852AE=y'  >> "$lpath/arch/arm64/configs/defconfig"
+    echo 'CONFIG_RTW89_8852BE=y'  >> "$lpath/arch/arm64/configs/defconfig"
+    echo 'CONFIG_RTW89_8852CE=y'  >> "$lpath/arch/arm64/configs/defconfig"
 
     #echo 6 > "$lpath/.version"
 }
 
 main() {
-    local linux='https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.6.tar.xz'
-    local lxsha='d926a06c63dd8ac7df3f86ee1ffc2ce2a3b81a2d168484e76b5b389aba8e56d0'
+    local linux='https://git.kernel.org/torvalds/t/linux-6.7-rc4.tar.gz'
+    local lxsha='1d14f5a9d3a58c37ed67f4d717aad0f1d2adcab1e20ef91a501c15b8b6b2af24'
 
     local lf="$(basename "$linux")"
     local lv="$(echo "$lf" | sed -nE 's/linux-(.*)\.tar\..z/\1/p')"
@@ -37,7 +43,7 @@ main() {
 
     check_installed 'screen' 'build-essential' 'python3' 'flex' 'bison' 'pahole' 'debhelper'  'bc' 'rsync' 'libncurses-dev' 'libelf-dev' 'libssl-dev' 'lz4' 'zstd'
 
-    if [ -z $STY ] && [ -z $TMUX ]; then
+    if [ -z "$STY$TMUX" ]; then
         echo 'reminder: run from a screen or a tmux session, this can take a while...'
         exit 7
     fi

@@ -1,0 +1,27 @@
+From aa4d816546e1bf38077df0b2ca367abc5ff6601c Mon Sep 17 00:00:00 2001
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Thu, 25 May 2023 19:45:02 +0200
+Subject: [PATCH 19/35] arm64: dts: rockchip: enable RK3588 tsadc by default
+
+Enable the thermal ADC for all boards.
+
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3588s.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
+index f3ddeb160557..be694aaef7d0 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
+@@ -2174,7 +2174,6 @@ tsadc: tsadc@fec00000 {
+ 		pinctrl-1 = <&tsadc_shut>;
+ 		pinctrl-names = "gpio", "otpout";
+ 		#thermal-sensor-cells = <1>;
+-		status = "disabled";
+ 	};
+ 
+ 	saradc: adc@fec10000 {
+-- 
+2.42.0
+
