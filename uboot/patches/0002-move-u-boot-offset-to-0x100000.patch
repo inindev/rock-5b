@@ -1,7 +1,7 @@
-From 5fc613a0af0f3be402a495348714faf60da7c69d Mon Sep 17 00:00:00 2001
+From 8fe08c2926b8374ed19465090b3314827f056aad Mon Sep 17 00:00:00 2001
 From: John Clark <inindev@gmail.com>
 Date: Fri, 4 Aug 2023 09:49:52 +0000
-Subject: [PATCH 5/5] move u-boot offset to 0x100000
+Subject: [PATCH 2/2] move u-boot offset to 0x100000
 
 Signed-off-by: John Clark <inindev@gmail.com>
 ---
@@ -9,7 +9,7 @@ Signed-off-by: John Clark <inindev@gmail.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/configs/rock5b-rk3588_defconfig b/configs/rock5b-rk3588_defconfig
-index 3fa65cbf9b..ef3ff97953 100644
+index 0595325e81..306cdc5c9c 100644
 --- a/configs/rock5b-rk3588_defconfig
 +++ b/configs/rock5b-rk3588_defconfig
 @@ -45,7 +45,7 @@ CONFIG_SPL_BSS_MAX_SIZE=0x4000
