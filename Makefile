@@ -39,8 +39,8 @@ clean:
 	@echo "all targets clean"
 
 screen:
-ifeq ($(origin STY), undefined)
-	$(error please start a screen session)
+ifeq ($(STY)$(TMUX),)
+	$(error please start a screen or tmux session)
 endif
 
 debian/mmc_2g.img:
