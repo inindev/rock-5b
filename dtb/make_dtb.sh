@@ -9,8 +9,8 @@ set -e
 #   5: invalid file hash
 
 main() {
-    local linux='https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.6.tar.xz'
-    local lxsha='d926a06c63dd8ac7df3f86ee1ffc2ce2a3b81a2d168484e76b5b389aba8e56d0'
+    local linux='https://git.kernel.org/torvalds/t/linux-6.7-rc4.tar.gz'
+    local lxsha='1d14f5a9d3a58c37ed67f4d717aad0f1d2adcab1e20ef91a501c15b8b6b2af24'
 
     local lf="$(basename "$linux")"
     local lv="$(echo "$lf" | sed -nE 's/linux-(.*)\.tar\..z/\1/p')"
@@ -34,7 +34,7 @@ main() {
 
     local rkpath="linux-$lv/arch/arm64/boot/dts/rockchip"
     if ! [ -d "linux-$lv" ]; then
-        tar xavf "$lf" "linux-$lv/include/dt-bindings" "linux-$lv/include/uapi" "$rkpath"
+        tar xavf "$lf" "linux-$lv/include/dt-bindings" "linux-$lv/include/uapi" "linux-$lv/drivers/clk/rockchip" "$rkpath"
 
         local patch patches="$(find patches -maxdepth 1 -name '*.patch' 2>/dev/null | sort)"
         for patch in $patches; do

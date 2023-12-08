@@ -1,7 +1,7 @@
-From 23eaed01b68465e96d81b3516c86a1c05786d46f Mon Sep 17 00:00:00 2001
+From acb101c5f99c54d083427b2a07f8a9610a468bef Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 18 Jul 2023 19:05:38 +0200
-Subject: [PATCH 12/27] arm64: dts: rockchip: rk3588s: Add USB3 DRD controllers
+Subject: [PATCH 13/35] arm64: dts: rockchip: rk3588s: Add USB3 DRD controllers
 
 Add both USB3 dual-role controllers to the RK3588 devicetree.
 
@@ -12,7 +12,7 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  2 files changed, 42 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588.dtsi b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
-index c26288e..900ac03 100644
+index c26288ec75ce..900ac0300f23 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
 @@ -7,6 +7,26 @@
@@ -43,10 +43,10 @@ index c26288e..900ac03 100644
  		compatible = "rockchip,rk3588-pcie3-phy-grf", "syscon";
  		reg = <0x0 0xfd5b8000 0x0 0x10000>;
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-index 7825ba3..fab4814 100644
+index d75cf8cc6fb3..f3ddeb160557 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-@@ -399,6 +399,28 @@
+@@ -399,6 +399,28 @@ scmi_shmem: sram@0 {
  		};
  	};
  

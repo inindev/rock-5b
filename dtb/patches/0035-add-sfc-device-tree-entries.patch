@@ -1,19 +1,18 @@
-From 7fdbbf3708a4f674f4625a074d4c165f09ad6267 Mon Sep 17 00:00:00 2001
+From bb1f5f41a71e43b44aade6a9e1a0669755d21d21 Mon Sep 17 00:00:00 2001
 From: John Clark <inindev@gmail.com>
 Date: Sat, 24 Jun 2023 01:10:07 +0000
-Subject: [PATCH 27/27] add sfc device tree entries
+Subject: [PATCH 35/35] add sfc device tree entries
 
 Signed-off-by: John Clark <inindev@gmail.com>
 ---
- .../boot/dts/rockchip/rk3588-rock-5b.dts      | 43 +++++++++++++++++++
- arch/arm64/boot/dts/rockchip/rk3588s.dtsi     |  9 ++++
- 2 files changed, 52 insertions(+)
+ .../boot/dts/rockchip/rk3588-rock-5b.dts      | 39 +++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
-index b08dfe0..910ec36 100644
+index dacf6a4d8625..73045ea078a9 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
-@@ -457,6 +457,49 @@
+@@ -490,6 +490,45 @@ &uart6 {
  	status = "okay";
  };
  
@@ -46,14 +45,10 @@ index b08dfe0..910ec36 100644
 +			};
 +			partition@100000 {
 +				label = "u-boot";
-+				reg = <0x100000 0x200000>;
-+			};
-+			partition@300000 {
-+				label = "splash";
-+				reg = <0x300000 0x100000>;
++				reg = <0x100000 0x300000>;
 +			};
 +			partition@400000 {
-+				label = "filesystem";
++				label = "reserved";
 +				reg = <0x400000 0xc00000>;
 +			};
 +		};
@@ -63,26 +58,6 @@ index b08dfe0..910ec36 100644
  &spi2 {
  	status = "okay";
  	assigned-clocks = <&cru CLK_SPI2>;
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-index b1ee517..ac52c10 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s.dtsi
-@@ -1915,6 +1915,15 @@
- 		};
- 	};
- 
-+	sfc: spi@fe2b0000 {
-+		compatible = "rockchip,sfc";
-+		reg = <0x0 0xfe2b0000 0x0 0x4000>;
-+		interrupts = <GIC_SPI 206 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru SCLK_SFC>, <&cru HCLK_SFC>;
-+		clock-names = "clk_sfc", "hclk_sfc";
-+		status = "disabled";
-+	};
-+
- 	sata0: sata@fe210000 {
- 		compatible = "rockchip,rk3588-dwc-ahci", "snps,dwc-ahci";
- 		reg = <0 0xfe210000 0 0x1000>;
 -- 
 2.42.0
 
