@@ -24,9 +24,12 @@ package-%: all
 	@rm -rfv distfiles
 	@mkdir -v distfiles
 
-	@cp -v uboot/idbloader.img uboot/u-boot.itb distfiles
-	@cp -v dtb/rk3588-rock-5b.dtb distfiles
-	@cp -v debian/mmc_2g.img distfiles/rock-5b_$(LDIST)-$*.img
+	@install -vm 644 uboot/idbloader.img distfiles
+	@install -vm 644 uboot/u-boot.itb distfiles
+	@install -vm 644 dtb/rk3588-rock-5b.dtb distfiles
+	@install -vm 644 kernel/linux-image-*_arm64.deb distfiles
+	@install -vm 644 kernel/linux-headers-*_arm64.deb distfiles
+	@install -vm 644 debian/mmc_2g.img distfiles/rock-5b_$(LDIST)-$*.img
 	@xz -zve8 distfiles/rock-5b_$(LDIST)-$*.img
 
 	@cd distfiles ; sha256sum * > sha256sums.txt
@@ -35,6 +38,7 @@ clean:
 	@rm -rfv distfiles
 	sudo sh debian/make_debian_img.sh clean
 	sh dtb/make_dtb.sh clean
+	sh kernel/make_kernel.sh clean
 	sh uboot/make_uboot.sh clean
 	@echo "all targets clean"
 
@@ -50,7 +54,7 @@ dtb/rk3588-rock-5b.dtb:
 	sh dtb/make_dtb.sh cp
 
 kernel/linux-image-*_arm64.deb:
-	sh kernel/make_kernel.sh
+	sh kernel/make_kernel.sh $(kver)
 
 uboot/idbloader.img uboot/u-boot.itb:
 	sh uboot/make_uboot.sh cp

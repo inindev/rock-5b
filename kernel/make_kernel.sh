@@ -84,9 +84,12 @@ main() {
     export KBUILD_BUILD_USER='linux-kernel'
     export KBUILD_BUILD_VERSION="$bv"
 
+    local t1=$(date +%s)
     nice make -C "kernel-$lv/linux-$lv" -j"$(nproc)" CC="$(readlink /usr/bin/gcc)" bindeb-pkg KBUILD_IMAGE='arch/arm64/boot/Image' LOCALVERSION="-$bv-arm64"
-    echo "\n${cya}kernel package ready${mag}"
+    local t2=$(date +%s)
+    echo "\n${cya}kernel package ready (elapsed: $(date -d@$((t2-t1)) '+%H:%M:%S'))${mag}"
     ln -sfv "kernel-$lv/linux-image-$kv-$bv-arm64_$kv-${bv}_arm64.deb"
+    ln -sfv "kernel-$lv/linux-headers-$kv-$bv-arm64_$kv-${bv}_arm64.deb"
     echo "${rst}"
 }
 
