@@ -85,7 +85,7 @@ main() {
     fi
 
     echo "\n${h1}beginning compile...${rst}"
-    rm -f linux-image-*.deb
+    rm -f linux-*.deb
     local kv="$(make --no-print-directory -C "kernel-$lv/linux-$lv" kernelversion)"
     local bv="$(expr "$(cat "kernel-$lv/linux-$lv/.version" 2>/dev/null || echo 0)" + 1 2>/dev/null)"
     export SOURCE_DATE_EPOCH="$(stat -c %Y "kernel-$lv/linux-$lv/README")"
