@@ -34,7 +34,7 @@ index e4fa6a07b4fa..ce1fd5b0d669 100644
    "#address-cells":
      const: 1
  
-@@ -245,6 +251,22 @@ allOf:
+@@ -246,6 +252,22 @@ allOf:
  
            unevaluatedProperties: false
  

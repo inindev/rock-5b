@@ -24,8 +24,8 @@ config_fixups() {
 }
 
 main() {
-    local linux='https://git.kernel.org/torvalds/t/linux-6.7-rc4.tar.gz'
-    local lxsha='1d14f5a9d3a58c37ed67f4d717aad0f1d2adcab1e20ef91a501c15b8b6b2af24'
+    local linux='https://git.kernel.org/torvalds/t/linux-6.7-rc5.tar.gz'
+    local lxsha='f32ad1b8e6e0bd8eed11d223e840d15da0464bf3413145478da1f11e0ba76011'
 
     local lf="$(basename "$linux")"
     local lv="$(echo "$lf" | sed -nE 's/linux-(.*)\.tar\..z/\1/p')"
@@ -49,7 +49,18 @@ main() {
     fi
 
     mkdir -p "kernel-$lv"
-    [ -f "kernel-$lv/$lf" ] || wget "$linux" -P "kernel-$lv"
+    if ! [ -e "kernel-$lv/$lf" ]; then
+        if [ -e "./$lf" ]; then
+            echo "linking local copy of linux $lv"
+            ln -sv "../$lf" "kernel-$lv/$lf"
+        elif [ -e "../dtb/$lf" ]; then
+            echo "using local copy of linux $lv"
+            cp -v "../dtb/$lf" "kernel-$lv"
+        else
+            echo "downloading linux $lv"
+            wget "$linux" -P "kernel-$lv"
+        fi
+    fi
 
     if [ "_$lxsha" != "_$(sha256sum "kernel-$lv/$lf" | cut -c1-64)" ]; then
         echo "invalid hash for linux source file: $lf"

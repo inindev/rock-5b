@@ -151,7 +151,7 @@ index 7064c0e9179f..d75cf8cc6fb3 100644
  	usb2phy3_grf: syscon@fd5dc000 {
  		compatible = "rockchip,rk3588-usb2phy-grf", "syscon", "simple-mfd";
  		reg = <0x0 0xfd5dc000 0x0 0x4000>;
-@@ -2245,6 +2287,37 @@ dmac2: dma-controller@fed10000 {
+@@ -2244,6 +2286,37 @@ dmac2: dma-controller@fed10000 {
  		#dma-cells = <1>;
  	};
  

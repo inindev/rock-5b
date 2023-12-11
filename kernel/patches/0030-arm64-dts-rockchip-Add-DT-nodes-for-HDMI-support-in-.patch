@@ -289,7 +289,7 @@ index e7ebeda1c799..4481a2e578f8 100644
  	qos_gpu_m0: qos@fdf35000 {
  		compatible = "rockchip,rk3588-qos", "syscon";
  		reg = <0x0 0xfdf35000 0x0 0x20>;
-@@ -2760,6 +2959,27 @@ dmac2: dma-controller@fed10000 {
+@@ -2759,6 +2958,27 @@ dmac2: dma-controller@fed10000 {
  		#dma-cells = <1>;
  	};
  

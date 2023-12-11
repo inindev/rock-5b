@@ -9,8 +9,8 @@ set -e
 #   5: invalid file hash
 
 main() {
-    local linux='https://git.kernel.org/torvalds/t/linux-6.7-rc4.tar.gz'
-    local lxsha='1d14f5a9d3a58c37ed67f4d717aad0f1d2adcab1e20ef91a501c15b8b6b2af24'
+    local linux='https://git.kernel.org/torvalds/t/linux-6.7-rc5.tar.gz'
+    local lxsha='f32ad1b8e6e0bd8eed11d223e840d15da0464bf3413145478da1f11e0ba76011'
 
     local lf="$(basename "$linux")"
     local lv="$(echo "$lf" | sed -nE 's/linux-(.*)\.tar\..z/\1/p')"
@@ -25,7 +25,18 @@ main() {
 
     check_installed 'device-tree-compiler' 'gcc' 'wget' 'xz-utils'
 
-    [ -f "$lf" ] || wget "$linux"
+    if ! [ -e "$lf" ]; then
+        if [ -e "../kernel/$lf" ]; then
+            echo "using local copy of linux $lv"
+            cp -v "../kernel/$lf" .
+        elif [ -e "../kernel/kernel-$lv/$lf" ]; then
+            echo "using local copy of linux $lv"
+            cp -v "../kernel/kernel-$lv/$lf" .
+        else
+            print_hdr "downloading linux $lv"
+            wget "$linux"
+        fi
+    fi
 
     if [ "_$lxsha" != "_$(sha256sum "$lf" | cut -c1-64)" ]; then
         echo "invalid hash for linux source file: $lf"
