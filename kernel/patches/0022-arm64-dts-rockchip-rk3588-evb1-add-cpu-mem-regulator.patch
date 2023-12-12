@@ -1,7 +1,7 @@
 From e84f55d8a9d849eac51f73c47cdb90eb7dbac90f Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Thu, 25 May 2023 19:48:49 +0200
-Subject: [PATCH 22/35] arm64: dts: rockchip: rk3588-evb1: add cpu mem
+Subject: [PATCH 22/36] arm64: dts: rockchip: rk3588-evb1: add cpu mem
  regulator info
 
 Add the second supply regulator for the CPU cores, which is used

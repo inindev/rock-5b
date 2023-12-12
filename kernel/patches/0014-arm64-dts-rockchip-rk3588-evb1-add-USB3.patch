@@ -1,7 +1,7 @@
 From 479c1ae8a93f901a5898e2ed204b931c68de63fd Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Wed, 26 Apr 2023 21:18:43 +0200
-Subject: [PATCH 14/35] arm64: dts: rockchip: rk3588-evb1: add USB3
+Subject: [PATCH 14/36] arm64: dts: rockchip: rk3588-evb1: add USB3
 
 Add support for the boards USB3 type A, as well as its Type-C
 connector.

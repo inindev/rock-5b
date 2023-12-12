@@ -1,7 +1,7 @@
 From 5760547fa8739f1185b4b2523fb801fd678cfbde Mon Sep 17 00:00:00 2001
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Date: Fri, 3 Nov 2023 19:58:02 +0200
-Subject: [PATCH 31/35] drm/rockchip: vop2: Fix display modes handling on
+Subject: [PATCH 31/36] drm/rockchip: vop2: Fix display modes handling on
  rk3588
 
 Improve HDMI0 clocking in order to properly support the failing display

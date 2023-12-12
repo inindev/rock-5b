@@ -1,7 +1,7 @@
 From 3b1edb31f3ac2f55d62968f2fd7d9b5d430cd3ec Mon Sep 17 00:00:00 2001
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Date: Fri, 3 Nov 2023 20:05:05 +0200
-Subject: [PATCH 32/35] arm64: dts: rockchip: Enable HDMI0 PHY PLL on RK3588
+Subject: [PATCH 32/36] arm64: dts: rockchip: Enable HDMI0 PHY PLL on RK3588
 
 This is necessary for proper handling of various display modes.
 
