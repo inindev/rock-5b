@@ -81,7 +81,7 @@ main() {
         make -C "kernel-$lv/linux-$lv" mrproper
         [ -z "$1" ] || echo "$1" > "kernel-$lv/linux-$lv/.version"
         config_fixups "kernel-$lv/linux-$lv"
-        make -C "kernel-$lv/linux-$lv" ARCH=arm64 inin_defconfig
+        make -C "kernel-$lv/linux-$lv" ARCH=arm64 inindev_defconfig
     fi
 
     echo "\n${h1}beginning compile...${rst}"
