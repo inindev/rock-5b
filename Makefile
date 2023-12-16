@@ -1,4 +1,6 @@
 
+# Copyright (C) 2023, John Clark <inindev@gmail.com>
+
 LDIST ?= $(shell cat "debian/make_debian_img.sh" | sed -n 's/\s*local deb_dist=.\([[:alpha:]]\+\)./\1/p')
 
 
