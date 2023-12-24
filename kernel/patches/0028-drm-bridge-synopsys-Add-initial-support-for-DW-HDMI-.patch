@@ -1,7 +1,7 @@
 From 171fd53717525f0f6dc56e90e6f38a9038c5c779 Mon Sep 17 00:00:00 2001
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Date: Wed, 1 Nov 2023 18:50:38 +0200
-Subject: [PATCH 28/36] drm/bridge: synopsys: Add initial support for DW HDMI
+Subject: [PATCH 28/37] drm/bridge: synopsys: Add initial support for DW HDMI
  QP TX Controller
 
 Co-developed-by: Algea Cao <algea.cao@rock-chips.com>

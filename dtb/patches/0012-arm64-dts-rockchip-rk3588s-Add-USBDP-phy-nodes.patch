@@ -1,7 +1,7 @@
 From 27a37c0495193fcfef1787086821c57f20b759bc Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 25 Apr 2023 17:49:04 +0200
-Subject: [PATCH 12/35] arm64: dts: rockchip: rk3588s: Add USBDP phy nodes
+Subject: [PATCH 12/37] arm64: dts: rockchip: rk3588s: Add USBDP phy nodes
 
 Add both USB3-Displayport PHYs from RK3588.
 
@@ -151,7 +151,7 @@ index 7064c0e9179f..d75cf8cc6fb3 100644
  	usb2phy3_grf: syscon@fd5dc000 {
  		compatible = "rockchip,rk3588-usb2phy-grf", "syscon", "simple-mfd";
  		reg = <0x0 0xfd5dc000 0x0 0x4000>;
-@@ -2245,6 +2287,37 @@ dmac2: dma-controller@fed10000 {
+@@ -2244,6 +2286,37 @@ dmac2: dma-controller@fed10000 {
  		#dma-cells = <1>;
  	};
  

@@ -1,7 +1,7 @@
 From bb1f5f41a71e43b44aade6a9e1a0669755d21d21 Mon Sep 17 00:00:00 2001
 From: John Clark <inindev@gmail.com>
 Date: Sat, 24 Jun 2023 01:10:07 +0000
-Subject: [PATCH 35/36] add sfc device tree entries
+Subject: [PATCH 35/37] add sfc device tree entries
 
 Signed-off-by: John Clark <inindev@gmail.com>
 ---

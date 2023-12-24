@@ -1,7 +1,7 @@
 From acb101c5f99c54d083427b2a07f8a9610a468bef Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 18 Jul 2023 19:05:38 +0200
-Subject: [PATCH 13/36] arm64: dts: rockchip: rk3588s: Add USB3 DRD controllers
+Subject: [PATCH 13/37] arm64: dts: rockchip: rk3588s: Add USB3 DRD controllers
 
 Add both USB3 dual-role controllers to the RK3588 devicetree.
 

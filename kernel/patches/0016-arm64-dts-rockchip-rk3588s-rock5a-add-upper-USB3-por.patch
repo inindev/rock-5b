@@ -1,7 +1,7 @@
 From 0080918c3a50cad588fba468fb7934c80777aa07 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 25 Jul 2023 16:30:46 +0200
-Subject: [PATCH 16/36] arm64: dts: rockchip: rk3588s-rock5a: add upper USB3
+Subject: [PATCH 16/37] arm64: dts: rockchip: rk3588s-rock5a: add upper USB3
  port
 
 Enable full support (XHCI, EHCI, OHCI) for the upper USB3 port from

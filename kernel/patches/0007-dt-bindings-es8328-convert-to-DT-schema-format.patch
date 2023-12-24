@@ -1,7 +1,7 @@
 From b53d373e700628a5126a49a8a73028cb553e5083 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 25 Jul 2023 18:49:43 +0200
-Subject: [PATCH 07/36] dt-bindings: es8328: convert to DT schema format
+Subject: [PATCH 07/37] dt-bindings: es8328: convert to DT schema format
 
 Convert the binding to DT schema format. Note, that "IPVDD-supply"
 got fixed to be "HPVDD-supply" during the conversion. This was

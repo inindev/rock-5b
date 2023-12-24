@@ -1,7 +1,7 @@
 From 140267c1c11d90f4889e57ae6d58280b261081c0 Mon Sep 17 00:00:00 2001
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Date: Wed, 1 Nov 2023 19:02:20 +0200
-Subject: [PATCH 29/36] drm/rockchip: vop2: Add basic support for rk3588
+Subject: [PATCH 29/37] drm/rockchip: vop2: Add basic support for rk3588
 
 WARNING: This is work in progress and most features are missing (e.g.
 8K support, overlay, etc).

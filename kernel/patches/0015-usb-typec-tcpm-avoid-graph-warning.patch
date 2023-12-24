@@ -1,7 +1,7 @@
 From ddb788db4d8b352742a6efcc8559f4c32c38925c Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Fri, 28 Jul 2023 16:43:16 +0200
-Subject: [PATCH 15/36] usb: typec: tcpm: avoid graph warning
+Subject: [PATCH 15/37] usb: typec: tcpm: avoid graph warning
 
 When using a devicetree as described in commit d56de8c9a17d ("usb:
 typec: tcpm: try to get role switch from tcpc fwnode"), the kernel

@@ -1,7 +1,7 @@
 From 5afa85f867c29153afc1b801a31f55cd3021f3a6 Mon Sep 17 00:00:00 2001
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 Date: Tue, 25 Jul 2023 17:18:17 +0200
-Subject: [PATCH 17/35] arm64: dts: rockchip: rk3588-rock5b: add lower USB3
+Subject: [PATCH 17/37] arm64: dts: rockchip: rk3588-rock5b: add lower USB3
  port
 
 Enable full support (XHCI, EHCI, OHCI) for the lower USB3 port from
