@@ -1,9 +1,9 @@
 # rock-5b
 #### *Debian ARM64 Linux for the Radxa Rock 5 Model B*
 
-This Debian ARM64 Linux image is built directly from official packages using the Debian [Debootstrap](https://wiki.debian.org/Debootstrap) utility, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L119
+This Debian ARM64 Linux image is built directly from official packages using the Debian [Debootstrap](https://wiki.debian.org/Debootstrap) utility, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L131
 
-Most patches are directly available from the Debian repos using the built-in ```apt``` package manager, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L351-L358
+Most patches are directly available from the Debian repos using the built-in ```apt``` package manager, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L343-L350
 
 * Note: The kernel in this bundle is from kernel.org and will not get updates from debian.
 
@@ -16,7 +16,7 @@ Most patches are directly available from the Debian repos using the built-in ```
 
 **1. download image**
 ```
-wget https://github.com/inindev/rock-5b/releases/download/v12-6.7-rc4/rock-5b_bookworm-v12-6.7-rc4.img.xz
+wget https://github.com/inindev/rock-5b/releases/download/v12-6.7-rc7/rock-5b_bookworm-v12-6.7-rc7.img.xz
 ```
 
 <br/>
@@ -41,7 +41,7 @@ brw-rw---- 1 root disk 8, 0 Jul 15 10:33 /dev/sda
 **3. in the case above, substitute 'a' for 'X' in the command below (for /dev/sda)**
 ```
 sudo su
-xzcat rock-5b_bookworm-v12-6.7-rc4.img.xz > /dev/sdX
+xzcat rock-5b_bookworm-v12-6.7-rc7.img.xz > /dev/sdX
 sync
 ```
 
@@ -102,9 +102,9 @@ sudo nano /etc/hosts
 
 **1. while booted from mmc, download and copy the image file on to the ssd media**
 ```
-wget https://github.com/inindev/rock-5b/releases/download/v12-6.7-rc4/rock-5b_bookworm-v12-6.7-rc4.img.xz
+wget https://github.com/inindev/rock-5b/releases/download/v12-6.7-rc7/rock-5b_bookworm-v12-6.7-rc7.img.xz
 sudo su
-xzcat rock-5b_bookworm-v12-6.7-rc4.img.xz > /dev/nvme0n1
+xzcat rock-5b_bookworm-v12-6.7-rc7.img.xz > /dev/nvme0n1
 sync
 ```
 
