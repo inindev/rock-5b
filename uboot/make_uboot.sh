@@ -8,7 +8,7 @@ set -e
 #   1: missing utility
 
 main() {
-    local utag='v2024.01-rc4'
+    local utag='v2024.01-rc5'
     local atf_file='../rkbin/rk3588_bl31_v1.34.elf'
     local tpl_file='../rkbin/rk3588_ddr_lp4_2112MHz_lp5_2736MHz_v1.08.bin'
 
