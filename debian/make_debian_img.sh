@@ -16,7 +16,7 @@ main() {
     # file media is sized with the number between 'mmc_' and '.img'
     #   use 'm' for 1024^2 and 'g' for 1024^3
     local media='mmc_2g.img' # or block device '/dev/sdX'
-    local deb_dist='trixie'
+    local deb_dist='bookworm'
     local hostname='rock5b-arm64'
     local acct_uid='debian'
     local acct_pass='debian'
@@ -52,60 +52,72 @@ main() {
         fi
     fi
 
-    print_hdr "downloading files"
+    print_hdr 'downloading files'
     local cache="cache.$deb_dist"
 
     # linux firmware
     local lfw=$(download "$cache" 'https://mirrors.edge.kernel.org/pub/linux/kernel/firmware/linux-firmware-20230515.tar.xz')
-    local lfwsha='8b1acfa16f1ee94732a6acb50d9d6c835cf53af11068bd89ed207bbe04a1e951'
-    [ "$lfwsha" = $(sha256sum "$lfw" | cut -c1-64) ] || { echo "invalid hash for $lfw"; exit 5; }
+    local lfw_sha='8b1acfa16f1ee94732a6acb50d9d6c835cf53af11068bd89ed207bbe04a1e951'
+    [ -f "$lfw" ] || { echo "unable to fetch $lfw"; exit 4; }
+    [ "$lfw_sha" = $(sha256sum "$lfw" | cut -c1-64) ] || { echo "invalid hash for $lfw"; exit 5; }
 
     # u-boot
-    local uboot_spl=$(download "$cache" 'https://github.com/inindev/rock-5b/releases/download/v13-6.7-rc4/idbloader.img')
+    local uboot_spl=$(download "$cache" 'https://github.com/inindev/rock-5b/releases/download/v12-6.7-rc7/idbloader.img')
     [ -f "$uboot_spl" ] || { echo "unable to fetch $uboot_spl"; exit 4; }
-    local uboot_itb=$(download "$cache" 'https://github.com/inindev/rock-5b/releases/download/v13-6.7-rc4/u-boot.itb')
+    local uboot_itb=$(download "$cache" 'https://github.com/inindev/rock-5b/releases/download/v12-6.7-rc7/u-boot.itb')
     [ -f "$uboot_itb" ] || { echo "unable to fetch: $uboot_itb"; exit 4; }
 
     # setup media
     if [ ! -b "$media" ]; then
-        print_hdr "creating image file"
+        print_hdr 'creating image file'
         make_image_file "$media"
     fi
 
-    print_hdr "partitioning media"
+    print_hdr 'partitioning media'
     parition_media "$media"
 
-    print_hdr "formatting media"
+    print_hdr 'formatting media'
     format_media "$media"
 
-    print_hdr "mounting media"
+    print_hdr 'mounting media'
     mount_media "$media"
 
-    print_hdr "configuring files"
+    print_hdr 'configuring files'
     mkdir "$mountpt/etc"
     echo 'link_in_boot = 1' > "$mountpt/etc/kernel-img.conf"
     echo 'do_symlinks = 0' >> "$mountpt/etc/kernel-img.conf"
 
-    # setup fstab
+    print_hdr 'setting up fstab'
     local mdev="$(findmnt -no source "$mountpt")"
     local uuid="$(blkid -o value -s UUID "$mdev")"
     echo "$(file_fstab $uuid)\n" > "$mountpt/etc/fstab"
 
-    # setup extlinux boot
+    print_hdr 'setting up extlinux boot'
     install -Dvm 754 'files/dtb_cp' "$mountpt/etc/kernel/postinst.d/dtb_cp"
+    install -Dvm 754 'files/kernel_chmod' "$mountpt/etc/kernel/postinst.d/kernel_chmod"
     install -Dvm 754 'files/dtb_rm' "$mountpt/etc/kernel/postrm.d/dtb_rm"
     install -Dvm 754 'files/mk_extlinux' "$mountpt/boot/mk_extlinux"
     ln -svf '../../../boot/mk_extlinux' "$mountpt/etc/kernel/postinst.d/update_extlinux"
     ln -svf '../../../boot/mk_extlinux' "$mountpt/etc/kernel/postrm.d/update_extlinux"
 
-    print_hdr "installing firmware"
+    print_hdr 'installing overlay files'
+    local dtbos="$(find "$cache/overlays" -maxdepth 1 -name '*.dtbo' 2>/dev/null | sort)"
+    if [ -n "$dtbos" ]; then
+        local dtbo dtgt="$mountpt/boot/overlay/lib"
+        mkdir -pv "$dtgt"
+        for dtbo in $dtbos; do
+            install -vm 644 "$dtbo" "$dtgt"
+        done
+    fi
+
+    print_hdr 'installing firmware'
     mkdir -p "$mountpt/usr/lib/firmware"
     local lfwn=$(basename "$lfw")
     local lfwbn="${lfwn%%.*}"
     tar -C "$mountpt/usr/lib/firmware" --strip-components=1 --wildcards -xavf "$lfw" "$lfwbn/microchip/mscc*" "$lfwbn/nvidia/tegra???" "$lfwbn/r8a779x*" "$lfwbn/rockchip" "$lfwbn/rtl_bt" "$lfwbn/rtl_nic"
 
     # install debian linux from deb packages (debootstrap)
-    print_hdr "installing root filesystem from debian.org"
+    print_hdr 'installing root filesystem from debian.org'
 
     # do not write the cache to the image
     mkdir -p "$cache/var/cache" "$cache/var/lib/apt/lists"
@@ -143,13 +155,13 @@ main() {
     echo $hostname > "$mountpt/etc/hostname"
     sed -i "s/127.0.0.1\tlocalhost/127.0.0.1\tlocalhost\n127.0.1.1\t$hostname/" "$mountpt/etc/hosts"
 
-    print_hdr "creating user account"
+    print_hdr 'creating user account'
     chroot "$mountpt" /usr/sbin/useradd -m "$acct_uid" -s '/bin/bash'
     chroot "$mountpt" /bin/sh -c "/usr/bin/echo $acct_uid:$acct_pass | /usr/sbin/chpasswd -c YESCRYPT"
     chroot "$mountpt" /usr/bin/passwd -e "$acct_uid"
     (umask 377 && echo "$acct_uid ALL=(ALL) NOPASSWD: ALL" > "$mountpt/etc/sudoers.d/$acct_uid")
 
-    print_hdr "installing rootfs expansion script to /etc/rc.local"
+    print_hdr 'installing rootfs expansion script to /etc/rc.local'
     install -Dvm 754 'files/rc.local' "$mountpt/etc/rc.local"
 
     # disable sshd until after keys are regenerated on first boot
@@ -158,7 +170,7 @@ main() {
     rm -fv "$mountpt/etc/ssh/ssh_host_"*
 
     # generate machine id on first boot
-    rm -fv "$mountpt/etc/machine-id"
+    echo -n > "$mountpt/etc/machine-id"
 
     # reduce entropy on non-block media
     [ -b "$media" ] || fstrim -v "$mountpt"
@@ -166,12 +178,12 @@ main() {
     umount "$mountpt"
     rm -rf "$mountpt"
 
-    print_hdr "installing u-boot"
+    print_hdr 'installing u-boot'
     dd bs=4K seek=8 if="$uboot_spl" of="$media" conv=notrunc
     dd bs=4K seek=2048 if="$uboot_itb" of="$media" conv=notrunc,fsync
 
     if $compress; then
-        print_hdr "compressing image file"
+        print_hdr 'compressing image file'
         xz -z8v "$media"
         echo "\n${cya}compressed image is now ready${rst}"
         echo "\n${cya}copy image to target media:${rst}"
@@ -236,17 +248,15 @@ mount_media() {
         mkdir -p "$mountpt"
     fi
 
-    local success_msg
+    local part
     if [ -b "$media" ]; then
         local rdn="$(basename "$media")"
         local sbpn="$(echo /sys/block/${rdn}/${rdn}*${partnum})"
-        local part="/dev/$(basename "$sbpn")"
+        part="/dev/$(basename "$sbpn")"
         mount -n "$part" "$mountpt"
-        success_msg="partition ${cya}$part${rst} successfully mounted on ${cya}$mountpt${rst}"
     elif [ -f "$media" ]; then
-        # hard-coded to p1
         mount -no loop,offset=16M "$media" "$mountpt"
-        success_msg="media ${cya}$media${rst} partition 1 successfully mounted on ${cya}$mountpt${rst}"
+        part="$(losetup -nO name -j "$media")"
     else
         echo "file not found: $media"
         exit 4
@@ -257,7 +267,7 @@ mount_media() {
         exit 3
     fi
 
-    echo "$success_msg"
+    echo "partition ${cya}$part${rst} successfully mounted on ${cya}$mountpt${rst}"
 }
 
 check_mount_only() {
@@ -310,24 +320,6 @@ check_mount_only() {
 
     exit 0
 }
-
-# ensure inner mount points get cleaned up
-on_exit() {
-    if mountpoint -q "$mountpt"; then
-        mountpoint -q "$mountpt/var/cache" && umount "$mountpt/var/cache"
-        mountpoint -q "$mountpt/var/lib/apt/lists" && umount "$mountpt/var/lib/apt/lists"
-
-        read -p "$mountpt is still mounted, unmount? <Y/n> " yn
-        if [ -z "$yn" -o "$yn" = 'y' -o "$yn" = 'Y' -o "$yn" = 'yes' -o "$yn" = 'Yes' ]; then
-            echo "unmounting $mountpt"
-            umount "$mountpt"
-            sync
-            rm -rf "$mountpt"
-        fi
-    fi
-}
-mountpt='rootfs'
-trap on_exit EXIT INT QUIT ABRT TERM
 
 file_fstab() {
     local uuid="$1"
@@ -413,7 +405,6 @@ is_param() {
     return 1
 }
 
-# check if debian package is installed
 check_installed() {
     local item todo
     for item in "$@"; do
@@ -441,6 +432,24 @@ blu='\033[34m'
 mag='\033[35m'
 cya='\033[36m'
 h1="${blu}==>${rst} ${bld}"
+
+# ensure inner mount points get cleaned up
+on_exit() {
+    if mountpoint -q "$mountpt"; then
+        mountpoint -q "$mountpt/var/cache" && umount "$mountpt/var/cache"
+        mountpoint -q "$mountpt/var/lib/apt/lists" && umount "$mountpt/var/lib/apt/lists"
+
+        read -p "$mountpt is still mounted, unmount? <Y/n> " yn
+        if [ -z "$yn" -o "$yn" = 'y' -o "$yn" = 'Y' -o "$yn" = 'yes' -o "$yn" = 'Yes' ]; then
+            echo "unmounting $mountpt"
+            umount "$mountpt"
+            sync
+            rm -rf "$mountpt"
+        fi
+    fi
+}
+mountpt='rootfs'
+trap on_exit EXIT INT QUIT ABRT TERM
 
 if [ 0 -ne $(id -u) ]; then
     echo 'this script must be run as root'
