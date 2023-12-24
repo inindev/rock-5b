@@ -1,20 +1,20 @@
-From 3393e547b9b47a8c98c6c69784a3f65c457fa0b6 Mon Sep 17 00:00:00 2001
+From aaca03c4c3aa7619e6ab6b6755987fa165a3fb03 Mon Sep 17 00:00:00 2001
 From: John Clark <inindev@gmail.com>
 Date: Tue, 12 Dec 2023 13:09:15 +0000
 Subject: [PATCH 36/36] support a wider array of kernel features
 
 Signed-off-by: John Clark <inindev@gmail.com>
 ---
- arch/arm64/configs/inindev_defconfig | 3804 ++++++++++++++++++++++++++
- 1 file changed, 3804 insertions(+)
+ arch/arm64/configs/inindev_defconfig | 3806 ++++++++++++++++++++++++++
+ 1 file changed, 3806 insertions(+)
  create mode 100644 arch/arm64/configs/inindev_defconfig
 
 diff --git a/arch/arm64/configs/inindev_defconfig b/arch/arm64/configs/inindev_defconfig
 new file mode 100644
-index 000000000..2ebd6bce7
+index 000000000..2f8732851
 --- /dev/null
 +++ b/arch/arm64/configs/inindev_defconfig
-@@ -0,0 +1,3804 @@
+@@ -0,0 +1,3806 @@
 +CONFIG_SYSVIPC=y
 +CONFIG_POSIX_MQUEUE=y
 +CONFIG_NO_HZ_FULL=y
@@ -2729,7 +2729,6 @@ index 000000000..2ebd6bce7
 +CONFIG_USB_FUNCTIONFS_GENERIC=y
 +CONFIG_USB_MASS_STORAGE=m
 +CONFIG_USB_G_SERIAL=m
-+CONFIG_TYPEC=m
 +CONFIG_TYPEC_TCPM=m
 +CONFIG_TYPEC_TCPCI=m
 +CONFIG_TYPEC_FUSB302=m
@@ -2956,6 +2955,8 @@ index 000000000..2ebd6bce7
 +CONFIG_CROS_EC_RPMSG=m
 +CONFIG_CROS_EC_SPI=y
 +CONFIG_CROS_EC_CHARDEV=m
++CONFIG_CROS_EC_TYPEC=m
++CONFIG_CROS_TYPEC_SWITCH=m
 +CONFIG_COMMON_CLK_RK808=y
 +CONFIG_COMMON_CLK_SCPI=y
 +CONFIG_COMMON_CLK_CS2000_CP=m
@@ -3435,6 +3436,7 @@ index 000000000..2ebd6bce7
 +CONFIG_PHY_ROCKCHIP_SAMSUNG_HDPTX_HDMI=m
 +CONFIG_PHY_ROCKCHIP_SNPS_PCIE3=y
 +CONFIG_PHY_ROCKCHIP_TYPEC=y
++CONFIG_PHY_ROCKCHIP_USBDP=y
 +CONFIG_PHY_SAMSUNG_UFS=y
 +CONFIG_PHY_UNIPHIER_USB2=y
 +CONFIG_PHY_UNIPHIER_USB3=y
@@ -3820,5 +3822,5 @@ index 000000000..2ebd6bce7
 +CONFIG_TEST_STATIC_KEYS=m
 +CONFIG_MEMTEST=y
 -- 
-2.42.0
+2.43.0
 
