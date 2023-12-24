@@ -1,4 +1,4 @@
-## u-boot v2024.01-rc4 for the rock-5b
+## u-boot v2024.01-rc5 for the rock-5b
 
 <i>Note: This script is intended to be run from a 64 bit arm device such as a rock-5b or an odroid m1.</i>
 
@@ -34,7 +34,7 @@ sh make_uboot.sh clean
 
 **1. boot from removable mmc**
 
-[Follow the instructions](https://github.com/inindev/rock-5b/blob/main/README.md#debian-bookworm-setup) for creating bootable mmc media.
+[Follow the instructions](https://github.com/inindev/rock-5b#debian-bookworm-setup) for creating bootable mmc media.
 Insert the mmc media and boot the device.
 
 Note: The mmc media has a one-time reboot during first setup as it expands to the size of the mmc media.
@@ -63,8 +63,8 @@ sudo flash_erase /dev/mtd3 0 0
 
 **4. write u-boot to spi flash**
 ```
-wget https://github.com/inindev/rock-5b/releases/download/v13-6.7-rc4/idbloader.img
-wget https://github.com/inindev/rock-5b/releases/download/v13-6.7-rc4/u-boot.itb
+wget https://github.com/inindev/rock-5b/releases/download/v12-6.7-rc7/idbloader.img
+wget https://github.com/inindev/rock-5b/releases/download/v12-6.7-rc7/u-boot.itb
 sudo flashcp -vA idbloader.img /dev/mtd0
 sudo flashcp -vA u-boot.itb /dev/mtd2
 ```
