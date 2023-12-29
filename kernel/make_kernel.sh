@@ -22,10 +22,8 @@ config_fixups() {
     echo 'CONFIG_RTW89_8852BE=y'  >> "$lpath/arch/arm64/configs/defconfig"
     echo 'CONFIG_RTW89_8852CE=y'  >> "$lpath/arch/arm64/configs/defconfig"
 
-    # enable rockchip usb3
-    echo 'CONFIG_CROS_EC_TYPEC=m' >> "$lpath/arch/arm64/configs/defconfig"
-    echo 'CONFIG_CROS_TYPEC_SWITCH=m' >> "$lpath/arch/arm64/configs/defconfig"
-    echo 'CONFIG_PHY_ROCKCHIP_USBDP=y' >> "$lpath/arch/arm64/configs/defconfig"
+    # enable nvme hwmon
+    echo 'CONFIG_NVME_HWMON=y' >> "$lpath/arch/arm64/configs/defconfig"
 
     #echo 6 > "$lpath/.version"
 }
