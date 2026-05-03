@@ -1,4 +1,16 @@
 # rock-5b
+
+> [!IMPORTANT]
+> **This repository has moved.** Active development continues at **[inindev/debian-image](https://github.com/inindev/debian-image)**, which is the direct successor to this repo and produces equivalent Debian ARM64 image artifacts.
+>
+> Two related (but independent) repos may also be of interest:
+> - **[inindev/linux-rockchip](https://github.com/inindev/linux-rockchip)** — a Rockchip-tuned kernel that can be installed if you want hardware support not yet present in the upstream kernel shipped with Debian Trixie (e.g. video/GPU on RK3588, among other subsystems)
+> - **[inindev/uboot-rockchip](https://github.com/inindev/uboot-rockchip)** — Rockchip U-Boot builds
+>
+> The content below is preserved for historical reference and may become out of date.
+
+---
+
 #### *Debian ARM64 Linux for the Radxa Rock 5 Model B*
 
 This Debian ARM64 Linux image is built directly from official packages using the Debian [Debootstrap](https://wiki.debian.org/Debootstrap) utility, see: https://github.com/inindev/rock-5b/blob/main/debian/make_debian_img.sh#L131
